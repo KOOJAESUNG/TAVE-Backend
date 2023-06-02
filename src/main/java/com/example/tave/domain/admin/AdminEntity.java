@@ -1,11 +1,13 @@
-package com.example.tave.domain;
+package com.example.tave.domain.admin;
 
-import javax.persistence.*;
+import com.example.tave.domain.team.TeamEntity;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class Admin {
+public class AdminEntity {
 
     @Id
     @Column(name = "admin_id")
@@ -15,5 +17,5 @@ public class Admin {
     private String phoneNumber;
 
     @OneToMany(mappedBy = "admin")
-    private List<Team> teams = new ArrayList<>();
+    private List<TeamEntity> teams = new ArrayList<>();
 }

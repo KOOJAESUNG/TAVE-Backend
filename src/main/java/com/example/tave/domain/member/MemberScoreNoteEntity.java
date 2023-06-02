@@ -1,10 +1,10 @@
-package com.example.tave.domain;
+package com.example.tave.domain.member;
 
 
-import javax.persistence.*;
+import jakarta.persistence.*;
 
 @Entity
-public class MemberScoreNote {
+public class MemberScoreNoteEntity {
     @Id
     @Column(name = "memberscorenote_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -18,5 +18,5 @@ public class MemberScoreNote {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "memberscore_id")
-    private MemberScore memberScore;
+    private MemberScoreEntity memberScore;
 }

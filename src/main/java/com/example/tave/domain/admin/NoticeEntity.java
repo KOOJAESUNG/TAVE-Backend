@@ -1,12 +1,12 @@
-package com.example.tave.domain;
+package com.example.tave.domain.admin;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import jakarta.persistence.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
-public class Notice {
+public class NoticeEntity {
 
     @Id
     @Column(name = "notice_id")
@@ -23,5 +23,5 @@ public class Notice {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
-    private Admin admin;
+    private AdminEntity admin;
 }

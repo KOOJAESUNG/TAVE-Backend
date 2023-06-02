@@ -10,4 +10,9 @@ public class TaveApplication {
         SpringApplication.run(TaveApplication.class, args);
     }
 
+//    @Bean
+//    RouterFunction<ServerResponse> routerFunction() {
+//        return route(GET("/docs"), req ->
+//                ServerResponse.temporaryRedirect(URI.create("swagger-ui/index.html")).build());
+//    }
 }

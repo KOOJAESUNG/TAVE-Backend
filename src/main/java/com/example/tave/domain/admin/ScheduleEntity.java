@@ -1,12 +1,12 @@
-package com.example.tave.domain;
+package com.example.tave.domain.admin;
 
-import javax.persistence.*;
+import com.example.tave.domain.member.MemberEntity;
+import jakarta.persistence.*;
+
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 @Entity
-public class Schedule {
+public class ScheduleEntity {
 
     @Id
     @Column(name = "schedule_id")
@@ -20,8 +20,8 @@ public class Schedule {
     private String place;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Member member;
+    private MemberEntity member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Admin admin;
+    private AdminEntity admin;
 }

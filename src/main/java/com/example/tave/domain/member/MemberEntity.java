@@ -1,12 +1,11 @@
-package com.example.tave.domain;
+package com.example.tave.domain.member;
 
-import io.swagger.models.auth.In;
+import com.example.tave.domain.team.TeamEntity;
+import jakarta.persistence.*;
 
-import javax.persistence.*;
-import java.util.List;
 
 @Entity
-public class Member {
+public class MemberEntity {
     @Id
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +24,11 @@ public class Member {
     private Integer rad; //기수
 
     private String university;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "team_id")
+    private TeamEntity team;
+
 
     @Enumerated(EnumType.STRING)
     private TechField techField;

@@ -1,11 +1,12 @@
-package com.example.tave.domain;
+package com.example.tave.domain.member;
 
-import javax.persistence.*;
+import jakarta.persistence.*;
+
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class MemberScore {
+public class MemberScoreEntity {
 
     @Id
     @Column(name = "memberscore_id")
@@ -15,9 +16,9 @@ public class MemberScore {
     private Integer totalScore;
 
     @OneToMany(mappedBy = "memberScore", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<MemberScoreNote> notes = new ArrayList<>();
+    private List<MemberScoreNoteEntity> notes = new ArrayList<>();
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
-    private Member member;
+    private MemberEntity member;
 }
