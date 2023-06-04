@@ -22,7 +22,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: '19'
-          distribution: 'openjdk'
+          distribution: 'OpenJDK'
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
