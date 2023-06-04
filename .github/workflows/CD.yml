@@ -69,7 +69,16 @@ jobs:
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$PROJECT_NAME/backendDeployment.zip
 
 
-
+     # Deploy
+      - name: Deploy
+        run: |
+          aws deploy create-deployment \
+          --application-name TAVE-Backend \
+          --deployment-config-name CodeDeployDefault.AllAtOnce \
+          --deployment-group-name tavebackend-prod \
+          --file-exists-behavior OVERWRITE \
+          --s3-location bucket=tave-bucket,bundleType=zip,key=tave_backend/backendDeployment.zip \
+          --region ap-northeast-2 \
         
         
       
