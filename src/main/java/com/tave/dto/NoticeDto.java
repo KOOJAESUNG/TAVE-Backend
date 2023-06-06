@@ -1,27 +1,23 @@
 package com.tave.dto;
+import com.tave.domain.admin.AdminEntity;
+import lombok.*;
 
-import com.mysql.cj.protocol.x.Notice;
-import com.tave.domain.admin.NoticeEntity;
-import lombok.Getter;
-import lombok.Setter;
-import org.modelmapper.ModelMapper;
-
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
+@Getter
+@Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class NoticeDto {
 
     private Long id;
-
-    private String noticeName;
-
     private String content;
 
-    private static ModelMapper modelMapper = new ModelMapper();
-
-    public static NoticeDto of(NoticeEntity notice){
-        return modelMapper.map(notice, NoticeDto.class);
-    }
+    private List<String> images;
+    private LocalDateTime dateTime;
+    private AdminEntity admin;
 
 }

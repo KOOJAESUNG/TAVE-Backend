@@ -16,7 +16,7 @@ public class MemberScoreEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private Integer totalScore;
+    private Integer memberTotalScore;
 
     @OneToMany(mappedBy = "memberScore", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<MemberScoreNoteEntity> notes = new ArrayList<>();
