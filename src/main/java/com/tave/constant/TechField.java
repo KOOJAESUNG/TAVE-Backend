@@ -1,4 +1,4 @@
-package com.tave.domain.member;
+package com.tave.constant;
 
 public enum TechField {
     APP,FRONTEND,BACKEND,DEEPLEARNING,DATAANALYSIS

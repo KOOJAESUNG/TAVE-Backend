@@ -2,11 +2,14 @@ package com.tave.domain.admin;
 
 import com.tave.domain.team.TeamEntity;
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Getter @Setter
 public class AdminEntity {
 
     @Id

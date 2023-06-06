@@ -1,11 +1,14 @@
 package com.tave.domain.admin;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
+@Getter @Setter
 public class NoticeEntity {
 
     @Id
@@ -13,10 +16,10 @@ public class NoticeEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private LocalDateTime dateTime;
-
     @Lob
     private String content;
+
+    private LocalDateTime dateTime;
 
     @Lob
     private List<String> images;
