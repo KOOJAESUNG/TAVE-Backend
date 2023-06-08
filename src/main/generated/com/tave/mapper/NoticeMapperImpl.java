@@ -10,49 +10,82 @@ import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2023-06-06T16:44:25+0900",
+    date = "2023-06-09T00:19:34+0900",
     comments = "version: 1.4.1.Final, compiler: javac, environment: Java 19.0.2 (Oracle Corporation)"
 )
 @Component
 public class NoticeMapperImpl implements NoticeMapper {
 
     @Override
-    public NoticeEntity toEntity(NoticeDto noticeDto) {
-        if ( noticeDto == null ) {
-            return null;
-        }
-
-        NoticeEntity noticeEntity = new NoticeEntity();
-
-        noticeEntity.setId( noticeDto.getId() );
-        noticeEntity.setContent( noticeDto.getContent() );
-        noticeEntity.setDateTime( noticeDto.getDateTime() );
-        List<String> list = noticeDto.getImages();
-        if ( list != null ) {
-            noticeEntity.setImages( new ArrayList<String>( list ) );
-        }
-        noticeEntity.setAdmin( noticeDto.getAdmin() );
-
-        return noticeEntity;
-    }
-
-    @Override
-    public NoticeDto toDto(NoticeEntity notice) {
-        if ( notice == null ) {
+    public NoticeDto toDto(NoticeEntity e) {
+        if ( e == null ) {
             return null;
         }
 
         NoticeDtoBuilder noticeDto = NoticeDto.builder();
 
-        noticeDto.id( notice.getId() );
-        noticeDto.content( notice.getContent() );
-        List<String> list = notice.getImages();
+        noticeDto.id( e.getId() );
+        noticeDto.content( e.getContent() );
+        List<String> list = e.getImages();
         if ( list != null ) {
             noticeDto.images( new ArrayList<String>( list ) );
         }
-        noticeDto.dateTime( notice.getDateTime() );
-        noticeDto.admin( notice.getAdmin() );
+        noticeDto.dateTime( e.getDateTime() );
+        noticeDto.admin( e.getAdmin() );
 
         return noticeDto.build();
+    }
+
+    @Override
+    public NoticeEntity toEntity(NoticeDto d) {
+        if ( d == null ) {
+            return null;
+        }
+
+        NoticeEntity noticeEntity = new NoticeEntity();
+
+        noticeEntity.setId( d.getId() );
+        noticeEntity.setContent( d.getContent() );
+        noticeEntity.setDateTime( d.getDateTime() );
+        List<String> list = d.getImages();
+        if ( list != null ) {
+            noticeEntity.setImages( new ArrayList<String>( list ) );
+        }
+        noticeEntity.setAdmin( d.getAdmin() );
+
+        return noticeEntity;
+    }
+
+    @Override
+    public void updateFromDto(NoticeDto dto, NoticeEntity entity) {
+        if ( dto == null ) {
+            return;
+        }
+
+        if ( dto.getId() != null ) {
+            entity.setId( dto.getId() );
+        }
+        if ( dto.getContent() != null ) {
+            entity.setContent( dto.getContent() );
+        }
+        if ( dto.getDateTime() != null ) {
+            entity.setDateTime( dto.getDateTime() );
+        }
+        if ( entity.getImages() != null ) {
+            List<String> list = dto.getImages();
+            if ( list != null ) {
+                entity.getImages().clear();
+                entity.getImages().addAll( list );
+            }
+        }
+        else {
+            List<String> list = dto.getImages();
+            if ( list != null ) {
+                entity.setImages( new ArrayList<String>( list ) );
+            }
+        }
+        if ( dto.getAdmin() != null ) {
+            entity.setAdmin( dto.getAdmin() );
+        }
     }
 }

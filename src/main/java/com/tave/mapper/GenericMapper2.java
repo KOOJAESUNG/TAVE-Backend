@@ -11,10 +11,16 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
  * 각 Mapper에서는 GenericMapper을 상속받은 뒤 @Mapper를 선언해주면 된다
  */
 
-public interface GenericMapper<D, E> {
+public interface GenericMapper2<D, E, D1, E1, D2, E2> {
 
     D toDto(E e);
     E toEntity(D d);
+
+    D1 toProfileDto(E e);
+    E1 toProfileEntity(D d);
+
+    D2 toActiveDto(E e);
+    E2 toActiveEntity(D d);
 
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
