@@ -29,7 +29,7 @@ public class MemberEntity {
     private Integer rad; //기수
 
     //추가
-    private String phoneNum;
+    private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
     private TechField techField;

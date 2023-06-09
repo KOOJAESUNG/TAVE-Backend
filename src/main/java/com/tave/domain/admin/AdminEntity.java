@@ -17,6 +17,10 @@ public class AdminEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String password;
+
+    private String email;
+
     private String phoneNumber;
 
     @OneToMany(mappedBy = "admin")

@@ -19,8 +19,6 @@ public class NoticeEntity {
     @Lob
     private String content;
 
-    private LocalDateTime dateTime;
-
     @Lob
     private List<String> images;
 
