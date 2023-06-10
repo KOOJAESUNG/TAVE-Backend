@@ -1,5 +1,6 @@
 package com.tave.domain.admin;
 
+import com.tave.dto.admin.NoticeDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -25,4 +26,10 @@ public class NoticeEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;
+
+
+    public void updateFromPatchDto(NoticeDto.NoticePatchDto noticePatchDto) {
+        this.content = noticePatchDto.getContent();
+        this.images = noticePatchDto.getImages();
+    }
 }

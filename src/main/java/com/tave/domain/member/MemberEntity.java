@@ -2,6 +2,7 @@ package com.tave.domain.member;
 
 import com.tave.constant.TechField;
 import com.tave.domain.team.TeamEntity;
+import com.tave.dto.member.MemberDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -39,5 +40,19 @@ public class MemberEntity {
     private TeamEntity team;
 
     private String university;
+
+
+    public void updateFromPatchDto(MemberDto.MemberPatchDto memberPatchDto,TeamEntity team) {
+        this.email = memberPatchDto.getEmail();
+        this.introduce = memberPatchDto.getIntroduce();
+        this.name = memberPatchDto.getName();
+        this.password = memberPatchDto.getPassword();
+        this.picture = memberPatchDto.getPicture();
+        this.rad = memberPatchDto.getRad();
+        this.phoneNumber = memberPatchDto.getPhoneNumber();
+        this.techField = TechField.valueOf(memberPatchDto.getTechField());
+        this.team = team;
+        this.university = memberPatchDto.getUniversity();
+    }
 
 }

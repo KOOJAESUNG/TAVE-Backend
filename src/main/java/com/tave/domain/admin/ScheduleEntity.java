@@ -1,6 +1,7 @@
 package com.tave.domain.admin;
 
 import com.tave.domain.member.MemberEntity;
+import com.tave.dto.admin.ScheduleDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -27,4 +28,10 @@ public class ScheduleEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;
+
+
+    public void updateFromPatchDto(ScheduleDto.SchedulePatchDto schedulePatchDto) {
+        this.place = place;
+        this.title = title;
+    }
 }

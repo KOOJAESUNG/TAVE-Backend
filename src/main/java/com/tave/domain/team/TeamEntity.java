@@ -2,6 +2,7 @@ package com.tave.domain.team;
 
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.member.MemberEntity;
+import com.tave.dto.team.TeamDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -26,12 +27,16 @@ public class TeamEntity {
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team")
     private List<MemberEntity> members = new ArrayList<>();
 
-    @OneToMany(mappedBy = "team", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "team",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TeamScoreNoteEntity> notes = new ArrayList<>();
 
 
+    public void updateFromPatchDto(TeamDto.TeamPatchDto teamPatchDto, AdminEntity admin) {
+        this.teamName = teamPatchDto.getTeamName();
+        this.admin = admin;
+    }
 
 }

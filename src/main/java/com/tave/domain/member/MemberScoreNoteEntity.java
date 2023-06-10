@@ -2,6 +2,7 @@ package com.tave.domain.member;
 
 
 import com.tave.constant.Type;
+import com.tave.dto.member.MemberScoreNoteDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +22,13 @@ public class MemberScoreNoteEntity {
     private Type type;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "memberscore_id")
-    private MemberScoreEntity memberScore;
+    @JoinColumn(name = "member_id")
+    private MemberEntity member;
+
+
+    public void updateFromPatchDto(MemberScoreNoteDto.MemberScoreNotePatchDto memberScoreNotePatchDto) {
+        this.note = memberScoreNotePatchDto.getNote();
+        this.score = memberScoreNotePatchDto.getScore();
+        this.type = Type.valueOf(memberScoreNotePatchDto.getType());
+    }
 }
