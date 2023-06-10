@@ -22,7 +22,6 @@ public class TeamDto {
 
         private String teamName;
         private String adminEmail;
-        private List<Long> memberIds = new ArrayList<>(); //멤버 목록
     }
 
     @Getter
@@ -37,11 +36,11 @@ public class TeamDto {
 
         private Integer teamScore;
 
-        private AdminDto.AdminResponseDto admin;
+        private Long adminId;
 
-        private List<MemberDto.MemberResponseDto> members = new ArrayList<>();
+        private List<Long> memberIds;
 
-        private List<TeamScoreNoteDto.TeamScoreNoteResponseDto> notes = new ArrayList<>();
+        private List<Long> teamScoreNoteIds;
     }
 
     @Getter
@@ -56,7 +55,5 @@ public class TeamDto {
 
         private String adminEmail;
 
-        private List<Long> memberIds = new ArrayList<>(); //멤버 목록
     }
-
 }

@@ -23,7 +23,7 @@ public class AdminDto {
 
         private String phoneNumber;
 
-        private List<TeamDto.TeamResponseDto> teams = new ArrayList<>();
+        private List<Long> teamIds;
     }
 
     @Getter
@@ -38,8 +38,6 @@ public class AdminDto {
         private String email;
 
         private String phoneNumber;
-
-        private List<Long> teamIds = new ArrayList<>();
     }
 
 }

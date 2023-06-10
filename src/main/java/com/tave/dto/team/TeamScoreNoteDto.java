@@ -19,7 +19,7 @@ public class TeamScoreNoteDto {
 
         private String type; //enum으로 변경로직 필요
 
-        private String team;
+        private Long teamId;
     }
 
     @Getter
@@ -36,7 +36,7 @@ public class TeamScoreNoteDto {
 
         private Type type;
 
-        private TeamDto.TeamResponseDto team;
+        private Long teamId;
     }
 
 
@@ -54,6 +54,6 @@ public class TeamScoreNoteDto {
 
         private String type; //enum으로 변경로직 필요
 
-        private String team;
+        private Long teamId;
     }
 }

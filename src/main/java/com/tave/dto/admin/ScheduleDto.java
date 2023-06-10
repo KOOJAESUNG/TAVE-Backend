@@ -20,6 +20,11 @@ public class ScheduleDto {
     public static class SchedulePostDto {
         private String place;
         private String title;
+        private LocalDate date;
+
+        private Long memberId;
+
+        private Long adminId;
     }
 
     @Getter
@@ -34,9 +39,9 @@ public class ScheduleDto {
         private String place;
         private String title;
 
-        private MemberDto.MemberResponseDto member;
+        private Long memberId;
 
-        private AdminDto.AdminResponseDto admin;
+        private Long adminId;
     }
 
 

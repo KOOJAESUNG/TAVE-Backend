@@ -42,7 +42,7 @@ public class MemberDto {
 
         private TechField techField;
 
-        private TeamDto.TeamResponseDto team;
+        private Long teamId;
 
         private String university;
 
