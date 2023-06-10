@@ -1,7 +1,12 @@
 package com.tave.service.team;
 
+import com.tave.domain.admin.AdminEntity;
+import com.tave.domain.team.TeamEntity;
 import com.tave.dto.team.TeamDto;
+import com.tave.mapper.team.TeamMapper;
+import com.tave.repository.admin.AdminRepository;
 import com.tave.repository.team.TeamRepository;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -14,30 +19,33 @@ import org.springframework.transaction.annotation.Transactional;
 public class TeamService {
 
     private final TeamRepository teamRepository;
+    private final AdminRepository adminRepository;
+
+    private final TeamMapper teamMapper;
 
     @Transactional
-    public void createTeam(TeamDto.TeamPostDto teamPostDto) {
-        //dto->entity
-
-        //save
-
-        //entity->dto 후 return
+    public TeamDto.TeamResponseDto createTeam(TeamDto.TeamPostDto teamPostDto) {
+        AdminEntity byEmail = adminRepository.findByEmail(teamPostDto.getAdminEmail());
+        return teamMapper.toResponseDto(teamRepository.save(teamMapper.toEntity(teamPostDto, byEmail)));
     }
 
-    public void getTeam(Long teamId) {
-
+    public TeamDto.TeamResponseDto getTeam(Long teamId) {
+        return teamMapper.toResponseDto(teamRepository.findById(teamId).orElseThrow(EntityNotFoundException::new));
     }
 
     @Transactional
-    public void updateTeam() {
+    public TeamDto.TeamResponseDto updateTeam(TeamDto.TeamPatchDto teamPatchDto) {
+        TeamEntity teamEntity = teamRepository.findById(teamPatchDto.getId()).orElseThrow(EntityNotFoundException::new);
+        AdminEntity byEmail = adminRepository.findByEmail(teamPatchDto.getAdminEmail());
         //update
-
+        teamEntity.updateFromPatchDto(teamPatchDto,byEmail);
         //entity->dto 후 return
+        return teamMapper.toResponseDto(teamRepository.findById(teamPatchDto.getId()).orElseThrow(EntityNotFoundException::new));
     }
 
     @Transactional
     public void deleteTeam(Long teamId) {
         teamRepository.deleteById(teamId);
-        log.info("Entity Id: {} is deleted",teamId);
+        log.info("TeamEntity Id: {} is deleted",teamId);
     }
 }
