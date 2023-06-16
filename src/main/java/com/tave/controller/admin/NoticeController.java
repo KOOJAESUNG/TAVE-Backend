@@ -3,7 +3,6 @@ package com.tave.controller.admin;
 import com.tave.dto.admin.NoticeDto;
 import com.tave.service.admin.NoticeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("notice")
 public class NoticeController {
 
-    @Autowired
-    NoticeService noticeService;
+
+    private final NoticeService noticeService;
 
     @PostMapping("/createnotice")
     public ResponseEntity<?> createNotice(@RequestBody NoticeDto.NoticePostDto noticePostDto){

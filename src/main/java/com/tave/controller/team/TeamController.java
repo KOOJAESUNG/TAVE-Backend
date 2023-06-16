@@ -3,7 +3,6 @@ package com.tave.controller.team;
 import com.tave.dto.team.TeamDto;
 import com.tave.service.team.TeamService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -14,8 +13,12 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("team")
 public class TeamController {
 
-    @Autowired
-    TeamService teamService;
+    private final TeamService teamService;
+
+    @PostMapping("/createteam")
+    public ResponseEntity<?> createTeam(@RequestBody TeamDto.TeamPostDto teamPostDto){
+        return ResponseEntity.ok().body(teamService.createTeam(teamPostDto));
+    }
 
     @GetMapping("/getteam")
     public ResponseEntity<?> getTeam(@RequestParam long teamId){

@@ -3,7 +3,6 @@ package com.tave.controller.team;
 import com.tave.dto.team.TeamScoreNoteDto;
 import com.tave.service.team.TeamScoreNoteService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -13,8 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("teamScoreNote")
 public class TeamScoreNoteController {
 
-    @Autowired
-    TeamScoreNoteService teamScoreNoteService;
+    private final TeamScoreNoteService teamScoreNoteService;
 
     @PostMapping("/createteamscorenote")
     public ResponseEntity<?> createTeamScoreNote(@RequestBody TeamScoreNoteDto.TeamScoreNotePostDto teamScoreNotePostDto){
