@@ -1,5 +1,8 @@
 package com.tave.constant;
 
-public enum Type {
-    A,B;
+public enum Type { //관리자 멤버 점수 관리 COLUMN
+    BASICSCORE, PREDEDUCT, PREDEDUCTCONTENT, PREPLUS, PREPLUSCONTENT, PRETOTALSCORE,
+    NAME, POSTDEDUCT, POSTDEDUCTCONTENT, POSTPLUS, POSTPLUSCONTENT, POSTTOTALSCORE
+
+    //감점, 감점애용, 득점, 득점내용, 총점 순
 }

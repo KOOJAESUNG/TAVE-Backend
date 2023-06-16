@@ -72,7 +72,7 @@ public class MemberDto {
 
         private String phoneNumber;
 
-        private String techField; //enum으로 변경해야함
+        private TechField techField;
 
         private Long teamId;
 
@@ -80,29 +80,12 @@ public class MemberDto {
     }
 
 
-
     @Getter
     @Setter
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class MemberFormDto { //회원가입 --> 아이디 비번을 서버에서 생성하므로 사용하지 않을 것으로 보임.
-
-        @NotEmpty(message = "이메일은 필수 입력 값입니다.")
-        @Email(message = "이메일 형식으로 입력해주세요.")
-        private String email;
-
-        @NotEmpty(message = "비밀번호는 필수 입력 값입니다.")
-        @Length(min = 8, max = 16, message = "비밀번호는 8자 이상, 16자 이하로 입력해주세요.")
-        private String password;
-    }
-
-    @Getter
-    @Setter
-    @Builder
-    @AllArgsConstructor
-    @NoArgsConstructor
-    public static class MemberProfileDto{ //프로필 수정??
+    public static class MemberProfileDto{ //프로필 수정
         private Long id;
         private String name;
         private String email;
@@ -120,13 +103,12 @@ public class MemberDto {
     @Builder
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class MemberActiveDto { //
+    public static class MemberHomeActiveDto { //홈화면 정보
 
-        private String id;
+        private Long id;
         private String name;
         private Integer rad; //기수
         private MemberType memberType; //OB,YB
-
         private Integer memberTotalScore;
         private Integer teamScore;
         private String picture;

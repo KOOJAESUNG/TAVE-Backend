@@ -16,7 +16,7 @@ public class MemberScoreNoteDto { //아마 엑셀파일을 받아서 작업할 �
 
         private Integer score; //비고에 따른 점수
 
-        private String type; //가감점 타입. String에서 enum으로 변환 로직 필요
+        private Type type;
 
         private Long memberId;
     }
@@ -51,6 +51,6 @@ public class MemberScoreNoteDto { //아마 엑셀파일을 받아서 작업할 �
 
         private Integer score; //비고에 따른 점수
 
-        private String type; //가감점 타입. String에서 enum으로 변환 로직 필요
+        private Type type; //enum
     }
 }

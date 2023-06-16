@@ -1,6 +1,8 @@
 package com.tave.domain.member;
 
+import com.tave.constant.MemberType;
 import com.tave.constant.TechField;
+import com.tave.constant.Type;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.member.MemberDto;
 import jakarta.persistence.*;
@@ -35,6 +37,9 @@ public class MemberEntity {
     @Enumerated(EnumType.STRING)
     private TechField techField;
 
+    @Enumerated(EnumType.STRING)
+    private MemberType memberType;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private TeamEntity team;
@@ -50,7 +55,7 @@ public class MemberEntity {
         this.picture = memberPatchDto.getPicture();
         this.rad = memberPatchDto.getRad();
         this.phoneNumber = memberPatchDto.getPhoneNumber();
-        this.techField = TechField.valueOf(memberPatchDto.getTechField());
+        this.techField = memberPatchDto.getTechField();
         this.team = team;
         this.university = memberPatchDto.getUniversity();
     }

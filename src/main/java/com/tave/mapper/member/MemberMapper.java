@@ -1,7 +1,6 @@
 package com.tave.mapper.member;
 
 import com.tave.domain.member.MemberEntity;
-import com.tave.domain.team.TeamEntity;
 import com.tave.dto.member.MemberDto;
 import org.mapstruct.*;
 
