@@ -24,6 +24,7 @@ dependencies {
 
         // swagger
         implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+        implementation 'io.springfox:springfox-swagger2:2.9.2'
 
         //Mapstruct, Lombok
         implementation 'org.mapstruct:mapstruct:1.4.1.Final'
@@ -40,6 +41,9 @@ dependencies {
         //POI
         implementation 'org.apache.poi:poi:4.1.2'
         implementation 'org.apache.poi:poi-ooxml:4.1.2'
+
+        //SpringSecurity
+        implementation 'org.springframework.boot:spring-boot-starter-security'
 
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
