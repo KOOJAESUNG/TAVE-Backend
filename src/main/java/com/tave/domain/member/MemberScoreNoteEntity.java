@@ -19,7 +19,7 @@ public class MemberScoreNoteEntity {
     private Integer score;
 
     @Enumerated(EnumType.STRING)
-    private String type;
+    private Type type;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -29,6 +29,6 @@ public class MemberScoreNoteEntity {
     public void updateFromPatchDto(MemberScoreNoteDto.MemberScoreNotePatchDto memberScoreNotePatchDto) {
         this.note = memberScoreNotePatchDto.getNote();
         this.score = memberScoreNotePatchDto.getScore();
-        this.type = String.valueOf(Type.valueOf(memberScoreNotePatchDto.getType()));
+        this.type = Type.valueOf(String.valueOf(Type.valueOf(memberScoreNotePatchDto.getType())));
     }
 }

@@ -4,7 +4,6 @@ import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.admin.NoticeEntity;
 import com.tave.dto.admin.NoticeDto;
 import org.mapstruct.*;
-import org.mapstruct.factory.Mappers;
 
 /**
  * @Mapper 애노테이션을 사용해서 MapStruct 클래스라는 것을 알린다.
@@ -14,7 +13,7 @@ import org.mapstruct.factory.Mappers;
 @Mapper(
         componentModel = "spring", // 빌드 시 구현체 만들고 빈으로 등록
         injectionStrategy = InjectionStrategy.CONSTRUCTOR, // 생성자 주입 전략
-        unmappedTargetPolicy = ReportingPolicy.ERROR // 일치하지 않는 필드가 있으면 빌드 시 에러
+       unmappedTargetPolicy = ReportingPolicy.ERROR // 일치하지 않는 필드가 있으면 빌드 시 에러
 )
 public interface NoticeMapper {
     @Mappings({
