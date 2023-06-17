@@ -1,8 +1,5 @@
 package com.tave.dto.admin;
-import com.tave.domain.admin.AdminEntity;
 import lombok.*;
-
-import java.time.LocalDateTime;
 import java.util.List;
 
 public class NoticeDto {

@@ -61,7 +61,7 @@ public class MemberDto {
 
         private String phoneNumber;
 
-        private TechField techField;
+        private String techField;
 
         private Long teamId;
 

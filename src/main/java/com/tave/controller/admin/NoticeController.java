@@ -1,16 +1,11 @@
 package com.tave.controller.admin;
-
-import com.mysql.cj.protocol.x.Notice;
 import com.tave.dto.admin.NoticeDto;
 import com.tave.service.admin.NoticeService;
-import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
 
 @Controller
 @RestController

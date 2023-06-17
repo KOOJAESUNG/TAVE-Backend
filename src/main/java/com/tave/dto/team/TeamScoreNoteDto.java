@@ -17,7 +17,7 @@ public class TeamScoreNoteDto {
 
         private Integer score; //type에 따른 점수
 
-        private String type; //enum으로 변경로직 필요
+        private String type;
 
         private Long teamId;
     }
@@ -34,7 +34,7 @@ public class TeamScoreNoteDto {
 
         private Integer score;
 
-        private Type type;
+        private String type;
 
         private Long teamId;
     }
