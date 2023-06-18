@@ -35,7 +35,8 @@ public class MemberScoreNoteService {
     public MemberScoreNoteDto.MemberScoreNoteResponseDto updateMemberScoreNote(MemberScoreNoteDto.MemberScoreNotePatchDto memberScoreNotePatchDto) {
         MemberScoreNoteEntity memberScoreNoteEntity = memberScoreNoteRepository.findById(memberScoreNotePatchDto.getId()).orElseThrow(EntityNotFoundException::new);
         //update
-        memberScoreNoteEntity.updateFromPatchDto(memberScoreNotePatchDto);
+//        memberScoreNoteEntity.updateFromPatchDto(memberScoreNotePatchDto);
+        memberScoreNoteMapper.updateFromPatchDto(memberScoreNotePatchDto,memberScoreNoteEntity);
         //entity->dto 후 return
         return memberScoreNoteMapper.toResponseDto(memberScoreNoteRepository.findById(memberScoreNotePatchDto.getId()).orElseThrow(EntityNotFoundException::new));
     }

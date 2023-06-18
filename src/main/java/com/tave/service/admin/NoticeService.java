@@ -38,7 +38,8 @@ public class NoticeService {
     public NoticeDto.NoticeResponseDto updateNotice(NoticeDto.NoticePatchDto noticePatchDto) {
         NoticeEntity noticeEntity = noticeRepository.findById(noticePatchDto.getId()).orElseThrow(EntityNotFoundException::new);
         //update
-        noticeEntity.updateFromPatchDto(noticePatchDto);
+//        noticeEntity.updateFromPatchDto(noticePatchDto);
+        noticeMapper.updateFromPatchDto(noticePatchDto,noticeEntity);
         //entity->dto 후 return
         return noticeMapper.toResponseDto(noticeRepository.findById(noticePatchDto.getId()).orElseThrow(EntityNotFoundException::new));
     }

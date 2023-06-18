@@ -37,7 +37,8 @@ public class TeamScoreNoteService {
         TeamScoreNoteEntity teamScoreNoteEntity = teamScoreNoteRepository.findById(teamScoreNotePatchDto.getId()).orElseThrow(EntityNotFoundException::new);
         TeamEntity teamEntity = teamRepository.findById(teamScoreNotePatchDto.getTeamId()).orElseThrow(EntityNotFoundException::new);
         //update
-        teamScoreNoteEntity.updateFromPatchDto(teamScoreNotePatchDto, teamEntity);
+//        teamScoreNoteEntity.updateFromPatchDto(teamScoreNotePatchDto, teamEntity);
+        teamScoreNoteMapper.updateFromPatchDto(teamScoreNotePatchDto,teamEntity,teamScoreNoteEntity);
         //entity->dto 후 return
         return teamScoreNoteMapper.toResponseDto(teamScoreNoteRepository.findById(teamScoreNotePatchDto.getId()).orElseThrow(EntityNotFoundException::new));
     }

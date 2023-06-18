@@ -31,7 +31,7 @@ public class ScheduleEntity {
 
 
     public void updateFromPatchDto(ScheduleDto.SchedulePatchDto schedulePatchDto) {
-        this.place = place;
-        this.title = title;
+        if(schedulePatchDto.getPlace() !=null) this.place = place;
+        if(schedulePatchDto.getTitle() !=null) this.title = title;
     }
 }

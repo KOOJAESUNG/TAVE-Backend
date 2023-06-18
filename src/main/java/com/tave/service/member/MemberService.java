@@ -34,7 +34,8 @@ public class MemberService {
         MemberEntity memberEntity = memberRepository.findById(memberPatchDto.getId()).orElseThrow(EntityNotFoundException::new);
         TeamEntity teamEntity = teamRepository.findById(memberPatchDto.getTeamId()).orElseThrow(EntityNotFoundException::new);
         //update
-        memberEntity.updateFromPatchDto(memberPatchDto,teamEntity);
+//        memberEntity.updateFromPatchDto(memberPatchDto,teamEntity);
+        memberMapper.updateFromPatchDto(memberPatchDto,teamEntity,memberEntity);
         //entity->dto 후 return
         return memberMapper.toResponseDto(memberRepository.findById(memberPatchDto.getId()).orElseThrow(EntityNotFoundException::new));
     }

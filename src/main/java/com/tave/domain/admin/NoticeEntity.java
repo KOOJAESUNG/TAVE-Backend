@@ -29,7 +29,7 @@ public class NoticeEntity {
 
 
     public void updateFromPatchDto(NoticeDto.NoticePatchDto noticePatchDto) {
-        this.content = noticePatchDto.getContent();
-        this.images = noticePatchDto.getImages();
+        if(noticePatchDto.getContent() !=null) this.content = noticePatchDto.getContent();
+        if(noticePatchDto.getImages() !=null) this.images = noticePatchDto.getImages();
     }
 }

@@ -3,6 +3,7 @@ package com.tave.mapper.admin;
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.admin.ScheduleEntity;
 import com.tave.domain.member.MemberEntity;
+import com.tave.dto.admin.AdminDto;
 import com.tave.dto.admin.ScheduleDto;
 import org.mapstruct.*;
 
@@ -26,4 +27,13 @@ public interface ScheduleMapper {
             @Mapping(source = "admin.id",target = "adminId")
     })
     ScheduleDto.ScheduleResponseDto toResponseDto(ScheduleEntity scheduleEntity);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mappings({
+            @Mapping(target = "id",ignore = true),
+            @Mapping(target = "date", ignore = true),
+            @Mapping(target = "member",ignore = true),
+            @Mapping(target = "admin", ignore = true)
+    })
+    public void updateFromPatchDto(ScheduleDto.SchedulePatchDto schedulePatchDto, @MappingTarget ScheduleEntity scheduleEntity);
 }

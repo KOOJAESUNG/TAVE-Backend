@@ -32,7 +32,7 @@ public class AdminEntity {
 
     @Transactional
     public void updateFromPatchDto(AdminDto.AdminPatchDto adminPatchDto) {
-        this.email = adminPatchDto.getEmail();
-        this.phoneNumber = adminPatchDto.getPhoneNumber();
+        if(adminPatchDto.getEmail() !=null) this.email = adminPatchDto.getEmail();
+        if(adminPatchDto.getPhoneNumber() !=null) this.phoneNumber = adminPatchDto.getPhoneNumber();
     }
 }

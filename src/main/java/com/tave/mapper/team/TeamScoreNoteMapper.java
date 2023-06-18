@@ -19,4 +19,12 @@ public interface TeamScoreNoteMapper {
     TeamScoreNoteEntity toEntity(TeamScoreNoteDto.TeamScoreNotePostDto teamScoreNotePostDto, TeamEntity team);
     @Mapping(source = "team.id",target = "teamId")
     TeamScoreNoteDto.TeamScoreNoteResponseDto toResponseDto(TeamScoreNoteEntity teamScoreNoteEntity);
+
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mappings({
+            @Mapping(target = "id", ignore = true),
+            @Mapping(source = "teamEntity",target = "team")
+    })
+    public void updateFromPatchDto(TeamScoreNoteDto.TeamScoreNotePatchDto teamScoreNotePatchDto, TeamEntity teamEntity, @MappingTarget TeamScoreNoteEntity teamScoreNoteEntity);
 }

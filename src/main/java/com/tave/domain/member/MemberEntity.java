@@ -4,20 +4,24 @@ import com.tave.constant.MemberType;
 import com.tave.constant.TechField;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.member.MemberDto;
+import com.tave.repository.member.MemberRepository;
 import jakarta.persistence.*;
 import lombok.Getter;
+import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 
 @Entity
 @Getter @Setter
 public class MemberEntity {
+
     @Id
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String email;
+
     @Lob
     private String introduce;
 
@@ -25,12 +29,10 @@ public class MemberEntity {
 
     private String password;
 
-    @Lob
-    private String picture; //프로필사진
+    private String picture; //프로필사진. URI가 들어갈 예정
 
     private Integer rad; //기수
 
-    //추가
     private String phoneNumber;
 
     @Enumerated(EnumType.STRING)
@@ -47,16 +49,17 @@ public class MemberEntity {
 
 
     public void updateFromPatchDto(MemberDto.MemberPatchDto memberPatchDto,TeamEntity team) {
-        this.email = memberPatchDto.getEmail();
-        this.introduce = memberPatchDto.getIntroduce();
-        this.name = memberPatchDto.getName();
-        this.password = memberPatchDto.getPassword();
-        this.picture = memberPatchDto.getPicture();
-        this.rad = memberPatchDto.getRad();
-        this.phoneNumber = memberPatchDto.getPhoneNumber();
-        this.techField = TechField.valueOf(memberPatchDto.getTechField());
-        this.team = team;
-        this.university = memberPatchDto.getUniversity();
+        if(memberPatchDto.getEmail() != null) this.email = memberPatchDto.getEmail();
+        if(memberPatchDto.getIntroduce() != null) this.introduce = memberPatchDto.getIntroduce();
+        if(memberPatchDto.getName() != null) this.name = memberPatchDto.getName();
+        if(memberPatchDto.getPassword() != null) this.password = memberPatchDto.getPassword();
+        if(memberPatchDto.getPicture() != null) this.picture = memberPatchDto.getPicture();
+        if(memberPatchDto.getRad() != null) this.rad = memberPatchDto.getRad();
+        if(memberPatchDto.getPhoneNumber() != null) this.phoneNumber = memberPatchDto.getPhoneNumber();
+        if(memberPatchDto.getTechField() != null) this.techField = TechField.valueOf(memberPatchDto.getTechField());
+        if(team != null) this.team = team;
+        if(memberPatchDto.getUniversity() != null) this.university = memberPatchDto.getUniversity();
+        if(memberPatchDto.getMemberType() != null) this.memberType = MemberType.valueOf(memberPatchDto.getMemberType());
     }
 
 }

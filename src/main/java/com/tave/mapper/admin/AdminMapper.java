@@ -5,6 +5,7 @@ import com.tave.domain.team.TeamEntity;
 import com.tave.dto.admin.AdminDto;
 import org.mapstruct.*;
 
+import javax.print.attribute.standard.Media;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +21,7 @@ import java.util.List;
 )
 public interface AdminMapper {
 
-    @Mapping(source = "teams",target = "teamIds",qualifiedByName = "teamToId")
+    @Mapping(source = "teams", target = "teamIds", qualifiedByName = "teamToId")
     AdminDto.AdminResponseDto toResponseDto(AdminEntity adminEntity);
 
     @Named("teamToId")
@@ -31,4 +32,11 @@ public interface AdminMapper {
         }
         return temp;
     }
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mappings({
+            @Mapping(target = "teams",ignore = true),
+            @Mapping(target = "id",ignore = true)
+    })
+    public void updateFromPatchDto(AdminDto.AdminPatchDto adminPatchDto, @MappingTarget AdminEntity adminEntity);
 }

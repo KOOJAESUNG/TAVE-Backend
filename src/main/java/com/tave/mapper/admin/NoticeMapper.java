@@ -2,6 +2,7 @@ package com.tave.mapper.admin;
 
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.admin.NoticeEntity;
+import com.tave.dto.admin.AdminDto;
 import com.tave.dto.admin.NoticeDto;
 import org.mapstruct.*;
 
@@ -13,15 +14,22 @@ import org.mapstruct.*;
 @Mapper(
         componentModel = "spring", // 빌드 시 구현체 만들고 빈으로 등록
         injectionStrategy = InjectionStrategy.CONSTRUCTOR, // 생성자 주입 전략
-       unmappedTargetPolicy = ReportingPolicy.ERROR // 일치하지 않는 필드가 있으면 빌드 시 에러
+        unmappedTargetPolicy = ReportingPolicy.ERROR // 일치하지 않는 필드가 있으면 빌드 시 에러
 )
 public interface NoticeMapper {
     @Mappings({
-            @Mapping(source = "admin",target = "admin"),
-            @Mapping(target = "id",ignore = true)
+            @Mapping(source = "admin", target = "admin"),
+            @Mapping(target = "id", ignore = true)
     })
     NoticeEntity toEntity(NoticeDto.NoticePostDto noticePostDto, AdminEntity admin);
 
-    @Mapping(source = "admin.id",target = "adminId")
+    @Mapping(source = "admin.id", target = "adminId")
     NoticeDto.NoticeResponseDto toResponseDto(NoticeEntity noticeEntity);
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mappings({
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "admin", ignore = true)
+    })
+    public void updateFromPatchDto(NoticeDto.NoticePatchDto noticePatchDto, @MappingTarget NoticeEntity noticeEntity);
 }

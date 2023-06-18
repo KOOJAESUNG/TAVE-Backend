@@ -54,4 +54,15 @@ public interface TeamMapper {
         }
         return temp;
     }
+
+
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mappings({
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "teamScore", ignore = true),
+            @Mapping(target = "members", ignore = true),
+            @Mapping(target = "notes",ignore = true),
+            @Mapping(source = "adminEntity",target = "admin")
+    })
+    public void updateFromPatchDto(TeamDto.TeamPatchDto teamPatchDto, AdminEntity adminEntity, @MappingTarget TeamEntity teamEntity);
 }

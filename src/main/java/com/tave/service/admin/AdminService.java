@@ -32,7 +32,8 @@ public class AdminService {
     public AdminDto.AdminResponseDto updateAdmin(AdminDto.AdminPatchDto adminPatchDto) {
         AdminEntity adminEntity = adminRepository.findById(adminPatchDto.getId()).orElseThrow(EntityNotFoundException::new);
         //update
-        adminEntity.updateFromPatchDto(adminPatchDto);
+//        adminEntity.updateFromPatchDto(adminPatchDto);
+        adminMapper.updateFromPatchDto(adminPatchDto,adminEntity);
         //entity->dto, return
         return adminMapper.toResponseDto(adminRepository.findById(adminPatchDto.getId()).orElseThrow(EntityNotFoundException::new));
     }
