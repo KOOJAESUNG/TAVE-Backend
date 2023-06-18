@@ -1,4 +1,5 @@
 package com.tave.dto.member;
+import com.tave.constant.MemberType;
 import com.tave.constant.TechField;
 import lombok.*;
 
@@ -35,6 +36,8 @@ public class MemberDto {
 
         private String university;
 
+        private MemberType memberType; //OB or YB
+
 
     }
 
@@ -61,10 +64,12 @@ public class MemberDto {
 
         private String phoneNumber;
 
-        private String techField;
-
         private Long teamId;
 
         private String university;
+
+        private String memberType; //OB or YB
+
+        private String techField; //기술 분야
     }
 }

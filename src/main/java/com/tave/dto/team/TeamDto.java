@@ -21,7 +21,7 @@ public class TeamDto {
     public static class TeamPostDto {
 
         private String teamName;
-        private String adminEmail;
+        private Long adminId;
     }
 
     @Getter
@@ -53,7 +53,7 @@ public class TeamDto {
 
         private String teamName;
 
-        private String adminEmail;
+        private Long adminId;
 
     }
 }
