@@ -19,6 +19,9 @@ dependencies {
         implementation 'org.springframework.boot:spring-boot-starter-web'
         implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
+        //googleotp
+        implementation 'commons-codec:commons-codec:1.9'
+
         // mysql
         implementation 'mysql:mysql-connector-java:8.0.32'
 
@@ -33,7 +36,6 @@ dependencies {
         annotationProcessor "org.mapstruct:mapstruct-processor:1.4.1.Final"
         annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
         annotationProcessor "org.projectlombok:lombok"
-
 
         //H2 Database
         runtimeOnly 'com.h2database:h2'
