@@ -4,11 +4,15 @@ package com.tave.controller.member;
 import com.tave.dto.member.MemberDto;
 import com.tave.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-@Controller
+import java.io.IOException;
+
+@RestController
 @RequiredArgsConstructor
 @RequestMapping("member")
 public class MemberController {
@@ -20,9 +24,10 @@ public class MemberController {
         return ResponseEntity.ok().body(memberService.getMember(memberId));
     }
 
-    @PatchMapping("/modifymember")
-    public ResponseEntity<?> updateMember(@RequestBody MemberDto.MemberPatchDto memberPatchDto){
-        return ResponseEntity.ok().body(memberService.updateMember(memberPatchDto));
+    @PatchMapping(value = "/modifymember")
+    public ResponseEntity<?> updateMember(@RequestPart(value = "dto") MemberDto.MemberPatchDto memberPatchDto, @RequestPart(value = "profileImage") MultipartFile profileImage) {
+        System.out.println("1");
+        return ResponseEntity.ok().body(memberService.updateMember(memberPatchDto,profileImage));
     }
 
     @DeleteMapping("/deletemember")
