@@ -26,7 +26,7 @@ public class MemberController {
         return ResponseEntity.ok().body(memberService.updateMember(memberPatchDto));
     }
 
-    @PatchMapping(value = "/modifyProfileImage",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/modifyprofileimage",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateMemberProfileImage(@RequestParam Long memberId, @RequestPart MultipartFile profileImage) {
         return ResponseEntity.ok().body(memberService.updateMemberProfileImage(memberId,profileImage));
     }

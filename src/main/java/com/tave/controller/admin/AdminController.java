@@ -20,12 +20,12 @@ public class AdminController {
         return ResponseEntity.ok().body(adminService.getAdmin(adminId));
     }
 
-    @PatchMapping("/modifymember")
+    @PatchMapping("/modifyadmin")
     public ResponseEntity<?> updateAdmin(@RequestBody AdminDto.AdminPatchDto adminPatchDto){
         return ResponseEntity.ok().body(adminService.updateAdmin(adminPatchDto));
     }
 
-    @DeleteMapping("/deletemember")
+    @DeleteMapping("/deleteadmin")
     public ResponseEntity<?> deleteAdmin(@RequestParam long adminId){
         adminService.deleteAdmin(adminId);
         return ResponseEntity.ok().body("deleted MemberId : " + adminId);

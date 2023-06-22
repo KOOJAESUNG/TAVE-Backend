@@ -29,7 +29,7 @@ public class TeamScoreNoteController {
         return ResponseEntity.ok().body(teamScoreNoteService.updateTeamScoreNote(teamScoreNotePatchDto));
     }
 
-    @DeleteMapping("/deletememberscorenote")
+    @DeleteMapping("/deleteteamscorenote")
     public ResponseEntity<?> deleteTeamScoreNote(@RequestParam long teamScoreNoteId){
         teamScoreNoteService.deleteTeamScoreNote(teamScoreNoteId);
         return ResponseEntity.ok().body("deleted TeamScoreNoteId : " + teamScoreNoteId);
