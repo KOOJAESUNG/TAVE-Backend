@@ -48,7 +48,9 @@ public class MemberService {
     @Transactional
     public String updateMemberProfileImage(Long memberId, MultipartFile profileImage) {
         MemberEntity memberEntity = memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
+
         memberMapper.updateProfileImage(s3Service.uploadFile(profileImage),memberEntity);
+
         return memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new).getProfileImage();
     }
     @Transactional
