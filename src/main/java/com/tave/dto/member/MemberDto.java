@@ -24,7 +24,7 @@ public class MemberDto {
 
         private String password;
 
-        private String picture; //프로필사진. uri로 보낼듯
+        private String profileImage;
 
         private Integer rad; //기수
 
@@ -37,8 +37,6 @@ public class MemberDto {
         private String university;
 
         private MemberType memberType; //OB or YB
-
-
     }
 
 
@@ -57,8 +55,6 @@ public class MemberDto {
         private String name;
 
         private String password;
-
-        private String picture;
 
         private Integer rad; //기수
 

@@ -20,17 +20,35 @@ public interface MemberMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mappings({
             @Mapping(target = "id", ignore = true),
-//            @Mapping(source = "memberPatchDto.techField", target = "techField", qualifiedByName = "toTechField"),
+            @Mapping(target = "profileImage", ignore = true),
+            @Mapping(source = "memberPatchDto.techField", target = "techField", qualifiedByName = "toTechField"),
             @Mapping(source = "memberPatchDto.memberType", target = "memberType", qualifiedByName = "toMemberType"),
-            @Mapping(source = "teamEntity",target = "team")
+            @Mapping(source = "teamEntity", target = "team")
     })
     public void updateFromPatchDto(MemberDto.MemberPatchDto memberPatchDto, TeamEntity teamEntity, @MappingTarget MemberEntity memberEntity);
 
+    @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
+    @Mappings({
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "email",ignore = true),
+            @Mapping(target = "introduce",ignore = true),
+            @Mapping(target = "name",ignore = true),
+            @Mapping(target = "password",ignore = true),
+            @Mapping(target = "rad",ignore = true),
+            @Mapping(target = "phoneNumber",ignore = true),
+            @Mapping(target = "techField",ignore = true),
+            @Mapping(target = "memberType",ignore = true),
+            @Mapping(target = "team",ignore = true),
+            @Mapping(target = "university",ignore = true),
+            @Mapping(source = "profileImageURL",target = "profileImage")
+    })
+    public void updateProfileImage(String profileImageURL, @MappingTarget MemberEntity memberEntity);
 
-//    @Named("toTechField")
-//    public static TechField toTechField(String techField) {
-//        return TechField.valueOf(techField);
-//    }
+
+    @Named("toTechField")
+    public static TechField toTechField(String techField) {
+        return TechField.valueOf(techField);
+    }
 
     @Named("toMemberType")
     public static MemberType toMemberType(String memberType) {

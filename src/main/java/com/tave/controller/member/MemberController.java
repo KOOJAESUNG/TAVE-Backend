@@ -6,11 +6,8 @@ import com.tave.service.member.MemberService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,10 +21,14 @@ public class MemberController {
         return ResponseEntity.ok().body(memberService.getMember(memberId));
     }
 
-    @PatchMapping(value = "/modifymember")
-    public ResponseEntity<?> updateMember(@RequestPart(value = "dto") MemberDto.MemberPatchDto memberPatchDto, @RequestPart(value = "profileImage") MultipartFile profileImage) {
-        System.out.println("1");
-        return ResponseEntity.ok().body(memberService.updateMember(memberPatchDto,profileImage));
+    @PatchMapping("/modifymember")
+    public ResponseEntity<?> updateMember(@RequestBody MemberDto.MemberPatchDto memberPatchDto) {
+        return ResponseEntity.ok().body(memberService.updateMember(memberPatchDto));
+    }
+
+    @PatchMapping(value = "/modifyProfileImage",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateMemberProfileImage(@RequestParam Long memberId, @RequestPart MultipartFile profileImage) {
+        return ResponseEntity.ok().body(memberService.updateMemberProfileImage(memberId,profileImage));
     }
 
     @DeleteMapping("/deletemember")
