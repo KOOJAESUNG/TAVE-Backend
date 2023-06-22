@@ -48,15 +48,16 @@ dependencies {
         implementation 'org.apache.poi:poi:4.1.2'
         implementation 'org.apache.poi:poi-ooxml:4.1.2'
 
-        //SpringSecurity
+        // Spring Security 추가
         implementation 'org.springframework.boot:spring-boot-starter-security'
-
 
         testImplementation 'org.springframework.boot:spring-boot-starter-test'
         //JUnit4 추가
         testImplementation("org.junit.vintage:junit-vintage-engine") {
             exclude group: "org.hamcrest", module: "hamcrest-core"
         }
+        //Mockito 추가
+        testImplementation 'org.mockito:mockito-core:4.2.0'
 
     }
 }
