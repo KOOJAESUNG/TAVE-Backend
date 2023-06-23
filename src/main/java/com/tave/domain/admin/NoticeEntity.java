@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,18 +19,28 @@ public class NoticeEntity {
     private Long id;
 
     @Lob
+    @Column(columnDefinition = "TEXT")
     private String content;
 
-    @Lob
-    private List<String> images;
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+            name = "notice_images",
+            joinColumns = @JoinColumn(name = "notice_id")
+    )
+    @Column(name = "image_url")
+    private List<String> images = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;
 
 
-    public void updateFromPatchDto(NoticeDto.NoticePatchDto noticePatchDto) {
-        if(noticePatchDto.getContent() !=null) this.content = noticePatchDto.getContent();
-        if(noticePatchDto.getImages() !=null) this.images = noticePatchDto.getImages();
+//    public void updateFromPatchDto(NoticeDto.NoticePatchDto noticePatchDto) {
+//        if(noticePatchDto.getContent() !=null) this.content = noticePatchDto.getContent();
+//        if(noticePatchDto.getImages() !=null) this.images = noticePatchDto.getImages();
+//    }
+
+    public void updateNoticeImages(List<String> noticeImages) {
+        this.images = noticeImages;
     }
 }

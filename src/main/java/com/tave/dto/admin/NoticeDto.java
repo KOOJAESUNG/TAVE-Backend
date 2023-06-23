@@ -13,8 +13,6 @@ public class NoticeDto {
 
         private String content;
 
-        private List<String> images; //아마 multipartfile로 받을거라 없앨듯
-
         private Long adminId;
 
     }
@@ -46,7 +44,6 @@ public class NoticeDto {
         private Long id;
         private String content;
 
-        private List<String> images; //아마 multipartfile로 받을거라 없앨듯
     }
 
 }

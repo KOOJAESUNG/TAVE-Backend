@@ -3,10 +3,14 @@ import com.tave.API.SSE.EmitterRepository;
 import com.tave.dto.admin.NoticeDto;
 import com.tave.service.admin.NoticeService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+import java.util.List;
 
 
 @RestController
@@ -31,7 +35,13 @@ public class NoticeController {
 
     @PatchMapping("/modifynotice")
     public ResponseEntity<?> updateNotice(@RequestBody NoticeDto.NoticePatchDto noticePatchDto) {
+
         return ResponseEntity.ok().body(noticeService.updateNotice(noticePatchDto));
+    }
+
+    @PostMapping(value = "/modifynoticeimages", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> modifyNoticeImages(@RequestParam Long noticeId, @RequestPart List<MultipartFile> imageList) {
+        return ResponseEntity.ok().body(noticeService.updateNoticeImages(noticeId,imageList));
     }
 
     @DeleteMapping("/deletenotice")

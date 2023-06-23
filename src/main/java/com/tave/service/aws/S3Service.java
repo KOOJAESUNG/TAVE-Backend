@@ -41,21 +41,22 @@ public class S3Service {
     }
 
     public List<String> uploadFileList(List<MultipartFile> multipartFiles) {
-        List<String> fileNameList = new ArrayList<>();
+        List<String> fileUrlList = new ArrayList<>();
 
         // forEach 구문을 통해 multipartFiles 리스트로 넘어온 파일들을 순차적으로 fileNameList 에 추가
         multipartFiles.forEach(file -> {
-            fileNameList.add(uploadFile(file));
+            fileUrlList.add(uploadFile(file));
         });
-        return fileNameList;
+        return fileUrlList;
     }
 
 
     public void deleteFile(String fileName) {
+        if(fileName.contains("https")) fileName = fileName.substring(52);
+
         if (amazonS3.doesObjectExist(bucket, fileName)) {
             amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
         } else throw new ResponseStatusException(HttpStatus.FORBIDDEN, "파일이 없습니다");
-        System.out.println(bucket);
     }
 
     public void deleteFileList(List<String> fileNameList) {

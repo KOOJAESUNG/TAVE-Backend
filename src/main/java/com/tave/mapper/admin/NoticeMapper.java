@@ -2,7 +2,6 @@ package com.tave.mapper.admin;
 
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.admin.NoticeEntity;
-import com.tave.dto.admin.AdminDto;
 import com.tave.dto.admin.NoticeDto;
 import org.mapstruct.*;
 
@@ -19,7 +18,8 @@ import org.mapstruct.*;
 public interface NoticeMapper {
     @Mappings({
             @Mapping(source = "admin", target = "admin"),
-            @Mapping(target = "id", ignore = true)
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "images", ignore = true)
     })
     NoticeEntity toEntity(NoticeDto.NoticePostDto noticePostDto, AdminEntity admin);
 
@@ -29,7 +29,8 @@ public interface NoticeMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(target = "admin", ignore = true)
+            @Mapping(target = "admin", ignore = true),
+            @Mapping(target = "images", ignore = true)
     })
     public void updateFromPatchDto(NoticeDto.NoticePatchDto noticePatchDto, @MappingTarget NoticeEntity noticeEntity);
 }

@@ -6,11 +6,15 @@ import com.tave.dto.admin.NoticeDto;
 import com.tave.mapper.admin.NoticeMapper;
 import com.tave.repository.admin.AdminRepository;
 import com.tave.repository.admin.NoticeRepository;
+import com.tave.service.aws.S3Service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -22,6 +26,8 @@ public class NoticeService {
 
     private final AdminRepository adminRepository;
     private final NoticeMapper noticeMapper;
+
+    private final S3Service s3Service;
 
     //SSE 기능구현추가
     private final EmitterRepository emitterRepository;
@@ -52,6 +58,14 @@ public class NoticeService {
         noticeMapper.updateFromPatchDto(noticePatchDto,noticeEntity);
         //entity->dto 후 return
         return noticeMapper.toResponseDto(noticeRepository.findById(noticePatchDto.getId()).orElseThrow(EntityNotFoundException::new));
+    }
+
+    @Transactional
+    public List<String> updateNoticeImages(Long noticeId, List<MultipartFile> imageList) {
+        NoticeEntity noticeEntity = noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new);
+        noticeEntity.getImages().forEach(s3Service::deleteFile);
+        noticeEntity.updateNoticeImages(s3Service.uploadFileList(imageList));
+        return noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new).getImages();
     }
 
     @Transactional
