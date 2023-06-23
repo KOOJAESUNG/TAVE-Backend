@@ -1,4 +1,4 @@
-package com.tave.api;
+package com.tave.API;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
