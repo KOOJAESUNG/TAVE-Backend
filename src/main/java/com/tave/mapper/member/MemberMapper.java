@@ -23,7 +23,9 @@ public interface MemberMapper {
             @Mapping(target = "profileImage", ignore = true),
             @Mapping(source = "memberPatchDto.techField", target = "techField", qualifiedByName = "toTechField"),
             @Mapping(source = "memberPatchDto.memberType", target = "memberType", qualifiedByName = "toMemberType"),
-            @Mapping(source = "teamEntity", target = "team")
+            @Mapping(source = "teamEntity", target = "team"),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
     })
     public void updateFromPatchDto(MemberDto.MemberPatchDto memberPatchDto, TeamEntity teamEntity, @MappingTarget MemberEntity memberEntity);
 
@@ -40,7 +42,9 @@ public interface MemberMapper {
             @Mapping(target = "memberType",ignore = true),
             @Mapping(target = "team",ignore = true),
             @Mapping(target = "university",ignore = true),
-            @Mapping(source = "profileImageURL",target = "profileImage")
+            @Mapping(source = "profileImageURL",target = "profileImage"),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
     })
     public void updateProfileImage(String profileImageURL, @MappingTarget MemberEntity memberEntity);
 

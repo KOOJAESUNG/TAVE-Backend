@@ -5,6 +5,8 @@ import com.tave.domain.team.TeamEntity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 public class TeamScoreNoteDto {
 
     @Getter
@@ -37,6 +39,10 @@ public class TeamScoreNoteDto {
         private String type;
 
         private Long teamId;
+
+        private LocalDateTime createAt;
+
+        private LocalDateTime modifiedAt;
     }
 
 

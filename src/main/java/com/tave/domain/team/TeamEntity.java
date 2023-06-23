@@ -1,5 +1,6 @@
 package com.tave.domain.team;
 
+import com.tave.domain.TimeStamp;
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.member.MemberEntity;
 import com.tave.dto.team.TeamDto;
@@ -12,7 +13,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class TeamEntity {
+public class TeamEntity extends TimeStamp {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

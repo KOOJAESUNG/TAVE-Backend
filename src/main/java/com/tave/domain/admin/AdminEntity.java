@@ -1,5 +1,6 @@
 package com.tave.domain.admin;
 
+import com.tave.domain.TimeStamp;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.admin.AdminDto;
 import com.tave.repository.team.TeamRepository;
@@ -16,7 +17,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class AdminEntity {
+public class AdminEntity extends TimeStamp {
 
     @Id
     @Column(name = "admin_id")

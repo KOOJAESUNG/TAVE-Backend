@@ -26,7 +26,9 @@ public interface TeamMapper {
             @Mapping(source = "admin",target = "admin"),
             @Mapping(target = "teamScore",ignore = true),
             @Mapping(target = "members",ignore = true),
-            @Mapping(target = "notes",ignore = true)
+            @Mapping(target = "notes",ignore = true),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
     })
     TeamEntity toEntity(TeamDto.TeamPostDto teamPostDto, AdminEntity admin);
 
@@ -62,7 +64,9 @@ public interface TeamMapper {
             @Mapping(target = "teamScore", ignore = true),
             @Mapping(target = "members", ignore = true),
             @Mapping(target = "notes",ignore = true),
-            @Mapping(source = "adminEntity",target = "admin")
+            @Mapping(source = "adminEntity",target = "admin"),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
     })
     public void updateFromPatchDto(TeamDto.TeamPatchDto teamPatchDto, AdminEntity adminEntity, @MappingTarget TeamEntity teamEntity);
 }

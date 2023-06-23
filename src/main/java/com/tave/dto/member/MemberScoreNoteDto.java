@@ -3,6 +3,8 @@ package com.tave.dto.member;
 import com.tave.constant.Type;
 import lombok.*;
 
+import java.time.LocalDateTime;
+
 public class MemberScoreNoteDto { //아마 엑셀파일을 받아서 작업할 것이기 때문에
 
     @Getter
@@ -36,6 +38,10 @@ public class MemberScoreNoteDto { //아마 엑셀파일을 받아서 작업할 �
         private Type type; //가감점 타입
 
         private Long memberId;
+
+        private LocalDateTime createAt;
+
+        private LocalDateTime modifiedAt;
     }
 
     @Getter

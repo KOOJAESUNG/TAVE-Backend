@@ -9,6 +9,7 @@ import jakarta.persistence.ManyToOne;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class ScheduleDto {
 
@@ -42,6 +43,10 @@ public class ScheduleDto {
         private Long memberId;
 
         private Long adminId;
+
+        private LocalDateTime createAt;
+
+        private LocalDateTime modifiedAt;
     }
 
 

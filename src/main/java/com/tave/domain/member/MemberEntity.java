@@ -2,6 +2,7 @@ package com.tave.domain.member;
 
 import com.tave.constant.MemberType;
 import com.tave.constant.TechField;
+import com.tave.domain.TimeStamp;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.member.MemberDto;
 import com.tave.repository.member.MemberRepository;
@@ -14,7 +15,7 @@ import lombok.*;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class MemberEntity {
+public class MemberEntity extends TimeStamp {
 
     @Id
     @Column(name = "member_id")

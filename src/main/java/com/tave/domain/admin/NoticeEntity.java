@@ -1,17 +1,19 @@
 package com.tave.domain.admin;
 
+import com.tave.domain.TimeStamp;
 import com.tave.dto.admin.NoticeDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.sql.Time;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Getter @Setter
-public class NoticeEntity {
+public class NoticeEntity extends TimeStamp {
 
     @Id
     @Column(name = "notice_id")

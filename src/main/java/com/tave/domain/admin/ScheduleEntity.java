@@ -1,5 +1,6 @@
 package com.tave.domain.admin;
 
+import com.tave.domain.TimeStamp;
 import com.tave.domain.member.MemberEntity;
 import com.tave.dto.admin.ScheduleDto;
 import jakarta.persistence.*;
@@ -10,7 +11,7 @@ import java.time.LocalDate;
 
 @Entity
 @Getter @Setter
-public class ScheduleEntity {
+public class ScheduleEntity extends TimeStamp {
 
     @Id
     @Column(name = "schedule_id")

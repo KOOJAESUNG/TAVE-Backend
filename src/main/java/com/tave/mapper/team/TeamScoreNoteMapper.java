@@ -14,7 +14,9 @@ public interface TeamScoreNoteMapper {
 
     @Mappings({
             @Mapping(source = "team",target = "team"),
-            @Mapping(target = "id",ignore = true)
+            @Mapping(target = "id",ignore = true),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
     })
     TeamScoreNoteEntity toEntity(TeamScoreNoteDto.TeamScoreNotePostDto teamScoreNotePostDto, TeamEntity team);
     @Mapping(source = "team.id",target = "teamId")
@@ -24,7 +26,9 @@ public interface TeamScoreNoteMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(source = "teamEntity",target = "team")
+            @Mapping(source = "teamEntity",target = "team"),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
     })
     public void updateFromPatchDto(TeamScoreNoteDto.TeamScoreNotePatchDto teamScoreNotePatchDto, TeamEntity teamEntity, @MappingTarget TeamScoreNoteEntity teamScoreNoteEntity);
 }

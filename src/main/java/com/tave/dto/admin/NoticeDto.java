@@ -1,5 +1,7 @@
 package com.tave.dto.admin;
 import lombok.*;
+
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class NoticeDto {
@@ -31,6 +33,10 @@ public class NoticeDto {
         private List<String> images; //uri로 보낼듯
 
         private Long adminId;
+
+        private LocalDateTime createAt;
+
+        private LocalDateTime modifiedAt;
     }
 
 

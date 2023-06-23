@@ -19,7 +19,9 @@ public interface NoticeMapper {
     @Mappings({
             @Mapping(source = "admin", target = "admin"),
             @Mapping(target = "id", ignore = true),
-            @Mapping(target = "images", ignore = true)
+            @Mapping(target = "images", ignore = true),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
     })
     NoticeEntity toEntity(NoticeDto.NoticePostDto noticePostDto, AdminEntity admin);
 
@@ -30,7 +32,9 @@ public interface NoticeMapper {
     @Mappings({
             @Mapping(target = "id", ignore = true),
             @Mapping(target = "admin", ignore = true),
-            @Mapping(target = "images", ignore = true)
+            @Mapping(target = "images", ignore = true),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
     })
     public void updateFromPatchDto(NoticeDto.NoticePatchDto noticePatchDto, @MappingTarget NoticeEntity noticeEntity);
 }

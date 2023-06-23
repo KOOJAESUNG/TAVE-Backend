@@ -18,7 +18,9 @@ public interface MemberScoreNoteMapper {
     @Mappings({
             @Mapping(source = "memberScoreNotePostDto.type",target = "type",qualifiedByName = "toType"),
             @Mapping(source = "member",target = "member"),
-            @Mapping(target = "id",ignore = true)
+            @Mapping(target = "id",ignore = true),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
     })
     MemberScoreNoteEntity toEntity(MemberScoreNoteDto.MemberScoreNotePostDto memberScoreNotePostDto,MemberEntity member);
 
@@ -35,7 +37,9 @@ public interface MemberScoreNoteMapper {
     @Mappings({
             @Mapping(target = "id", ignore = true),
             @Mapping(source = "memberScoreNotePatchDto.type",target = "type",qualifiedByName = "toType"),
-            @Mapping(target = "member",ignore = true)
+            @Mapping(target = "member",ignore = true),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
     })
     public void updateFromPatchDto(MemberScoreNoteDto.MemberScoreNotePatchDto memberScoreNotePatchDto, @MappingTarget MemberScoreNoteEntity memberScoreNoteEntity);
 
