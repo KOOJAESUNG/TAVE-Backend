@@ -24,6 +24,7 @@ public class MemberEntity {
     private String email;
 
     @Lob
+    @Column(columnDefinition = "TEXT")
     private String introduce;
 
     private String name;
