@@ -3,6 +3,7 @@ package com.tave.service.aws;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class S3Service {
     @Value("${cloud.aws.s3.bucket}")
     private String bucket;
@@ -24,7 +26,7 @@ public class S3Service {
     private final AmazonS3 amazonS3;
 
     public String uploadFile(MultipartFile multipartFile) {
-
+        log.info("========== S3 UPLOAD FILE START ==========");
         // forEach 구문을 통해 multipartFiles 리스트로 넘어온 파일들을 순차적으로 fileNameList 에 추가
         String fileName = createFileName(multipartFile.getOriginalFilename());
         ObjectMetadata objectMetadata = new ObjectMetadata();
@@ -35,12 +37,16 @@ public class S3Service {
             amazonS3.putObject(new PutObjectRequest(bucket, fileName, inputStream, objectMetadata)
                     .withCannedAcl(CannedAccessControlList.PublicRead));
         } catch (IOException e) {
+            log.info("===== S3 파일 업로드 실패!!!!!");
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "파일 업로드에 실패했습니다.");
         }
+        log.info("===== S3 파일 업로드 성공");
+        log.info("========== S3 UPLOAD FILE END ==========");
         return amazonS3.getUrl(bucket, fileName).toString();
     }
 
     public List<String> uploadFileList(List<MultipartFile> multipartFiles) {
+
         List<String> fileUrlList = new ArrayList<>();
 
         // forEach 구문을 통해 multipartFiles 리스트로 넘어온 파일들을 순차적으로 fileNameList 에 추가
@@ -52,11 +58,20 @@ public class S3Service {
 
 
     public void deleteFile(String fileName) {
+        if(fileName==null) return;
+
+        log.info("========== S3 DELETE FILE START ==========");
+
         if(fileName.contains("https")) fileName = fileName.substring(52);
 
         if (amazonS3.doesObjectExist(bucket, fileName)) {
             amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
-        } else throw new ResponseStatusException(HttpStatus.FORBIDDEN, "파일이 없습니다");
+        } else {
+            log.info("===== 파일 삭제 실패!!!!! 파일이 없습니다");
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "파일이 없습니다");
+        }
+        log.info("===== 파일 삭제 성공");
+        log.info("========== S3 DELETE FILE END ==========");
     }
 
     public void deleteFileList(List<String> fileNameList) {
@@ -70,12 +85,19 @@ public class S3Service {
         });
         return fileUriList;
     }
+
     public String getFile(String fileName) {
+        log.info("========== S3 GET FILE START ==========");
+        String url=null;
         try{
-            return amazonS3.getUrl(bucket, fileName).toString();
+            url = amazonS3.getUrl(bucket, fileName).toString();
         }catch (Exception e){
+            log.info("===== 파일 불러오기 실패!!!!!");
             throw new ResponseStatusException(HttpStatus.FORBIDDEN, "파일이 없습니다");
         }
+        log.info("===== 파일 불러오기 성공");
+        log.info("========== S3 GET FILE END ==========");
+        return url;
     }
 
 
