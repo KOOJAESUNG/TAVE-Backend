@@ -38,3 +38,4 @@ out/
 
 *.yml
 *.p12
+/src/main/generated/
