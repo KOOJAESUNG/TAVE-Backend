@@ -34,12 +34,6 @@ public class NoticeEntity {
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;
 
-
-//    public void updateFromPatchDto(NoticeDto.NoticePatchDto noticePatchDto) {
-//        if(noticePatchDto.getContent() !=null) this.content = noticePatchDto.getContent();
-//        if(noticePatchDto.getImages() !=null) this.images = noticePatchDto.getImages();
-//    }
-
     public void updateNoticeImages(List<String> noticeImages) {
         this.images = noticeImages;
     }

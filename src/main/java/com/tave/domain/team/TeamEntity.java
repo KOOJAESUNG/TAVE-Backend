@@ -34,9 +34,4 @@ public class TeamEntity {
     private List<TeamScoreNoteEntity> notes = new ArrayList<>();
 
 
-    public void updateFromPatchDto(TeamDto.TeamPatchDto teamPatchDto, AdminEntity admin) {
-        this.teamName = teamPatchDto.getTeamName();
-        this.admin = admin;
-    }
-
 }

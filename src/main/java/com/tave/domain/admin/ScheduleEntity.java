@@ -29,9 +29,4 @@ public class ScheduleEntity {
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;
 
-
-    public void updateFromPatchDto(ScheduleDto.SchedulePatchDto schedulePatchDto) {
-        if(schedulePatchDto.getPlace() !=null) this.place = place;
-        if(schedulePatchDto.getTitle() !=null) this.title = title;
-    }
 }

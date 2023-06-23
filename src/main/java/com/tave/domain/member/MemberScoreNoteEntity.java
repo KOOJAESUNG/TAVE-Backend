@@ -26,9 +26,4 @@ public class MemberScoreNoteEntity {
     private MemberEntity member;
 
 
-    public void updateFromPatchDto(MemberScoreNoteDto.MemberScoreNotePatchDto memberScoreNotePatchDto) {
-        this.note = memberScoreNotePatchDto.getNote();
-        this.score = memberScoreNotePatchDto.getScore();
-        this.type = Type.valueOf(String.valueOf(Type.valueOf(memberScoreNotePatchDto.getType())));
-    }
 }

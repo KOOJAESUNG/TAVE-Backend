@@ -32,10 +32,4 @@ public class AdminEntity {
     @OneToMany(mappedBy = "admin")
     private List<TeamEntity> teams = new ArrayList<>();
 
-
-    @Transactional
-    public void updateFromPatchDto(AdminDto.AdminPatchDto adminPatchDto) {
-        if(adminPatchDto.getEmail() !=null) this.email = adminPatchDto.getEmail();
-        if(adminPatchDto.getPhoneNumber() !=null) this.phoneNumber = adminPatchDto.getPhoneNumber();
-    }
 }

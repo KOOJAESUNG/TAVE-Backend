@@ -26,11 +26,4 @@ public class TeamScoreNoteEntity {
     @JoinColumn(name = "team_id")
     private TeamEntity team;
 
-
-    public void updateFromPatchDto(TeamScoreNoteDto.TeamScoreNotePatchDto teamScoreNotePatchDto, TeamEntity team) {
-        this.note = teamScoreNotePatchDto.getNote();
-        this.score = teamScoreNotePatchDto.getScore();
-        this.type = Type.valueOf(teamScoreNotePatchDto.getType());
-        this.team = team;
-    }
 }

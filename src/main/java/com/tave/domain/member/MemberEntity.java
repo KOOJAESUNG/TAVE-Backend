@@ -49,19 +49,4 @@ public class MemberEntity {
 
     private String university;
 
-
-//    public void updateFromPatchDto(MemberDto.MemberPatchDto memberPatchDto,TeamEntity team) {
-//        if(memberPatchDto.getEmail() != null) this.email = memberPatchDto.getEmail();
-//        if(memberPatchDto.getIntroduce() != null) this.introduce = memberPatchDto.getIntroduce();
-//        if(memberPatchDto.getName() != null) this.name = memberPatchDto.getName();
-//        if(memberPatchDto.getPassword() != null) this.password = memberPatchDto.getPassword();
-//        if(memberPatchDto.getPicture() != null) this.picture = memberPatchDto.getPicture();
-//        if(memberPatchDto.getRad() != null) this.rad = memberPatchDto.getRad();
-//        if(memberPatchDto.getPhoneNumber() != null) this.phoneNumber = memberPatchDto.getPhoneNumber();
-//        if(memberPatchDto.getTechField() != null) this.techField = TechField.valueOf(memberPatchDto.getTechField());
-//        if(team != null) this.team = team;
-//        if(memberPatchDto.getUniversity() != null) this.university = memberPatchDto.getUniversity();
-//        if(memberPatchDto.getMemberType() != null) this.memberType = MemberType.valueOf(memberPatchDto.getMemberType());
-//    }
-
 }
