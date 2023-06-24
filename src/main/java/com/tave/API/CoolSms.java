@@ -1,16 +1,21 @@
-package com.tave.API;
+package com.tave.api;
 
 import net.nurigo.sdk.NurigoApp;
 import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Scanner;
 
-public class coolsms {
+
+public class CoolSms {
 
     public static void main(String[] args){ // 작동여부 판단 메소드, 추후 삭제 예정
         Scanner sc = new Scanner(System.in);
@@ -54,7 +59,7 @@ public class coolsms {
     public static SingleMessageSentResponse sendOne(String phoneNumber, String numStr) {
         Message message = new Message();
         // 발신번호 및 수신번호는 01012345678 형태로 입력되어야 합니다.
-        message.setFrom("발신번호"); // 발신번호
+        message.setFrom(phoneNumber); // 발신번호
         message.setTo(phoneNumber); //수신번호
         message.setText("[TAVE] 인증번호는 ["+numStr+"]입니다."); //메세지 양식
 

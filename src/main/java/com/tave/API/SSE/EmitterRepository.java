@@ -1,4 +1,4 @@
-package com.tave.API.SSE;
+package com.tave.api.SSE;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;

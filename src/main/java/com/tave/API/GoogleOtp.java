@@ -1,4 +1,4 @@
-package com.tave.API;
+package com.tave.api;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -9,10 +9,10 @@ import javax.crypto.spec.SecretKeySpec;
 
 import org.apache.commons.codec.binary.Base32;
 
-public class googleotp {
+public class GoogleOtp {
 
     public static void main(String[] args) { //OTP 작동여부 확인 메소드, 나중에 삭제 예정
-        googleotp otp = new googleotp();
+        GoogleOtp otp = new GoogleOtp();
         HashMap<String, String> map = otp.generate("name", "host");
         String otpkey = map.get("encodedKey");
         String url = map.get("url");

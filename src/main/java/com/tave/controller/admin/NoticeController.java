@@ -1,5 +1,5 @@
 package com.tave.controller.admin;
-import com.tave.API.SSE.EmitterRepository;
+import com.tave.api.SSE.EmitterRepository;
 import com.tave.dto.admin.NoticeDto;
 import com.tave.service.admin.NoticeService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 @RequestMapping("notice")
 public class NoticeController {
-
 
     private final NoticeService noticeService;
 
