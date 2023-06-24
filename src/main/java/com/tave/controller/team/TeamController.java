@@ -4,7 +4,6 @@ import com.tave.dto.team.TeamDto;
 import com.tave.service.team.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,22 +13,22 @@ public class TeamController {
 
     private final TeamService teamService;
 
-    @PostMapping("/createteam")
+    @PostMapping("/createTeam")
     public ResponseEntity<?> createTeam(@RequestBody TeamDto.TeamPostDto teamPostDto){
         return ResponseEntity.ok().body(teamService.createTeam(teamPostDto));
     }
 
-    @GetMapping("/getteam")
+    @GetMapping("/getTeam")
     public ResponseEntity<?> getTeam(@RequestParam long teamId){
         return ResponseEntity.ok().body(teamService.getTeam(teamId));
     }
 
-    @PatchMapping("/modifyteam")
+    @PatchMapping("/modifyTeam")
     public ResponseEntity<?> updateTeam(@RequestBody TeamDto.TeamPatchDto teamPatchDto){
         return ResponseEntity.ok().body(teamService.updateTeam(teamPatchDto));
     }
 
-    @DeleteMapping("/deleteteam")
+    @DeleteMapping("/deleteTeam")
     public ResponseEntity<?> deleteTeam(@RequestParam long teamId){
         teamService.deleteTeam(teamId);
         return ResponseEntity.ok().body("deleted TeamId : " + teamId);

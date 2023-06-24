@@ -5,7 +5,6 @@ import com.tave.service.admin.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
@@ -22,28 +21,28 @@ public class NoticeController {
 
     //SSE 기능구현추가
     private final EmitterRepository emitterRepository;
-    @PostMapping("/createnotice")
+    @PostMapping("/createNotice")
     public ResponseEntity<?> createNotice(@RequestBody NoticeDto.NoticePostDto noticePostDto) {
         return ResponseEntity.ok().body(noticeService.createNotice(noticePostDto));
     }
 
-    @GetMapping("/getnotice")
+    @GetMapping("/getNotice")
     public ResponseEntity<?> getNotice(@RequestParam long noticeId) {
         return ResponseEntity.ok().body(noticeService.getNotice(noticeId));
     }
 
-    @PatchMapping("/modifynotice")
+    @PatchMapping("/modifyNotice")
     public ResponseEntity<?> updateNotice(@RequestBody NoticeDto.NoticePatchDto noticePatchDto) {
 
         return ResponseEntity.ok().body(noticeService.updateNotice(noticePatchDto));
     }
 
-    @PostMapping(value = "/modifynoticeimages", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping(value = "/modifyNoticeImages", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> modifyNoticeImages(@RequestParam Long noticeId, @RequestPart List<MultipartFile> imageList) {
         return ResponseEntity.ok().body(noticeService.updateNoticeImages(noticeId,imageList));
     }
 
-    @DeleteMapping("/deletenotice")
+    @DeleteMapping("/deleteNotice")
     public ResponseEntity<?> deleteNotice(@RequestParam long noticeId) {
         noticeService.deleteNotice(noticeId);
         return ResponseEntity.ok().body("deleted NoticeId : " + noticeId);

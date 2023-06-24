@@ -16,22 +16,22 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/getmember")
+    @GetMapping("/getMember")
     public ResponseEntity<?> getMember(@RequestParam long memberId){
         return ResponseEntity.ok().body(memberService.getMember(memberId));
     }
 
-    @PatchMapping("/modifymember")
+    @PatchMapping("/modifyMember")
     public ResponseEntity<?> updateMember(@RequestBody MemberDto.MemberPatchDto memberPatchDto) {
         return ResponseEntity.ok().body(memberService.updateMember(memberPatchDto));
     }
 
-    @PatchMapping(value = "/modifyprofileimage",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/modifyProfileImage",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateMemberProfileImage(@RequestParam Long memberId, @RequestPart MultipartFile profileImage) {
         return ResponseEntity.ok().body(memberService.updateMemberProfileImage(memberId,profileImage));
     }
 
-    @DeleteMapping("/deletemember")
+    @DeleteMapping("/deleteMember")
     public ResponseEntity<?> deleteMember(@RequestParam long memberId){
         memberService.deleteMember(memberId);
         return ResponseEntity.ok().body("deleted MemberId : " + memberId);

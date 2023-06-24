@@ -5,7 +5,6 @@ import com.tave.dto.admin.AdminDto;
 import com.tave.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -15,17 +14,17 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    @GetMapping("/getadmin")
+    @GetMapping("/getAdmin")
     public ResponseEntity<?> getAdmin(@RequestParam long adminId){
         return ResponseEntity.ok().body(adminService.getAdmin(adminId));
     }
 
-    @PatchMapping("/modifyadmin")
+    @PatchMapping("/modifyAdmin")
     public ResponseEntity<?> updateAdmin(@RequestBody AdminDto.AdminPatchDto adminPatchDto){
         return ResponseEntity.ok().body(adminService.updateAdmin(adminPatchDto));
     }
 
-    @DeleteMapping("/deleteadmin")
+    @DeleteMapping("/deleteAdmin")
     public ResponseEntity<?> deleteAdmin(@RequestParam long adminId){
         adminService.deleteAdmin(adminId);
         return ResponseEntity.ok().body("deleted MemberId : " + adminId);

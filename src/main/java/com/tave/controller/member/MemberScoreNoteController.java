@@ -4,7 +4,6 @@ import com.tave.dto.member.MemberScoreNoteDto;
 import com.tave.service.member.MemberScoreNoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,22 +13,22 @@ public class MemberScoreNoteController {
 
     private final MemberScoreNoteService memberScoreNoteService;
 
-    @PostMapping("/creatememberscorenote")
+    @PostMapping("/createMemberScoreNote")
     public ResponseEntity<?> createMemberScoreNote(@RequestBody MemberScoreNoteDto.MemberScoreNotePostDto memberScoreNotePostDto){
         return ResponseEntity.ok().body(memberScoreNoteService.createMemberScoreNote(memberScoreNotePostDto));
     }
 
-    @GetMapping("/getmemberscorenote")
+    @GetMapping("/getMemberScoreNote")
     public ResponseEntity<?> getMemberScoreNote(@RequestParam long memberScoreNoteId){
         return ResponseEntity.ok().body(memberScoreNoteService.getMemberScoreNote(memberScoreNoteId));
     }
 
-    @PatchMapping("/modifymemberscorenote")
+    @PatchMapping("/modifyMemberScoreNote")
     public ResponseEntity<?> updateMemberScoreNote(@RequestBody MemberScoreNoteDto.MemberScoreNotePatchDto memberScoreNotePatchDto){
         return ResponseEntity.ok().body(memberScoreNoteService.updateMemberScoreNote(memberScoreNotePatchDto));
     }
 
-    @DeleteMapping("/deletememberscorenote")
+    @DeleteMapping("/deleteMemberScoreNote")
     public ResponseEntity<?> deleteMemberScoreNote(@RequestParam long memberScoreNoteId){
         memberScoreNoteService.deleteMemberScoreNote(memberScoreNoteId);
         return ResponseEntity.ok().body("deleted MemberScoreNoteId : " + memberScoreNoteId);
