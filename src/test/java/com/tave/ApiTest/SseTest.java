@@ -1,6 +1,6 @@
 package com.tave.ApiTest;
 
-import com.tave.API.SSE.EmitterRepository;
+import com.tave.api.sse.EmitterRepository;
 import com.tave.controller.admin.NoticeController;
 import com.tave.dto.admin.NoticeDto;
 import com.tave.service.admin.NoticeService;

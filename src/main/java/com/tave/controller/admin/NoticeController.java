@@ -1,5 +1,5 @@
 package com.tave.controller.admin;
-import com.tave.api.SSE.EmitterRepository;
+import com.tave.api.sse.EmitterRepository;
 import com.tave.dto.admin.NoticeDto;
 import com.tave.service.admin.NoticeService;
 import lombok.RequiredArgsConstructor;
