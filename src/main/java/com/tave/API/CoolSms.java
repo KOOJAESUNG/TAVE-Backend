@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Random;
 
-
 @RestController
 public class CoolSms {
 
@@ -40,5 +39,10 @@ public class CoolSms {
         SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
         System.out.println(response);
         return response;
+    }
+
+    @PostMapping("/coolsms/check")
+    public static String checkCertification(String inputNumber){
+        return inputNumber;
     }
 }
