@@ -13,57 +13,61 @@ repositories {
 }
 
 dependencies {
-    dependencies {
-        implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
-        implementation 'org.springframework.boot:spring-boot-starter-validation'
-        implementation 'org.springframework.boot:spring-boot-starter-web'
-        implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-validation'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
 
-        //googleotp
-        implementation 'commons-codec:commons-codec:1.9'
+    //googleotp
+    implementation 'commons-codec:commons-codec:1.9'
 
-        //coolsms
-        implementation 'net.nurigo:sdk:4.2.7'
-        implementation group: 'org.json', name:'json', version: '20090211'
+    //coolsms
+    implementation 'net.nurigo:sdk:4.2.7'
+    implementation group: 'org.json', name: 'json', version: '20090211'
 
-        //AWS S3
-        implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
+    //AWS S3
+    implementation 'org.springframework.cloud:spring-cloud-starter-aws:2.2.6.RELEASE'
 
-        // mysql
-        implementation 'mysql:mysql-connector-java:8.0.32'
+    // mysql
+    implementation 'mysql:mysql-connector-java:8.0.32'
 
-        // swagger
-        implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
-        implementation 'io.springfox:springfox-swagger2:2.9.2'
+    // swagger
+    implementation 'org.springdoc:springdoc-openapi-starter-webmvc-ui:2.0.2'
+    implementation 'io.springfox:springfox-swagger2:2.9.2'
 
-        //Mapstruct, Lombok
-        implementation "org.projectlombok:lombok"
-        annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
-        annotationProcessor "org.projectlombok:lombok"
-        implementation 'org.mapstruct:mapstruct:1.4.1.Final'
-        implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
-        annotationProcessor "org.mapstruct:mapstruct-processor:1.4.1.Final"
+    //Mapstruct, Lombok
+    implementation "org.projectlombok:lombok"
+    annotationProcessor "org.projectlombok:lombok-mapstruct-binding:0.2.0"
+    annotationProcessor "org.projectlombok:lombok"
+    implementation 'org.mapstruct:mapstruct:1.4.1.Final'
+    implementation 'org.projectlombok:lombok-mapstruct-binding:0.2.0'
+    annotationProcessor "org.mapstruct:mapstruct-processor:1.4.1.Final"
 
-        //H2 Database
-        runtimeOnly 'com.h2database:h2'
+    //H2 Database
+    runtimeOnly 'com.h2database:h2'
 
-        //POI
-        implementation 'org.apache.poi:poi:4.1.2'
-        implementation 'org.apache.poi:poi-ooxml:4.1.2'
+    //POI
+    implementation 'org.apache.poi:poi:4.1.2'
+    implementation 'org.apache.poi:poi-ooxml:4.1.2'
 
-        // Spring Security 추가
+//        //Spring Security
 //        implementation 'org.springframework.boot:spring-boot-starter-security'
+//
+//        //JWT
+//        implementation 'io.jsonwebtoken:jjwt-api:0.11.5'
+//        implementation 'io.jsonwebtoken:jjwt-impl:0.11.5'
+//        implementation 'io.jsonwebtoken:jjwt-jackson:0.11.5'
 
-        testImplementation 'org.springframework.boot:spring-boot-starter-test'
-        //JUnit4 추가
-        testImplementation("org.junit.vintage:junit-vintage-engine") {
-            exclude group: "org.hamcrest", module: "hamcrest-core"
-        }
-        //Mockito 추가
-        testImplementation 'org.mockito:mockito-core:4.2.0'
-
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    //JUnit4 추가
+    testImplementation("org.junit.vintage:junit-vintage-engine") {
+        exclude group: "org.hamcrest", module: "hamcrest-core"
     }
+    //Mockito 추가
+    testImplementation 'org.mockito:mockito-core:4.2.0'
+
 }
+
 
 tasks.named('test') {
     useJUnitPlatform()
