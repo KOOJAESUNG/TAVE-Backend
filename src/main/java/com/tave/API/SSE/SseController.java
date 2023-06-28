@@ -1,12 +1,12 @@
 package com.tave.API.SSE;
-
-import com.tave.domain.member.MemberEntity;
-import com.tave.dto.member.MemberDto;
-import com.tave.repository.member.MemberRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
+
+
+
 import java.util.Set;
 
 @RestController
@@ -17,7 +17,7 @@ public class SseController {
 
 
     // Sse연결을 설정하는 엔드포인트
-    @PatchMapping("/connect/{clientId}")
+    @PatchMapping(value = "/connect/{clientId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<?> addSseConnection(@PathVariable Long clientId) {
         return ResponseEntity.ok().body(sseService.addSseConnection(clientId));
     }
