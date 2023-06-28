@@ -4,8 +4,6 @@ import com.tave.dto.member.MemberDto;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
-
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -34,7 +32,6 @@ public class EmitterService {
 
     public void sendEventToAll(String eventType, NoticeDto.NoticeResponseDto noticeResponseDto) {
         Set<Long> closedEmitters = ConcurrentHashMap.newKeySet();
-
         /**
          * emitter에 notice 보내기
          */
@@ -42,7 +39,6 @@ public class EmitterService {
             try {
                 emitter.send(SseEmitter.event().name(eventType).data(noticeResponseDto));
             } catch (Exception e) {
-                closedEmitters.add(clientId);
                 emitter.completeWithError(e);
             }
         });
