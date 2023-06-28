@@ -31,7 +31,6 @@ public class EmitterService {
     }
 
     public void sendEventToAll(String eventType, NoticeDto.NoticeResponseDto noticeResponseDto) {
-        Set<Long> closedEmitters = ConcurrentHashMap.newKeySet();
         /**
          * emitter에 notice 보내기
          */
@@ -58,8 +57,7 @@ public class EmitterService {
             }
         }
 
-        //닫힌 emitter 제거
-        closedEmitters.forEach(this::removeEmitter);
+
     }
 
 }
