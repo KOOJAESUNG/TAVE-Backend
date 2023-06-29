@@ -8,7 +8,7 @@ import java.util.Set;
 @Service
 @RequiredArgsConstructor
 public class SseService {
-    private final com.tave.API.SSE.EmitterService emitterService;
+    private final EmitterService emitterService;
 
 
     @Transactional

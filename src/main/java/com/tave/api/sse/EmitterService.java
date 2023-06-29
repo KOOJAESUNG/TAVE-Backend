@@ -1,4 +1,4 @@
-package com.tave.API.SSE;
+package com.tave.api.sse;
 import com.tave.dto.admin.NoticeDto;
 import com.tave.dto.member.MemberDto;
 import lombok.extern.slf4j.Slf4j;
