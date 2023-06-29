@@ -15,7 +15,7 @@ public class SseController {
     // Sse연결을 설정하는 엔드포인트
     @GetMapping(value = "/connect/{clientId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<?> addSseConnection(@PathVariable Long clientId) {
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok().body(sseService.addSseConnection(clientId));
     }
 
 
