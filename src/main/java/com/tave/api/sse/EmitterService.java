@@ -21,7 +21,7 @@ public class EmitterService {
 
     public SseEmitter addEmitter(Long clientId) {
 
-        SseEmitter sseEmitter = new SseEmitter(-1L); //연결 무제한 설정
+        SseEmitter sseEmitter = new SseEmitter(); //연결 무제한 설정
         try {
             sseEmitter.send(SseEmitter.event()
                     .name("connect")
