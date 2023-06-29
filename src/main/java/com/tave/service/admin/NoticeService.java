@@ -1,5 +1,5 @@
 package com.tave.service.admin;
-import com.tave.API.SSE.EmitterService;
+import com.tave.api.sse.EmitterService;
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.admin.NoticeEntity;
 import com.tave.dto.admin.NoticeDto;
