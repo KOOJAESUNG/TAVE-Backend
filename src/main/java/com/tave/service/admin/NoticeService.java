@@ -1,5 +1,5 @@
 package com.tave.service.admin;
-import com.tave.api.sse.EmitterRepository;
+import com.tave.API.SSE.EmitterService;
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.admin.NoticeEntity;
 import com.tave.dto.admin.NoticeDto;
@@ -28,9 +28,9 @@ public class NoticeService {
     private final NoticeMapper noticeMapper;
 
     private final S3Service s3Service;
+    private final EmitterService emitterService;
 
-    //SSE 기능구현추가
-    private final EmitterRepository emitterRepository;
+
 
     @Transactional
     public NoticeDto.NoticeResponseDto createNotice(NoticeDto.NoticePostDto noticePostDto) {
@@ -41,10 +41,11 @@ public class NoticeService {
         NoticeDto.NoticeResponseDto responseDto = noticeMapper.toResponseDto(savedNotice);
 
         // 생성된 공지사항에 대한 SSE 이벤트 전송
-        emitterRepository.sendEventToAll("create", responseDto);
+        emitterService.sendEventToAll("create", responseDto);
 
         return responseDto;
     }
+
 
     public NoticeDto.NoticeResponseDto getNotice(Long noticeId) {
         return noticeMapper.toResponseDto(noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new));
