@@ -21,24 +21,22 @@ public class Init {
     @PostConstruct
     @Transactional
     public void memberInit() {
-        MemberEntity build = MemberEntity.builder()
-                .memberType(MemberType.YB)
-                .email("test@test.com")
-                .rad(11)
-                .name("test")
-                .introduce("testtesttest")
-                .password("test")
-                .phoneNumber("01011111111")
-                .techField(TechField.BACKEND)
-                .university("testuniv")
-                .build();
-
-        memberRepository.save(build);
+        memberRepository.save(MemberEntity.builder().build());
+        memberRepository.save(MemberEntity.builder().build());
+        memberRepository.save(MemberEntity.builder().build());
+        memberRepository.save(MemberEntity.builder().build());
+        memberRepository.save(MemberEntity.builder().build());
+        memberRepository.save(MemberEntity.builder().build());
     }
 
     @PostConstruct
     @Transactional
     public void adminInit() {
+        adminRepository.save(AdminEntity.builder().build());
+        adminRepository.save(AdminEntity.builder().build());
+        adminRepository.save(AdminEntity.builder().build());
+        adminRepository.save(AdminEntity.builder().build());
+        adminRepository.save(AdminEntity.builder().build());
         adminRepository.save(AdminEntity.builder().build());
     }
 
