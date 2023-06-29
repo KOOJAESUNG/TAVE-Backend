@@ -1,6 +1,5 @@
 package com.tave.api.sse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,8 +12,8 @@ public class SseController {
 
 
     // Sse연결을 설정하는 엔드포인트
-    @GetMapping(value = "/connect/{clientId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public ResponseEntity<?> addSseConnection(@PathVariable Long clientId) {
+    @GetMapping(value = "/connect/{clientId}")
+    public ResponseEntity<SseDto> addSseConnection(@PathVariable Long clientId) {
         return ResponseEntity.ok().body(sseService.addSseConnection(clientId));
     }
 

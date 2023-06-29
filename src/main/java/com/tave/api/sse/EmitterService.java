@@ -22,6 +22,7 @@ public class EmitterService {
 
 
     public Set<Long> addEmitter(Long clientId) {
+
         SseEmitter sseEmitter = new SseEmitter(-1L); //연결 무제한 설정
         emitters.put(clientId, sseEmitter);
         return emitters.keySet();
