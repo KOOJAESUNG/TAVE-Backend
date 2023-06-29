@@ -11,6 +11,8 @@ import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
 
+
+
 @Component
 @Slf4j
 public class EmitterService {
@@ -20,7 +22,7 @@ public class EmitterService {
 
 
     public Set<Long> addEmitter(Long clientId) {
-        SseEmitter sseEmitter = new SseEmitter(-1L); //timeout을 무제한으로 설정
+        SseEmitter sseEmitter = new SseEmitter(-1L); //연결 무제한 설정
         emitters.put(clientId, sseEmitter);
         return emitters.keySet();
     }

@@ -9,13 +9,13 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("sse")
 public class SseController {
-    private final SseService sseService;
+    private final com.tave.api.sse.SseService sseService;
 
 
     // Sse연결을 설정하는 엔드포인트
-    @PatchMapping(value = "/connect/{clientId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/connect/{clientId}", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     public ResponseEntity<?> addSseConnection(@PathVariable Long clientId) {
-        return ResponseEntity.ok().body(sseService.addSseConnection(clientId));
+        return ResponseEntity.ok().build();
     }
 
 
