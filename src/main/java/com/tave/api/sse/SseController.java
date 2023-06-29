@@ -1,4 +1,4 @@
-package com.tave.API.SSE;
+package com.tave.api.sse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
