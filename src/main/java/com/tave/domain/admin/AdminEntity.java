@@ -14,9 +14,6 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 public class AdminEntity extends TimeStamp {
 
     @Id

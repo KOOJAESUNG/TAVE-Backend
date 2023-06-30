@@ -16,6 +16,11 @@ public class MemberController {
 
     private final MemberService memberService;
 
+    @PostMapping("/createMember")
+    public ResponseEntity<?> createMember(@RequestBody MemberDto.MemberPostDto memberPostDto) {
+        return ResponseEntity.ok().body(memberService.createMember(memberPostDto));
+    }
+
     @GetMapping("/getMember")
     public ResponseEntity<?> getMember(@RequestParam long memberId){
         return ResponseEntity.ok().body(memberService.getMember(memberId));

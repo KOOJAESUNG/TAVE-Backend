@@ -6,7 +6,31 @@ import lombok.*;
 
 
 public class MemberDto {
-    //회원가입은 없기때문에 postdto는 없음
+
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class MemberPostDto {
+        private String email;
+
+        private String introduce;
+
+        private String name;
+
+        private String password;
+
+        private Integer rad; //기수
+
+        private String phoneNumber;
+
+        private String university;
+
+        private String memberType; //OB or YB
+
+        private String techField; //기술 분야
+    }
 
     @Getter
     @Setter

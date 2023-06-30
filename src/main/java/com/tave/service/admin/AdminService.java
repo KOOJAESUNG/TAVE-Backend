@@ -1,18 +1,14 @@
 package com.tave.service.admin;
 
 import com.tave.domain.admin.AdminEntity;
-import com.tave.domain.team.TeamEntity;
 import com.tave.dto.admin.AdminDto;
 import com.tave.mapper.admin.AdminMapper;
 import com.tave.repository.admin.AdminRepository;
-import com.tave.repository.team.TeamRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +20,10 @@ public class AdminService {
     private final AdminMapper adminMapper;
 
     //회원가입을 안하기 때문에 create는 없음
+    public AdminDto.AdminResponseDto createAdmin(AdminDto.AdminPostDto adminPostDto) {
+        return adminMapper.toResponseDto(adminRepository.save(adminMapper.toEntity(adminPostDto)));
+    }
+
     public AdminDto.AdminResponseDto getAdmin(Long adminId) {
         return adminMapper.toResponseDto(adminRepository.findById(adminId).orElseThrow(EntityNotFoundException::new));
     }

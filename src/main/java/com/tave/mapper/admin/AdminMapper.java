@@ -21,6 +21,14 @@ import java.util.List;
 )
 public interface AdminMapper {
 
+    @Mappings({
+            @Mapping(target = "id",ignore = true),
+            @Mapping(target = "teams", ignore = true),
+            @Mapping(target = "createAt",ignore = true),
+            @Mapping(target = "modifiedAt",ignore = true)
+    })
+    AdminEntity toEntity(AdminDto.AdminPostDto adminPostDto);
+
     @Mapping(source = "teams", target = "teamIds", qualifiedByName = "teamToId")
     AdminDto.AdminResponseDto toResponseDto(AdminEntity adminEntity);
 

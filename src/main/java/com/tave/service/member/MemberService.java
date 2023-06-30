@@ -25,8 +25,10 @@ public class MemberService {
     private final MemberMapper memberMapper;
     private final S3Service s3Service;
 
-    //회원가입을 안하기 때문에 create는 없음
-
+    @Transactional
+    public MemberDto.MemberResponseDto createMember(MemberDto.MemberPostDto memberPostDto) {
+        return memberMapper.toResponseDto(memberRepository.save(memberMapper.toEntity(memberPostDto)));
+    }
     public MemberDto.MemberResponseDto getMember(Long memberId) {
         //entity->dto 후 return
         return memberMapper.toResponseDto(memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new));

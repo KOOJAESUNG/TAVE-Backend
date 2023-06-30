@@ -9,7 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDto {
-    //회원가입은 없기때문에 postdto는 없음
+    @Getter
+    @Setter
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class AdminPostDto {
+
+        private String email;
+
+        private String phoneNumber;
+
+        private String password;
+
+    }
 
     @Getter
     @Setter

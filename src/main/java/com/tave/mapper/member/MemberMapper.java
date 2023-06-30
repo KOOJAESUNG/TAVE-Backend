@@ -14,6 +14,17 @@ import org.mapstruct.*;
 )
 public interface MemberMapper {
 
+    @Mappings({
+            @Mapping(target = "id", ignore = true),
+            @Mapping(target = "profileImage", ignore = true),
+            @Mapping(source = "memberPostDto.techField", target = "techField", qualifiedByName = "toTechField"),
+            @Mapping(source = "memberPostDto.memberType", target = "memberType", qualifiedByName = "toMemberType"),
+            @Mapping(target = "team", ignore = true),
+            @Mapping(target = "createAt", ignore = true),
+            @Mapping(target = "modifiedAt", ignore = true)
+    })
+    MemberEntity toEntity(MemberDto.MemberPostDto memberPostDto);
+
     @Mapping(source = "team.id", target = "teamId")
     MemberDto.MemberResponseDto toResponseDto(MemberEntity memberEntity);
 

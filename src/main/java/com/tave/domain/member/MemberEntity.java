@@ -12,9 +12,9 @@ import lombok.*;
 
 @Entity
 @Getter @Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
+//@Builder
+//@NoArgsConstructor
+//@AllArgsConstructor
 public class MemberEntity extends TimeStamp {
 
     @Id

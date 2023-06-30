@@ -4,6 +4,7 @@ package com.tave.controller.admin;
 import com.tave.dto.admin.AdminDto;
 import com.tave.service.admin.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,6 +14,11 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
 
     private final AdminService adminService;
+
+    @PostMapping("/createAdmin")
+    public ResponseEntity<?> createAdmin(@RequestBody AdminDto.AdminPostDto adminPostDto) {
+        return ResponseEntity.ok().body(adminService.createAdmin(adminPostDto));
+    }
 
     @GetMapping("/getAdmin")
     public ResponseEntity<?> getAdmin(@RequestParam long adminId){
