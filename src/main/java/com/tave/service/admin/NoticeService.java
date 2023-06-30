@@ -1,5 +1,5 @@
 package com.tave.service.admin;
-import com.tave.api.sse.EmitterService;
+import com.tave.api.sse.SseService;
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.admin.NoticeEntity;
 import com.tave.dto.admin.NoticeDto;
@@ -28,7 +28,8 @@ public class NoticeService {
     private final NoticeMapper noticeMapper;
 
     private final S3Service s3Service;
-    private final EmitterService emitterService;
+
+    private final SseService sseService;
 
 
 
@@ -41,7 +42,7 @@ public class NoticeService {
         NoticeDto.NoticeResponseDto responseDto = noticeMapper.toResponseDto(savedNotice);
 
         // 생성된 공지사항에 대한 SSE 이벤트 전송
-        emitterService.sendEventToAll("create", responseDto);
+        sseService.sendEventToAll("create", responseDto);
 
         return responseDto;
     }

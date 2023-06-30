@@ -10,20 +10,21 @@ import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 @RequiredArgsConstructor
 @RequestMapping("sse")
 public class SseController {
-    private final com.tave.api.sse.SseService sseService;
+
+    private final SseService sseService;
 
 
     // Sse연결을 설정하는 엔드포인트
-    @GetMapping(value = "/connect/{clientId}",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
-    public SseEmitter addSseConnection(@PathVariable Long clientId) {
-        return sseService.addSseConnection(clientId);
+    @GetMapping(value = "/connect",produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    public SseEmitter connect() {
+        return sseService.addSseConnection();
     }
 
 
     // Sse 연결을 제거하는 엔드포인트
-    @DeleteMapping("/delete/{clientId}")
-    public ResponseEntity<?> removeSseConnection(@PathVariable Long clientId) {
-        return ResponseEntity.ok().body(sseService.removeSseConnection(clientId));
-    }
+//    @DeleteMapping("/delete/{clientId}")
+//    public ResponseEntity<?> removeSseConnection(@PathVariable Long clientId) {
+//        return ResponseEntity.ok().body(sseService.removeSseConnection(clientId));
+//    }
 
 }
