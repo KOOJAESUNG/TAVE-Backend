@@ -18,7 +18,7 @@ public class MemberScoreNoteDto { //아마 엑셀파일을 받아서 작업할 �
 
         private Integer score; //비고에 따른 점수
 
-        private Type type;
+        private String type;
 
         private Long memberId;
     }
