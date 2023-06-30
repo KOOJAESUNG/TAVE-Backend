@@ -21,23 +21,23 @@ public class Init {
     @PostConstruct
     @Transactional
     public void memberInit() {
-        memberRepository.save(MemberEntity.builder().build());
-        memberRepository.save(MemberEntity.builder().build());
-        memberRepository.save(MemberEntity.builder().build());
-        memberRepository.save(MemberEntity.builder().build());
-        memberRepository.save(MemberEntity.builder().build());
-        memberRepository.save(MemberEntity.builder().build());
+        memberRepository.save(new MemberEntity());
+        memberRepository.save(new MemberEntity());
+        memberRepository.save(new MemberEntity());
+        memberRepository.save(new MemberEntity());
+        memberRepository.save(new MemberEntity());
+        memberRepository.save(new MemberEntity());
     }
 
     @PostConstruct
     @Transactional
     public void adminInit() {
-        adminRepository.save(AdminEntity.builder().build());
-        adminRepository.save(AdminEntity.builder().build());
-        adminRepository.save(AdminEntity.builder().build());
-        adminRepository.save(AdminEntity.builder().build());
-        adminRepository.save(AdminEntity.builder().build());
-        adminRepository.save(AdminEntity.builder().build());
+        adminRepository.save(new AdminEntity());
+        adminRepository.save(new AdminEntity());
+        adminRepository.save(new AdminEntity());
+        adminRepository.save(new AdminEntity());
+        adminRepository.save(new AdminEntity());
+        adminRepository.save(new AdminEntity());
     }
 
 
