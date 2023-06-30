@@ -44,8 +44,6 @@ public class ScheduleService {
     @Transactional
     public ScheduleDto.ScheduleResponseDto updateSchedule(ScheduleDto.SchedulePatchDto schedulePatchDto) {
         ScheduleEntity scheduleEntity = scheduleRepository.findById(schedulePatchDto.getId()).orElseThrow(EntityNotFoundException::new);
-        //update
-//        scheduleEntity.updateFromPatchDto(schedulePatchDto);
         scheduleMapper.updateFromPatchDto(schedulePatchDto,scheduleEntity);
         //entity->dto 후 return
         return scheduleMapper.toResponseDto(scheduleRepository.findById(schedulePatchDto.getId()).orElseThrow(EntityNotFoundException::new));
