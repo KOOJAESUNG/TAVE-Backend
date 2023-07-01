@@ -22,8 +22,6 @@ public class TeamEntity extends TimeStamp {
 
     private String teamName;
 
-    private Integer teamScore;
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;

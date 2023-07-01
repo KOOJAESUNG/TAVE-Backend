@@ -24,7 +24,6 @@ public interface TeamMapper {
 
     @Mappings({
             @Mapping(source = "admin",target = "admin"),
-            @Mapping(target = "teamScore",ignore = true),
             @Mapping(target = "members",ignore = true),
             @Mapping(target = "notes",ignore = true),
             @Mapping(target = "createAt",ignore = true),
@@ -61,7 +60,6 @@ public interface TeamMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(target = "teamScore", ignore = true),
             @Mapping(target = "members", ignore = true),
             @Mapping(target = "notes",ignore = true),
             @Mapping(source = "adminEntity",target = "admin"),

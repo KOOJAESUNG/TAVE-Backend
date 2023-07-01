@@ -34,8 +34,6 @@ public class TeamDto {
 
         private String teamName;
 
-        private Integer teamScore;
-
         private Long adminId;
 
         private List<Long> memberIds;
