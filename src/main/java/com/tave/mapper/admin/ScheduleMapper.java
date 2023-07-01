@@ -19,7 +19,8 @@ public interface ScheduleMapper {
             @Mapping(source = "member",target = "member"),
             @Mapping(source = "admin",target = "admin"),
             @Mapping(target = "createAt",ignore = true),
-            @Mapping(target = "modifiedAt",ignore = true)
+            @Mapping(target = "modifiedAt",ignore = true),
+            @Mapping(target = "attendanceMemberId", ignore = true)
     })
     ScheduleEntity toEntity(ScheduleDto.SchedulePostDto schedulePostDto, MemberEntity member, AdminEntity admin);
 
@@ -37,7 +38,8 @@ public interface ScheduleMapper {
             @Mapping(target = "member",ignore = true),
             @Mapping(target = "admin", ignore = true),
             @Mapping(target = "createAt",ignore = true),
-            @Mapping(target = "modifiedAt",ignore = true)
+            @Mapping(target = "modifiedAt",ignore = true),
+            @Mapping(target = "attendanceMemberId", ignore = true)
     })
     public void updateFromPatchDto(ScheduleDto.SchedulePatchDto schedulePatchDto, @MappingTarget ScheduleEntity scheduleEntity);
 }

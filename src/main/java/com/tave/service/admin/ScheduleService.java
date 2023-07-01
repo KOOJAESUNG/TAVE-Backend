@@ -54,4 +54,10 @@ public class ScheduleService {
         scheduleRepository.deleteById(scheduleId);
         log.info("ScheduleEntity Id: {} is deleted",scheduleId);
     }
+
+    @Transactional
+    public void addAttendanceMemberId(Long scheduleId, Long memberId) {
+        scheduleRepository.findById(scheduleId).orElseThrow(EntityNotFoundException::new).addAttendanceMemberId(memberId);
+        log.info("Member Id: {} is added in Schedule Id: {}",memberId,scheduleId);
+    }
 }

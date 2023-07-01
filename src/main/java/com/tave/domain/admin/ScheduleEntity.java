@@ -8,6 +8,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 @Entity
 @Getter @Setter
@@ -22,6 +26,16 @@ public class ScheduleEntity extends TimeStamp {
     private String place;
     private String title;
 
+
+    @ElementCollection(fetch = FetchType.LAZY)
+    @CollectionTable(
+            name = "schedule_attendance_member",
+            joinColumns = @JoinColumn(name = "schedule_id")
+    )
+    @Column(name = "attendance_member_id")
+    private Set<Long> attendanceMemberId = new TreeSet<>();
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private MemberEntity member;
@@ -30,4 +44,8 @@ public class ScheduleEntity extends TimeStamp {
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;
 
+
+    public void addAttendanceMemberId(Long memberId) {
+        this.attendanceMemberId.add(memberId);
+    }
 }

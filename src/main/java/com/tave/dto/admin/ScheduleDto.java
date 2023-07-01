@@ -10,6 +10,8 @@ import lombok.*;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ScheduleDto {
 
@@ -43,6 +45,8 @@ public class ScheduleDto {
         private Long memberId;
 
         private Long adminId;
+
+        private List<Long> attendanceMemberId;
 
         private LocalDateTime createAt;
 
