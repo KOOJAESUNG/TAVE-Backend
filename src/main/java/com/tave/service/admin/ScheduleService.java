@@ -56,7 +56,8 @@ public class ScheduleService {
     }
 
     @Transactional
-    public void addAttendanceMemberId(Long scheduleId, Long memberId) {
+    public void addAttendanceMemberId(Long scheduleId, Long memberId) throws EntityNotFoundException{
+        memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
         scheduleRepository.findById(scheduleId).orElseThrow(EntityNotFoundException::new).addAttendanceMemberId(memberId);
         log.info("Member Id: {} is added in Schedule Id: {}",memberId,scheduleId);
     }
