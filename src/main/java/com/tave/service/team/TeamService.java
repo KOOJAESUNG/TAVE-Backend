@@ -6,6 +6,7 @@ import com.tave.dto.team.TeamDto;
 import com.tave.mapper.team.TeamMapper;
 import com.tave.repository.admin.AdminRepository;
 import com.tave.repository.team.TeamRepository;
+import com.tave.repository.team.TeamScoreNoteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,7 @@ public class TeamService {
 
     private final TeamRepository teamRepository;
     private final AdminRepository adminRepository;
+    private final TeamScoreNoteRepository teamScoreNoteRepository;
 
     private final TeamMapper teamMapper;
 
@@ -39,7 +41,7 @@ public class TeamService {
         AdminEntity byEmail = adminRepository.findById(teamPatchDto.getAdminId()).orElseThrow(EntityNotFoundException::new);
         //update
 //        teamEntity.updateFromPatchDto(teamPatchDto,byEmail);
-        teamMapper.updateFromPatchDto(teamPatchDto,byEmail,teamEntity);
+        teamMapper.updateFromPatchDto(teamPatchDto, byEmail, teamEntity);
         //entity->dto 후 return
         return teamMapper.toResponseDto(teamRepository.findById(teamPatchDto.getId()).orElseThrow(EntityNotFoundException::new));
     }
@@ -47,6 +49,13 @@ public class TeamService {
     @Transactional
     public void deleteTeam(Long teamId) {
         teamRepository.deleteById(teamId);
-        log.info("TeamEntity Id: {} is deleted",teamId);
+        log.info("TeamEntity Id: {} is deleted", teamId);
+    }
+
+    @Transactional
+    public Integer getTeamScore(Long teamId) {
+        if (!teamRepository.existsById(teamId))
+            throw new EntityNotFoundException("TeamId: " + teamId + " not exists!!");
+        return teamScoreNoteRepository.getTeamScoreByTeamId(teamId).orElse(0);
     }
 }

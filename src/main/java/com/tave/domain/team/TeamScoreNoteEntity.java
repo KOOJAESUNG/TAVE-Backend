@@ -17,7 +17,7 @@ public class TeamScoreNoteEntity extends TimeStamp {
 
     private String note;
 
-    private Integer score;
+    private Integer score = 0;
 
     @Enumerated(EnumType.STRING)
     private Type type;
