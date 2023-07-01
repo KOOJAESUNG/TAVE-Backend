@@ -1,6 +1,7 @@
 package com.tave.domain.member;
 
 import com.tave.constant.MemberType;
+import com.tave.constant.Role;
 import com.tave.constant.TechField;
 import com.tave.domain.TimeStamp;
 import com.tave.domain.team.TeamEntity;
@@ -21,6 +22,9 @@ public class MemberEntity extends TimeStamp {
     @Column(name = "member_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private final Role role = Role.MEMBER;
 
     private String email;
 

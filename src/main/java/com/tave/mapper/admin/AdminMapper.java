@@ -25,7 +25,8 @@ public interface AdminMapper {
             @Mapping(target = "id",ignore = true),
             @Mapping(target = "teams", ignore = true),
             @Mapping(target = "createAt",ignore = true),
-            @Mapping(target = "modifiedAt",ignore = true)
+            @Mapping(target = "modifiedAt",ignore = true),
+            @Mapping(target = "role", ignore = true)
     })
     AdminEntity toEntity(AdminDto.AdminPostDto adminPostDto);
 
@@ -46,7 +47,8 @@ public interface AdminMapper {
             @Mapping(target = "teams",ignore = true),
             @Mapping(target = "id",ignore = true),
             @Mapping(target = "createAt",ignore = true),
-            @Mapping(target = "modifiedAt",ignore = true)
+            @Mapping(target = "modifiedAt",ignore = true),
+            @Mapping(target = "role", ignore = true)
     })
     public void updateFromPatchDto(AdminDto.AdminPatchDto adminPatchDto, @MappingTarget AdminEntity adminEntity);
 }

@@ -1,5 +1,6 @@
 package com.tave.domain.admin;
 
+import com.tave.constant.Role;
 import com.tave.domain.TimeStamp;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.admin.AdminDto;
@@ -20,6 +21,9 @@ public class AdminEntity extends TimeStamp {
     @Column(name = "admin_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private final Role role = Role.ADMIN;
 
     private String password;
 

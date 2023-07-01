@@ -21,7 +21,8 @@ public interface MemberMapper {
             @Mapping(source = "memberPostDto.memberType", target = "memberType", qualifiedByName = "toMemberType"),
             @Mapping(target = "team", ignore = true),
             @Mapping(target = "createAt", ignore = true),
-            @Mapping(target = "modifiedAt", ignore = true)
+            @Mapping(target = "modifiedAt", ignore = true),
+            @Mapping(target = "role", ignore = true)
     })
     MemberEntity toEntity(MemberDto.MemberPostDto memberPostDto);
 
@@ -36,7 +37,8 @@ public interface MemberMapper {
             @Mapping(source = "memberPatchDto.memberType", target = "memberType", qualifiedByName = "toMemberType"),
             @Mapping(source = "teamEntity", target = "team"),
             @Mapping(target = "createAt",ignore = true),
-            @Mapping(target = "modifiedAt",ignore = true)
+            @Mapping(target = "modifiedAt",ignore = true),
+            @Mapping(target = "role", ignore = true)
     })
     public void updateFromPatchDto(MemberDto.MemberPatchDto memberPatchDto, TeamEntity teamEntity, @MappingTarget MemberEntity memberEntity);
 
@@ -55,7 +57,8 @@ public interface MemberMapper {
             @Mapping(target = "university",ignore = true),
             @Mapping(source = "profileImageURL",target = "profileImage"),
             @Mapping(target = "createAt",ignore = true),
-            @Mapping(target = "modifiedAt",ignore = true)
+            @Mapping(target = "modifiedAt",ignore = true),
+            @Mapping(target = "role", ignore = true)
     })
     public void updateProfileImage(String profileImageURL, @MappingTarget MemberEntity memberEntity);
 
