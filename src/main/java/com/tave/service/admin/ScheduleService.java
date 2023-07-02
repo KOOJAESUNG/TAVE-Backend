@@ -14,6 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 @Slf4j
@@ -61,4 +64,19 @@ public class ScheduleService {
         scheduleRepository.findById(scheduleId).orElseThrow(EntityNotFoundException::new).addAttendanceMemberId(memberId);
         log.info("Member Id: {} is added in Schedule Id: {}",memberId,scheduleId);
     }
+
+    @Transactional
+    public List<ScheduleDto.ScheduleResponseDto> getAllSchedule(){
+
+        List<ScheduleEntity> scheduleEntities = scheduleRepository.getAllSchedule();
+        List<ScheduleDto.ScheduleResponseDto> scheduleResponseDtos = new ArrayList<>();
+
+        for (ScheduleEntity scheduleEntity : scheduleEntities) {
+            ScheduleDto.ScheduleResponseDto scheduleResponseDto = scheduleMapper.toResponseDto(scheduleEntity);
+            scheduleResponseDtos.add(scheduleResponseDto);
+        }
+
+        return scheduleResponseDtos;
+    }
 }
+

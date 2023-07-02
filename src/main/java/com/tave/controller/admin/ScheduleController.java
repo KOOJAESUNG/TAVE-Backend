@@ -1,11 +1,14 @@
 package com.tave.controller.admin;
 
 
+import com.tave.domain.admin.ScheduleEntity;
 import com.tave.dto.admin.ScheduleDto;
 import com.tave.service.admin.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -40,4 +43,13 @@ public class ScheduleController {
         scheduleService.addAttendanceMemberId(scheduleId,memberId);
         return ResponseEntity.ok().body("Member Id: "+memberId+" is added in Schedule Id: "+scheduleId);
     }
+
+    @GetMapping("/getAllSchedule")
+    public ResponseEntity<List<ScheduleDto.ScheduleResponseDto>> getAllSchedule() {
+        List<ScheduleDto.ScheduleResponseDto> schedules = scheduleService.getAllSchedule();
+        return ResponseEntity.ok().body(schedules);
+    }
+
+
+
 }

@@ -2,7 +2,9 @@ package com.tave.service.admin;
 import com.tave.api.sse.SseService;
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.admin.NoticeEntity;
+import com.tave.domain.admin.ScheduleEntity;
 import com.tave.dto.admin.NoticeDto;
+import com.tave.dto.admin.ScheduleDto;
 import com.tave.mapper.admin.NoticeMapper;
 import com.tave.repository.admin.AdminRepository;
 import com.tave.repository.admin.NoticeRepository;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -74,6 +77,20 @@ public class NoticeService {
     public void deleteNotice(Long noticeId) {
         noticeRepository.deleteById(noticeId);
         log.info("NoticeEntity Id: {} is deleted", noticeId);
+    }
+
+    @Transactional
+    public List<NoticeDto.NoticeResponseDto> getAllNotice(){
+
+        List<NoticeEntity> noticeEntities = noticeRepository.getAllNotice();
+        List<NoticeDto.NoticeResponseDto> noticeResponseDtos = new ArrayList<>();
+
+        for (NoticeEntity noticeEntity : noticeEntities) {
+            NoticeDto.NoticeResponseDto noticeResponseDto = noticeMapper.toResponseDto(noticeEntity);
+            noticeResponseDtos.add(noticeResponseDto);
+        }
+
+        return noticeResponseDtos;
     }
 
 }
