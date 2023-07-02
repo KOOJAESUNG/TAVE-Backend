@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Random;
 
 @RestController
-public class CoolSms {
+public class CoolSmsController {
 
     @PostMapping("/coolSms/get")
     public static String sendSMS(String phoneNumber) {

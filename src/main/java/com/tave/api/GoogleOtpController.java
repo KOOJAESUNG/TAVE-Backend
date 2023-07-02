@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class GoogleOtp {
+public class GoogleOtpController {
     @PostMapping("/googleOtp/generate")
     public String generate() {
         HashMap<String, String> map = new HashMap<>();
