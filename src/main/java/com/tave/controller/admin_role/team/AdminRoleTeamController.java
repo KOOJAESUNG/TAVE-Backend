@@ -1,7 +1,6 @@
-package com.tave.controller.team;
+package com.tave.controller.admin_role.team;
 
 import com.tave.dto.team.TeamDto;
-import com.tave.repository.team.TeamScoreNoteRepository;
 import com.tave.service.team.TeamService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +8,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("team")
-public class TeamController {
+@RequestMapping("adminRole/team")
+public class AdminRoleTeamController {
 
     private final TeamService teamService;
 
@@ -20,7 +19,7 @@ public class TeamController {
     }
 
     @GetMapping("/getTeam")
-    public ResponseEntity<?> getTeam(@RequestParam long teamId) {
+    public ResponseEntity<?> getTeam(@RequestParam Long teamId) {
         return ResponseEntity.ok().body(teamService.getTeam(teamId));
     }
 
@@ -30,7 +29,7 @@ public class TeamController {
     }
 
     @DeleteMapping("/deleteTeam")
-    public ResponseEntity<?> deleteTeam(@RequestParam long teamId) {
+    public ResponseEntity<?> deleteTeam(@RequestParam Long teamId) {
         teamService.deleteTeam(teamId);
         return ResponseEntity.ok().body("deleted TeamId : " + teamId);
     }

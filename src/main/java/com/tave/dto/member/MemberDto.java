@@ -72,7 +72,6 @@ public class MemberDto {
     @NoArgsConstructor
     @Builder
     public static class MemberPatchDto {
-        private Long id;
 
         private String email;
 

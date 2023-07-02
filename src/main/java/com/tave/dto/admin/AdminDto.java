@@ -48,8 +48,6 @@ public class AdminDto {
     @Builder
     public static class AdminPatchDto {
 
-        private Long id;
-
         private String email;
 
         private String phoneNumber;

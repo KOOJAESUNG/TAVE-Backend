@@ -1,7 +1,6 @@
-package com.tave.controller.admin;
+package com.tave.controller.admin_role.admin;
 
 
-import com.tave.domain.admin.ScheduleEntity;
 import com.tave.dto.admin.ScheduleDto;
 import com.tave.service.admin.ScheduleService;
 import lombok.RequiredArgsConstructor;
@@ -12,8 +11,8 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("schedule")
-public class ScheduleController {
+@RequestMapping("adminRole/schedule")
+public class AdminRoleScheduleController {
 
     private final ScheduleService scheduleService;
 
@@ -23,7 +22,7 @@ public class ScheduleController {
     }
 
     @GetMapping("/getSchedule")
-    public ResponseEntity<?> getSchedule(@RequestParam long scheduleId) {
+    public ResponseEntity<?> getSchedule(@RequestParam Long scheduleId) {
         return ResponseEntity.ok().body(scheduleService.getSchedule(scheduleId));
     }
 

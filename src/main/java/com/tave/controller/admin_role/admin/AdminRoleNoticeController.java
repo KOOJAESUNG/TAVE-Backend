@@ -1,21 +1,19 @@
-package com.tave.controller.admin;
+package com.tave.controller.admin_role.admin;
 import com.tave.dto.admin.NoticeDto;
-import com.tave.dto.admin.ScheduleDto;
 import com.tave.service.admin.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 import java.util.List;
 
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("notice")
-public class NoticeController {
+@RequestMapping("adminRole/notice")
+public class AdminRoleNoticeController {
 
     private final NoticeService noticeService;
 
@@ -25,7 +23,7 @@ public class NoticeController {
     }
 
     @GetMapping("/getNotice")
-    public ResponseEntity<?> getNotice(@RequestParam long noticeId) {
+    public ResponseEntity<?> getNotice(@RequestParam Long noticeId) {
         return ResponseEntity.ok().body(noticeService.getNotice(noticeId));
     }
 

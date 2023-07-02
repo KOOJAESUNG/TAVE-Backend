@@ -1,4 +1,4 @@
-package com.tave.controller.member;
+package com.tave.controller.admin_role.member;
 
 
 import com.tave.dto.member.MemberDto;
@@ -11,8 +11,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("member")
-public class MemberController {
+@RequestMapping("adminRole/member")
+public class AdminRoleMemberController {
 
     private final MemberService memberService;
 
@@ -22,13 +22,13 @@ public class MemberController {
 //    }
 
     @GetMapping("/getMember")
-    public ResponseEntity<?> getMember(@RequestParam long memberId){
+    public ResponseEntity<?> getMember(@RequestParam Long memberId){
         return ResponseEntity.ok().body(memberService.getMember(memberId));
     }
 
     @PatchMapping("/modifyMember")
-    public ResponseEntity<?> updateMember(@RequestBody MemberDto.MemberPatchDto memberPatchDto) {
-        return ResponseEntity.ok().body(memberService.updateMember(memberPatchDto));
+    public ResponseEntity<?> updateMember(@RequestParam Long memberId,@RequestBody MemberDto.MemberPatchDto memberPatchDto) {
+        return ResponseEntity.ok().body(memberService.updateMember(memberId,memberPatchDto));
     }
 
     @PatchMapping(value = "/modifyProfileImage",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -37,7 +37,7 @@ public class MemberController {
     }
 
     @DeleteMapping("/deleteMember")
-    public ResponseEntity<?> deleteMember(@RequestParam long memberId){
+    public ResponseEntity<?> deleteMember(@RequestParam Long memberId){
         memberService.deleteMember(memberId);
         return ResponseEntity.ok().body("deleted MemberId : " + memberId);
     }

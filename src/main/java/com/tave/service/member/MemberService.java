@@ -37,8 +37,8 @@ public class MemberService {
     }
 
     @Transactional
-    public MemberDto.MemberResponseDto updateMember(MemberDto.MemberPatchDto memberPatchDto) {
-        MemberEntity memberEntity = memberRepository.findById(memberPatchDto.getId()).orElseThrow(EntityNotFoundException::new);
+    public MemberDto.MemberResponseDto updateMember(Long memberId,MemberDto.MemberPatchDto memberPatchDto) {
+        MemberEntity memberEntity = memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
         TeamEntity teamEntity=null;
         if(memberPatchDto.getTeamId()!=null)
             teamEntity = teamRepository.findById(memberPatchDto.getTeamId()).orElseThrow(EntityNotFoundException::new);
@@ -46,7 +46,7 @@ public class MemberService {
         if(memberPatchDto.getPassword()!=null) memberPatchDto.setPassword(bCryptPasswordEncoder.encode(memberPatchDto.getPassword()));
         memberMapper.updateFromPatchDto(memberPatchDto,teamEntity,memberEntity);
         //entity->dto 후 return
-        return memberMapper.toResponseDto(memberRepository.findById(memberPatchDto.getId()).orElseThrow(EntityNotFoundException::new));
+        return memberMapper.toResponseDto(memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new));
     }
 
     @Transactional

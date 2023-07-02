@@ -31,13 +31,13 @@ public class AdminService {
     }
 
     @Transactional
-    public AdminDto.AdminResponseDto updateAdmin(AdminDto.AdminPatchDto adminPatchDto) {
-        AdminEntity adminEntity = adminRepository.findById(adminPatchDto.getId()).orElseThrow(EntityNotFoundException::new);
+    public AdminDto.AdminResponseDto updateAdmin(Long adminId,AdminDto.AdminPatchDto adminPatchDto) {
+        AdminEntity adminEntity = adminRepository.findById(adminId).orElseThrow(EntityNotFoundException::new);
         //update
         if(adminPatchDto.getPassword()!=null) adminPatchDto.setPassword(bCryptPasswordEncoder.encode(adminPatchDto.getPassword()));
         adminMapper.updateFromPatchDto(adminPatchDto,adminEntity);
         //entity->dto, return
-        return adminMapper.toResponseDto(adminRepository.findById(adminPatchDto.getId()).orElseThrow(EntityNotFoundException::new));
+        return adminMapper.toResponseDto(adminRepository.findById(adminId).orElseThrow(EntityNotFoundException::new));
     }
 
     @Transactional
