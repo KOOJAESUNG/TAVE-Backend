@@ -16,7 +16,6 @@ public interface ScheduleMapper {
 
     @Mappings({
             @Mapping(target = "id",ignore = true),
-            @Mapping(source = "member",target = "member"),
             @Mapping(source = "admin",target = "admin"),
             @Mapping(target = "createAt",ignore = true),
             @Mapping(target = "modifiedAt",ignore = true),
@@ -26,7 +25,6 @@ public interface ScheduleMapper {
 
 
     @Mappings({
-            @Mapping(source = "member.id",target = "memberId"),
             @Mapping(source = "admin.id",target = "adminId")
     })
     ScheduleDto.ScheduleResponseDto toResponseDto(ScheduleEntity scheduleEntity);
@@ -35,7 +33,6 @@ public interface ScheduleMapper {
     @Mappings({
             @Mapping(target = "id",ignore = true),
             @Mapping(target = "date", ignore = true),
-            @Mapping(target = "member",ignore = true),
             @Mapping(target = "admin", ignore = true),
             @Mapping(target = "createAt",ignore = true),
             @Mapping(target = "modifiedAt",ignore = true),
