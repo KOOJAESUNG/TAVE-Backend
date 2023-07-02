@@ -5,6 +5,7 @@ import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme;
+import org.springdoc.core.models.GroupedOpenApi;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -25,12 +26,38 @@ public class OpenApiConfig {
 //    }
 
     @Bean
+    public GroupedOpenApi group1() {
+        return GroupedOpenApi.builder()
+                .group("1.ALL")
+                .pathsToMatch("/**")
+                // .packagesToScan("com.example.swagger") // package 필터 설정
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi group2() {
+        return GroupedOpenApi.builder()
+                .group("2.ADMIN")
+                .pathsToMatch("/admin/**")
+                // .packagesToScan("com.example.swagger") // package 필터 설정
+                .build();
+    }
+
+    @Bean
+    public GroupedOpenApi group3() {
+        return GroupedOpenApi.builder()
+                .group("3.MEMBER")
+                .pathsToMatch("/member/**")
+                .build();
+    }
+
+    @Bean
     public OpenAPI openAPI() {
 
         Info info = new Info()
                 .version("v1.0.0")
-                .title("API 타이틀")
-                .description("API Description");
+                .title("TAVE APP API Document");
+//                .description("API Description");
 
         // SecuritySecheme명
         String jwtSchemeName = "JWT Token";
