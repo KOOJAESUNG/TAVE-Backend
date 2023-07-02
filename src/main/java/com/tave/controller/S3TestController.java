@@ -1,6 +1,6 @@
 package com.tave.controller;
 
-import com.tave.service.aws.S3Service;
+import com.tave.api.aws.S3Service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

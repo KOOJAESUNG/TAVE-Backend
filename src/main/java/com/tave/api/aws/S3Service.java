@@ -1,4 +1,4 @@
-package com.tave.service.aws;
+package com.tave.api.aws;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.*;

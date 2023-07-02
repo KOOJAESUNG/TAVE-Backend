@@ -6,7 +6,7 @@ import com.tave.dto.member.MemberDto;
 import com.tave.mapper.member.MemberMapper;
 import com.tave.repository.member.MemberRepository;
 import com.tave.repository.team.TeamRepository;
-import com.tave.service.aws.S3Service;
+import com.tave.api.aws.S3Service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
