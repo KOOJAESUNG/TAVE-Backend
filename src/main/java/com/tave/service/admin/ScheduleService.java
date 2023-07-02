@@ -29,15 +29,9 @@ public class ScheduleService {
     private final ScheduleMapper scheduleMapper;
 
     @Transactional
-    public ScheduleDto.ScheduleResponseDto createSchedule(ScheduleDto.SchedulePostDto schedulePostDto) {
-        MemberEntity memberEntity=null;
-        AdminEntity adminEntity=null;
-        if(schedulePostDto.getMemberId()!=null)
-            memberEntity = memberRepository.findById(schedulePostDto.getMemberId()).orElseThrow();
-        if(schedulePostDto.getAdminId()!=null)
-            adminEntity = adminRepository.findById(schedulePostDto.getAdminId()).orElseThrow();
-
-        return scheduleMapper.toResponseDto(scheduleRepository.save(scheduleMapper.toEntity(schedulePostDto,memberEntity,adminEntity)));
+    public ScheduleDto.ScheduleResponseDto createSchedule(Long adminId, ScheduleDto.SchedulePostDto schedulePostDto) {
+        AdminEntity adminEntity = adminRepository.findById(adminId).orElseThrow();
+        return scheduleMapper.toResponseDto(scheduleRepository.save(scheduleMapper.toEntity(schedulePostDto, adminEntity)));
     }
 
     public ScheduleDto.ScheduleResponseDto getSchedule(Long scheduleId) {
@@ -47,7 +41,7 @@ public class ScheduleService {
     @Transactional
     public ScheduleDto.ScheduleResponseDto updateSchedule(ScheduleDto.SchedulePatchDto schedulePatchDto) {
         ScheduleEntity scheduleEntity = scheduleRepository.findById(schedulePatchDto.getId()).orElseThrow(EntityNotFoundException::new);
-        scheduleMapper.updateFromPatchDto(schedulePatchDto,scheduleEntity);
+        scheduleMapper.updateFromPatchDto(schedulePatchDto, scheduleEntity);
         //entity->dto 후 return
         return scheduleMapper.toResponseDto(scheduleRepository.findById(schedulePatchDto.getId()).orElseThrow(EntityNotFoundException::new));
     }
@@ -55,18 +49,18 @@ public class ScheduleService {
     @Transactional
     public void deleteSchedule(Long scheduleId) {
         scheduleRepository.deleteById(scheduleId);
-        log.info("ScheduleEntity Id: {} is deleted",scheduleId);
+        log.info("ScheduleEntity Id: {} is deleted", scheduleId);
     }
 
     @Transactional
-    public void addAttendanceMemberId(Long scheduleId, Long memberId) throws EntityNotFoundException{
+    public void addAttendanceMemberId(Long scheduleId, Long memberId) throws EntityNotFoundException {
         memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
         scheduleRepository.findById(scheduleId).orElseThrow(EntityNotFoundException::new).addAttendanceMemberId(memberId);
-        log.info("Member Id: {} is added in Schedule Id: {}",memberId,scheduleId);
+        log.info("Member Id: {} is added in Schedule Id: {}", memberId, scheduleId);
     }
 
     @Transactional
-    public List<ScheduleDto.ScheduleResponseDto> getAllSchedule(){
+    public List<ScheduleDto.ScheduleResponseDto> getAllSchedule() {
 
         List<ScheduleEntity> scheduleEntities = scheduleRepository.getAllSchedule();
         List<ScheduleDto.ScheduleResponseDto> scheduleResponseDtos = new ArrayList<>();

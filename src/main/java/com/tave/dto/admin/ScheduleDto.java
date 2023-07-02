@@ -24,10 +24,6 @@ public class ScheduleDto {
         private String place;
         private String title;
         private LocalDate date;
-
-        private Long memberId;
-
-        private Long adminId;
     }
 
     @Getter
@@ -41,8 +37,6 @@ public class ScheduleDto {
         private LocalDate date;
         private String place;
         private String title;
-
-        private Long memberId;
 
         private Long adminId;
 

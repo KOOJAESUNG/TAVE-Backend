@@ -33,10 +33,6 @@ public class ScheduleEntity extends TimeStamp {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "member_id")
-    private MemberEntity member;
-
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "admin_id")
     private AdminEntity admin;
 

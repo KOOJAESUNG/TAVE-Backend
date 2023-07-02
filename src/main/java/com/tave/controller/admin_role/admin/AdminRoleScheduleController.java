@@ -1,10 +1,12 @@
 package com.tave.controller.admin_role.admin;
 
 
+import com.tave.config.spring_security.auth.PrincipalDetails;
 import com.tave.dto.admin.ScheduleDto;
 import com.tave.service.admin.ScheduleService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,8 +19,8 @@ public class AdminRoleScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping("/createSchedule")
-    public ResponseEntity<?> createSchedule(@RequestBody ScheduleDto.SchedulePostDto schedulePostDto) {
-        return ResponseEntity.ok().body(scheduleService.createSchedule(schedulePostDto));
+    public ResponseEntity<?> createSchedule(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody ScheduleDto.SchedulePostDto schedulePostDto) {
+        return ResponseEntity.ok().body(scheduleService.createSchedule(principalDetails.getUser().getId(), schedulePostDto));
     }
 
     @GetMapping("/getSchedule")

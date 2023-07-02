@@ -22,7 +22,7 @@ public interface ScheduleMapper {
             @Mapping(target = "modifiedAt",ignore = true),
             @Mapping(target = "attendanceMemberId", ignore = true)
     })
-    ScheduleEntity toEntity(ScheduleDto.SchedulePostDto schedulePostDto, MemberEntity member, AdminEntity admin);
+    ScheduleEntity toEntity(ScheduleDto.SchedulePostDto schedulePostDto, AdminEntity admin);
 
 
     @Mappings({
