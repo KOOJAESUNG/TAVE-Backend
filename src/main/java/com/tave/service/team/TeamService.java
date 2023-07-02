@@ -27,8 +27,10 @@ public class TeamService {
 
     @Transactional
     public TeamDto.TeamResponseDto createTeam(TeamDto.TeamPostDto teamPostDto) {
-        AdminEntity byEmail = adminRepository.findById(teamPostDto.getAdminId()).orElseThrow(EntityNotFoundException::new);
-        return teamMapper.toResponseDto(teamRepository.save(teamMapper.toEntity(teamPostDto, byEmail)));
+        AdminEntity adminEntity = null;
+        if(teamPostDto.getAdminId()!=null)
+            adminEntity = adminRepository.findById(teamPostDto.getAdminId()).orElseThrow(EntityNotFoundException::new);
+        return teamMapper.toResponseDto(teamRepository.save(teamMapper.toEntity(teamPostDto, adminEntity)));
     }
 
     public TeamDto.TeamResponseDto getTeam(Long teamId) {
@@ -38,10 +40,11 @@ public class TeamService {
     @Transactional
     public TeamDto.TeamResponseDto updateTeam(TeamDto.TeamPatchDto teamPatchDto) {
         TeamEntity teamEntity = teamRepository.findById(teamPatchDto.getId()).orElseThrow(EntityNotFoundException::new);
-        AdminEntity byEmail = adminRepository.findById(teamPatchDto.getAdminId()).orElseThrow(EntityNotFoundException::new);
+        AdminEntity adminEntity = null;
+        if(teamPatchDto.getAdminId()!=null)
+            adminEntity = adminRepository.findById(teamPatchDto.getAdminId()).orElseThrow(EntityNotFoundException::new);
         //update
-//        teamEntity.updateFromPatchDto(teamPatchDto,byEmail);
-        teamMapper.updateFromPatchDto(teamPatchDto, byEmail, teamEntity);
+        teamMapper.updateFromPatchDto(teamPatchDto, adminEntity, teamEntity);
         //entity->dto 후 return
         return teamMapper.toResponseDto(teamRepository.findById(teamPatchDto.getId()).orElseThrow(EntityNotFoundException::new));
     }
