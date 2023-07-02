@@ -1,9 +1,11 @@
 package com.tave.controller.admin_role.admin;
+import com.tave.config.spring_security.auth.PrincipalDetails;
 import com.tave.dto.admin.NoticeDto;
 import com.tave.service.admin.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,8 +20,8 @@ public class AdminRoleNoticeController {
     private final NoticeService noticeService;
 
     @PostMapping("/createNotice")
-    public ResponseEntity<?> createNotice(@RequestBody NoticeDto.NoticePostDto noticePostDto) {
-        return ResponseEntity.ok().body(noticeService.createNotice(noticePostDto));
+    public ResponseEntity<?> createNotice(@AuthenticationPrincipal PrincipalDetails principalDetails,@RequestBody NoticeDto.NoticePostDto noticePostDto) {
+        return ResponseEntity.ok().body(noticeService.createNotice(principalDetails.getUser().getId(), noticePostDto));
     }
 
     @GetMapping("/getNotice")

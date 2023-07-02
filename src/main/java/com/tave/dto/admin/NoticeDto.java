@@ -15,8 +15,6 @@ public class NoticeDto {
 
         private String content;
 
-        private Long adminId;
-
     }
 
     @Getter

@@ -37,10 +37,9 @@ public class NoticeService {
 
 
     @Transactional
-    public NoticeDto.NoticeResponseDto createNotice(NoticeDto.NoticePostDto noticePostDto) {
-        AdminEntity adminEntity = adminRepository.findById(noticePostDto.getAdminId()).orElseThrow(EntityNotFoundException::new);
+    public NoticeDto.NoticeResponseDto createNotice(Long adminId, NoticeDto.NoticePostDto noticePostDto) {
+        AdminEntity adminEntity = adminRepository.findById(adminId).orElseThrow(EntityNotFoundException::new);
         //PostDto->Entity, save, Entity->ResponseDto, return
-        //return noticeMapper.toResponseDto(noticeRepository.save(noticeMapper.toEntity(noticePostDto,adminEntity)));
         NoticeEntity savedNotice = noticeRepository.save(noticeMapper.toEntity(noticePostDto, adminEntity));
         NoticeDto.NoticeResponseDto responseDto = noticeMapper.toResponseDto(savedNotice);
 
