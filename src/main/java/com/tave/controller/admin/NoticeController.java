@@ -1,5 +1,6 @@
 package com.tave.controller.admin;
 import com.tave.dto.admin.NoticeDto;
+import com.tave.dto.admin.ScheduleDto;
 import com.tave.service.admin.NoticeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
@@ -45,5 +46,10 @@ public class NoticeController {
         return ResponseEntity.ok().body("deleted NoticeId : " + noticeId);
     }
 
+    @GetMapping("/getAllNotice")
+    public ResponseEntity<List<NoticeDto.NoticeResponseDto>> getAllNotice() {
+        List<NoticeDto.NoticeResponseDto> notices = noticeService.getAllNotice();
+        return ResponseEntity.ok().body(notices);
+    }
 
 }

@@ -2,14 +2,10 @@ package com.tave.domain.admin;
 
 import com.tave.domain.TimeStamp;
 import com.tave.domain.member.MemberEntity;
-import com.tave.dto.admin.ScheduleDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
