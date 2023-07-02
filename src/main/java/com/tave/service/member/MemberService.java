@@ -10,6 +10,7 @@ import com.tave.service.aws.S3Service;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -24,11 +25,12 @@ public class MemberService {
     private final TeamRepository teamRepository;
     private final MemberMapper memberMapper;
     private final S3Service s3Service;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    @Transactional
-    public MemberDto.MemberResponseDto createMember(MemberDto.MemberPostDto memberPostDto) {
-        return memberMapper.toResponseDto(memberRepository.save(memberMapper.toEntity(memberPostDto)));
-    }
+//    @Transactional
+//    public MemberDto.MemberResponseDto createMember(MemberDto.MemberPostDto memberPostDto) {
+//        return memberMapper.toResponseDto(memberRepository.save(memberMapper.toEntity(memberPostDto)));
+//    }
     public MemberDto.MemberResponseDto getMember(Long memberId) {
         //entity->dto 후 return
         return memberMapper.toResponseDto(memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new));
@@ -41,7 +43,7 @@ public class MemberService {
         if(memberPatchDto.getTeamId()!=null)
             teamEntity = teamRepository.findById(memberPatchDto.getTeamId()).orElseThrow(EntityNotFoundException::new);
         //update
-//        memberEntity.updateFromPatchDto(memberPatchDto,teamEntity);
+        if(memberPatchDto.getPassword()!=null) memberPatchDto.setPassword(bCryptPasswordEncoder.encode(memberPatchDto.getPassword()));
         memberMapper.updateFromPatchDto(memberPatchDto,teamEntity,memberEntity);
         //entity->dto 후 return
         return memberMapper.toResponseDto(memberRepository.findById(memberPatchDto.getId()).orElseThrow(EntityNotFoundException::new));

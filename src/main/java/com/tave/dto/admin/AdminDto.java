@@ -9,20 +9,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDto {
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Builder
-    public static class AdminPostDto {
-
-        private String email;
-
-        private String phoneNumber;
-
-        private String password;
-
-    }
+//    @Getter
+//    @Setter
+//    @AllArgsConstructor
+//    @NoArgsConstructor
+//    @Builder
+//    public static class AdminPostDto {
+//
+//        private String email;
+//
+//        private String phoneNumber;
+//
+//        private String password;
+//
+//    }
 
     @Getter
     @Setter
@@ -31,6 +31,8 @@ public class AdminDto {
     @Builder
     public static class AdminResponseDto {
         private Long id;
+
+        private String username;
 
         private String email;
 

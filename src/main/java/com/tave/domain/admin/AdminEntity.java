@@ -2,6 +2,7 @@ package com.tave.domain.admin;
 
 import com.tave.constant.Role;
 import com.tave.domain.TimeStamp;
+import com.tave.domain.UserEntity;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.admin.AdminDto;
 import com.tave.repository.team.TeamRepository;
@@ -15,7 +16,7 @@ import java.util.List;
 
 @Entity
 @Getter @Setter
-public class AdminEntity extends TimeStamp {
+public class AdminEntity extends TimeStamp implements UserEntity {
 
     @Id
     @Column(name = "admin_id")
@@ -26,6 +27,8 @@ public class AdminEntity extends TimeStamp {
     private final Role role = Role.ADMIN;
 
     private String password;
+
+    private String username; //회원 아이디
 
     private String email;
 

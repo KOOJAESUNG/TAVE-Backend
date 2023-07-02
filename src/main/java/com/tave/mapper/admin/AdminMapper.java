@@ -21,14 +21,14 @@ import java.util.List;
 )
 public interface AdminMapper {
 
-    @Mappings({
-            @Mapping(target = "id",ignore = true),
-            @Mapping(target = "teams", ignore = true),
-            @Mapping(target = "createAt",ignore = true),
-            @Mapping(target = "modifiedAt",ignore = true),
-            @Mapping(target = "role", ignore = true)
-    })
-    AdminEntity toEntity(AdminDto.AdminPostDto adminPostDto);
+//    @Mappings({
+//            @Mapping(target = "id",ignore = true),
+//            @Mapping(target = "teams", ignore = true),
+//            @Mapping(target = "createAt",ignore = true),
+//            @Mapping(target = "modifiedAt",ignore = true),
+//            @Mapping(target = "role", ignore = true)
+//    })
+//    AdminEntity toEntity(AdminDto.AdminPostDto adminPostDto);
 
     @Mapping(source = "teams", target = "teamIds", qualifiedByName = "teamToId")
     AdminDto.AdminResponseDto toResponseDto(AdminEntity adminEntity);
@@ -48,7 +48,8 @@ public interface AdminMapper {
             @Mapping(target = "id",ignore = true),
             @Mapping(target = "createAt",ignore = true),
             @Mapping(target = "modifiedAt",ignore = true),
-            @Mapping(target = "role", ignore = true)
+            @Mapping(target = "role", ignore = true),
+            @Mapping(target = "username",ignore = true)
     })
     public void updateFromPatchDto(AdminDto.AdminPatchDto adminPatchDto, @MappingTarget AdminEntity adminEntity);
 }

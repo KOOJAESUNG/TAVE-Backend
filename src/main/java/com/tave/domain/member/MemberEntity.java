@@ -4,6 +4,7 @@ import com.tave.constant.MemberType;
 import com.tave.constant.Role;
 import com.tave.constant.TechField;
 import com.tave.domain.TimeStamp;
+import com.tave.domain.UserEntity;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.member.MemberDto;
 import com.tave.repository.member.MemberRepository;
@@ -16,7 +17,7 @@ import lombok.*;
 //@Builder
 //@NoArgsConstructor
 //@AllArgsConstructor
-public class MemberEntity extends TimeStamp {
+public class MemberEntity extends TimeStamp implements UserEntity {
 
     @Id
     @Column(name = "member_id")
@@ -25,6 +26,8 @@ public class MemberEntity extends TimeStamp {
 
     @Enumerated(EnumType.STRING)
     private final Role role = Role.MEMBER;
+
+    private String username; //회원 아이디
 
     private String email;
 

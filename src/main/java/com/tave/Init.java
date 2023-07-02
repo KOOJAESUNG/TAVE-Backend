@@ -16,6 +16,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.formula.functions.T;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -26,26 +27,27 @@ public class Init {
     private final AdminRepository adminRepository;
     private final TeamRepository teamRepository;
     private final TeamScoreNoteRepository teamScoreNoteRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @PostConstruct
     @Transactional
     public void memberInit() {
-        memberRepository.save(new MemberEntity());
-        memberRepository.save(new MemberEntity());
-        memberRepository.save(new MemberEntity());
-        memberRepository.save(new MemberEntity());
-        memberRepository.save(new MemberEntity());
-        memberRepository.save(new MemberEntity());
+        for (int i = 1; i <= 5; i++) {
+            MemberEntity m = new MemberEntity();
+            m.setUsername("member"+i);
+            m.setPassword(bCryptPasswordEncoder.encode("member"+i));
+            memberRepository.save(m);
+        }
     }
 
     @PostConstruct
     @Transactional
     public void adminInit() {
-        adminRepository.save(new AdminEntity());
-        adminRepository.save(new AdminEntity());
-        adminRepository.save(new AdminEntity());
-        adminRepository.save(new AdminEntity());
-        adminRepository.save(new AdminEntity());
-        adminRepository.save(new AdminEntity());
+        for (int i = 1; i <= 5; i++) {
+            AdminEntity a = new AdminEntity();
+            a.setUsername("admin_admin"+i);
+            a.setPassword(bCryptPasswordEncoder.encode("admin_admin"+i));
+            adminRepository.save(a);
+        }
     }
 
     @PostConstruct

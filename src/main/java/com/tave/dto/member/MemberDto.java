@@ -7,30 +7,30 @@ import lombok.*;
 
 public class MemberDto {
 
-    @Getter
-    @Setter
-    @AllArgsConstructor
-    @NoArgsConstructor
-    @Builder
-    public static class MemberPostDto {
-        private String email;
-
-        private String introduce;
-
-        private String name;
-
-        private String password;
-
-        private Integer rad; //기수
-
-        private String phoneNumber;
-
-        private String university;
-
-        private String memberType; //OB or YB
-
-        private String techField; //기술 분야
-    }
+//    @Getter
+//    @Setter
+//    @AllArgsConstructor
+//    @NoArgsConstructor
+//    @Builder
+//    public static class MemberPostDto {
+//        private String email;
+//
+//        private String introduce;
+//
+//        private String name;
+//
+//        private String password;
+//
+//        private Integer rad; //기수
+//
+//        private String phoneNumber;
+//
+//        private String university;
+//
+//        private String memberType; //OB or YB
+//
+//        private String techField; //기술 분야
+//    }
 
     @Getter
     @Setter
@@ -39,6 +39,8 @@ public class MemberDto {
     @Builder
     public static class MemberResponseDto {
         private Long id;
+
+        private String username;
 
         private String email;
 

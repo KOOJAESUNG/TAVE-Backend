@@ -14,17 +14,17 @@ import org.mapstruct.*;
 )
 public interface MemberMapper {
 
-    @Mappings({
-            @Mapping(target = "id", ignore = true),
-            @Mapping(target = "profileImage", ignore = true),
-            @Mapping(source = "memberPostDto.techField", target = "techField", qualifiedByName = "toTechField"),
-            @Mapping(source = "memberPostDto.memberType", target = "memberType", qualifiedByName = "toMemberType"),
-            @Mapping(target = "team", ignore = true),
-            @Mapping(target = "createAt", ignore = true),
-            @Mapping(target = "modifiedAt", ignore = true),
-            @Mapping(target = "role", ignore = true)
-    })
-    MemberEntity toEntity(MemberDto.MemberPostDto memberPostDto);
+//    @Mappings({
+//            @Mapping(target = "id", ignore = true),
+//            @Mapping(target = "profileImage", ignore = true),
+//            @Mapping(source = "memberPostDto.techField", target = "techField", qualifiedByName = "toTechField"),
+//            @Mapping(source = "memberPostDto.memberType", target = "memberType", qualifiedByName = "toMemberType"),
+//            @Mapping(target = "team", ignore = true),
+//            @Mapping(target = "createAt", ignore = true),
+//            @Mapping(target = "modifiedAt", ignore = true),
+//            @Mapping(target = "role", ignore = true)
+//    })
+//    MemberEntity toEntity(MemberDto.MemberPostDto memberPostDto);
 
     @Mapping(source = "team.id", target = "teamId")
     MemberDto.MemberResponseDto toResponseDto(MemberEntity memberEntity);
@@ -38,7 +38,8 @@ public interface MemberMapper {
             @Mapping(source = "teamEntity", target = "team"),
             @Mapping(target = "createAt",ignore = true),
             @Mapping(target = "modifiedAt",ignore = true),
-            @Mapping(target = "role", ignore = true)
+            @Mapping(target = "role", ignore = true),
+            @Mapping(target = "username", ignore = true)
     })
     public void updateFromPatchDto(MemberDto.MemberPatchDto memberPatchDto, TeamEntity teamEntity, @MappingTarget MemberEntity memberEntity);
 
@@ -58,7 +59,8 @@ public interface MemberMapper {
             @Mapping(source = "profileImageURL",target = "profileImage"),
             @Mapping(target = "createAt",ignore = true),
             @Mapping(target = "modifiedAt",ignore = true),
-            @Mapping(target = "role", ignore = true)
+            @Mapping(target = "role", ignore = true),
+            @Mapping(target = "username", ignore = true)
     })
     public void updateProfileImage(String profileImageURL, @MappingTarget MemberEntity memberEntity);
 
