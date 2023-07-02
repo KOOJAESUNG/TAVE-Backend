@@ -1,11 +1,11 @@
-package com.tave.service.member;
+package com.tave.service.admin;
 
 import com.tave.domain.member.MemberEntity;
-import com.tave.domain.member.MemberScoreNoteEntity;
-import com.tave.dto.member.MemberScoreNoteDto;
-import com.tave.mapper.member.MemberScoreNoteMapper;
+import com.tave.domain.admin.MemberScoreNoteEntity;
+import com.tave.dto.admin.MemberScoreNoteDto;
+import com.tave.mapper.admin.MemberScoreNoteMapper;
 import com.tave.repository.member.MemberRepository;
-import com.tave.repository.member.MemberScoreNoteRepository;
+import com.tave.repository.admin.MemberScoreNoteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

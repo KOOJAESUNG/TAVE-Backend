@@ -1,8 +1,8 @@
-package com.tave.mapper.team;
+package com.tave.mapper.admin;
 
 import com.tave.domain.team.TeamEntity;
-import com.tave.domain.team.TeamScoreNoteEntity;
-import com.tave.dto.team.TeamScoreNoteDto;
+import com.tave.domain.admin.TeamScoreNoteEntity;
+import com.tave.dto.admin.TeamScoreNoteDto;
 import org.mapstruct.*;
 
 @Mapper(

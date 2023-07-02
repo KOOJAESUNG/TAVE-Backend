@@ -4,12 +4,9 @@ package com.tave.mapper.team;
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.member.MemberEntity;
 import com.tave.domain.team.TeamEntity;
-import com.tave.domain.team.TeamScoreNoteEntity;
+import com.tave.domain.admin.TeamScoreNoteEntity;
 import com.tave.dto.team.TeamDto;
-import com.tave.repository.admin.AdminRepository;
-import lombok.RequiredArgsConstructor;
 import org.mapstruct.*;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;

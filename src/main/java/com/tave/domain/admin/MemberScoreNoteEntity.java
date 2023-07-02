@@ -1,9 +1,9 @@
-package com.tave.domain.member;
+package com.tave.domain.admin;
 
 
 import com.tave.constant.Type;
 import com.tave.domain.TimeStamp;
-import com.tave.dto.member.MemberScoreNoteDto;
+import com.tave.domain.member.MemberEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

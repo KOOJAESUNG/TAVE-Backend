@@ -1,4 +1,4 @@
-package com.tave.dto.team;
+package com.tave.dto.admin;
 
 import com.tave.constant.Type;
 import com.tave.domain.team.TeamEntity;

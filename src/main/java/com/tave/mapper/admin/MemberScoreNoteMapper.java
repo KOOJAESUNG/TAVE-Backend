@@ -1,11 +1,9 @@
-package com.tave.mapper.member;
+package com.tave.mapper.admin;
 
 import com.tave.constant.Type;
 import com.tave.domain.member.MemberEntity;
-import com.tave.domain.member.MemberScoreNoteEntity;
-import com.tave.domain.team.TeamEntity;
-import com.tave.dto.member.MemberDto;
-import com.tave.dto.member.MemberScoreNoteDto;
+import com.tave.domain.admin.MemberScoreNoteEntity;
+import com.tave.dto.admin.MemberScoreNoteDto;
 import org.mapstruct.*;
 
 @Mapper(

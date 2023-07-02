@@ -1,11 +1,11 @@
-package com.tave.service.team;
+package com.tave.service.admin;
 
 import com.tave.domain.team.TeamEntity;
-import com.tave.domain.team.TeamScoreNoteEntity;
-import com.tave.dto.team.TeamScoreNoteDto;
-import com.tave.mapper.team.TeamScoreNoteMapper;
+import com.tave.domain.admin.TeamScoreNoteEntity;
+import com.tave.dto.admin.TeamScoreNoteDto;
+import com.tave.mapper.admin.TeamScoreNoteMapper;
 import com.tave.repository.team.TeamRepository;
-import com.tave.repository.team.TeamScoreNoteRepository;
+import com.tave.repository.admin.TeamScoreNoteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

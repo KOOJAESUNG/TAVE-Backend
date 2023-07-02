@@ -1,8 +1,8 @@
-package com.tave.domain.team;
+package com.tave.domain.admin;
 
 import com.tave.constant.Type;
 import com.tave.domain.TimeStamp;
-import com.tave.dto.team.TeamScoreNoteDto;
+import com.tave.domain.team.TeamEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;

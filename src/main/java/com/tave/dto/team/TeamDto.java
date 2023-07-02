@@ -1,14 +1,7 @@
 package com.tave.dto.team;
 
-import com.tave.domain.admin.AdminEntity;
-import com.tave.domain.member.MemberEntity;
-import com.tave.domain.team.TeamScoreNoteEntity;
-import com.tave.dto.admin.AdminDto;
-import com.tave.dto.member.MemberDto;
-import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TeamDto {

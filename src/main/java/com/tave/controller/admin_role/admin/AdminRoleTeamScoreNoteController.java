@@ -1,7 +1,7 @@
 package com.tave.controller.admin_role.admin;
 
-import com.tave.dto.team.TeamScoreNoteDto;
-import com.tave.service.team.TeamScoreNoteService;
+import com.tave.dto.admin.TeamScoreNoteDto;
+import com.tave.service.admin.TeamScoreNoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

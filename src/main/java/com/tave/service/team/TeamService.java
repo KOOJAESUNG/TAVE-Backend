@@ -6,7 +6,7 @@ import com.tave.dto.team.TeamDto;
 import com.tave.mapper.team.TeamMapper;
 import com.tave.repository.admin.AdminRepository;
 import com.tave.repository.team.TeamRepository;
-import com.tave.repository.team.TeamScoreNoteRepository;
+import com.tave.repository.admin.TeamScoreNoteRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

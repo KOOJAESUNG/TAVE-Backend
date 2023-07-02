@@ -1,21 +1,17 @@
 package com.tave;
 
 
-import com.tave.constant.MemberType;
-import com.tave.constant.TechField;
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.member.MemberEntity;
 import com.tave.domain.team.TeamEntity;
-import com.tave.domain.team.TeamScoreNoteEntity;
+import com.tave.domain.admin.TeamScoreNoteEntity;
 import com.tave.repository.admin.AdminRepository;
 import com.tave.repository.member.MemberRepository;
 import com.tave.repository.team.TeamRepository;
-import com.tave.repository.team.TeamScoreNoteRepository;
+import com.tave.repository.admin.TeamScoreNoteRepository;
 import jakarta.annotation.PostConstruct;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 

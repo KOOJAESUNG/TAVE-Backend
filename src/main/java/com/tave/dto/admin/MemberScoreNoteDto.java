@@ -1,4 +1,4 @@
-package com.tave.dto.member;
+package com.tave.dto.admin;
 
 import com.tave.constant.Type;
 import lombok.*;
