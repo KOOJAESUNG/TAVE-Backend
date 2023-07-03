@@ -29,16 +29,24 @@ public class CoolSmsController {
     }
 
     public static SingleMessageSentResponse sendOne(String phoneNumber, String numStr) {
-        Message message = new Message();
-        // 발신번호 및 수신번호는 01012345678 형태로 입력되어야 합니다.
-        message.setFrom(phoneNumber); // 발신번호
-        message.setTo(phoneNumber); //수신번호
-        message.setText("[TAVE] 인증번호는 ["+numStr+"]입니다."); //메세지 양식
+        try {
+            Message message = new Message();
+            // 발신번호 및 수신번호는 01012345678 형태로 입력되어야 합니다.
+            message.setFrom(phoneNumber); // 발신번호
+            message.setTo(phoneNumber); //수신번호
+            message.setText("[TAVE] 인증번호는 ["+numStr+"]입니다."); //메세지 양식
 
-        DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("APIKEY", "APISECRETKEY", "https://api.coolsms.co.kr");
-        SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
-        System.out.println(response);
-        return response;
+            DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("APIKEY", "APISECRETKEY", "https://api.coolsms.co.kr");
+
+            SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
+            System.out.println(response);
+            return response;
+        } catch (Exception e) {
+            // 예외 처리
+            e.printStackTrace();
+            // 필요에 따라 로그를 남기거나 예외 처리 메시지를 반환할 수 있습니다.
+            throw new RuntimeException("SMS 발송 중 예외가 발생했습니다.");
+        }
     }
 
     @PostMapping("/coolsms/check")
