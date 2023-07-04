@@ -52,6 +52,9 @@ public class SecurityConfig {
                         .hasAnyRole("ADMIN")
                         .requestMatchers("/memberRole/**")
                         .hasAnyRole("MEMBER")
+                        .requestMatchers("/sse/**","/coolSms/**","/googleOtp/**")
+                        .hasAnyRole("ADMIN","MEMBER")
+
 //                        .requestMatchers("/admin/getAdmin")
 //                        .hasAnyRole("ADMIN")
 //                        .requestMatchers("/api/v1/user/**")

@@ -4,6 +4,7 @@ import com.tave.domain.member.MemberEntity;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.member.MemberDto;
 import com.tave.mapper.member.MemberMapper;
+import com.tave.repository.admin.MemberScoreNoteRepository;
 import com.tave.repository.member.MemberRepository;
 import com.tave.repository.team.TeamRepository;
 import com.tave.api.aws.S3Service;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberService {
 
     private final MemberRepository memberRepository;
+    private final MemberScoreNoteRepository memberScoreNoteRepository;
     private final TeamRepository teamRepository;
     private final MemberMapper memberMapper;
     private final S3Service s3Service;
@@ -61,5 +63,11 @@ public class MemberService {
     public void deleteMember(Long memberId) {
         memberRepository.deleteById(memberId);
         log.info("MemberEntity Id: {} is deleted",memberId);
+    }
+
+    public Integer getMemberScore(Long memberId) {
+        if(!memberRepository.existsById(memberId))
+            throw new EntityNotFoundException("MemberId: " + memberId + " not exists!!");
+        return memberScoreNoteRepository.getMemberScoreByMemberId(memberId).orElse(0);
     }
 }
