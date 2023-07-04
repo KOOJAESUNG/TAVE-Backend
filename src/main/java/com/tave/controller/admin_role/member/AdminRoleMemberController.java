@@ -42,4 +42,9 @@ public class AdminRoleMemberController {
         return ResponseEntity.ok().body("deleted MemberId : " + memberId);
     }
 
+    @GetMapping("/getMemberScore")
+    public ResponseEntity<?> getMemberScore(Long memberId) {
+        return ResponseEntity.ok().body(memberService.getMemberScore(memberId));
+    }
+
 }
