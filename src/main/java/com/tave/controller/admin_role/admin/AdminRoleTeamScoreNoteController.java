@@ -5,7 +5,6 @@ import com.tave.service.admin.TeamScoreNoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.http.HttpStatus;
 
 @RestController
 @RequiredArgsConstructor
@@ -16,52 +15,25 @@ public class AdminRoleTeamScoreNoteController {
 
     @PostMapping("/createTeamScoreNote")
     public ResponseEntity<?> createTeamScoreNote(@RequestBody TeamScoreNoteDto.TeamScoreNotePostDto teamScoreNotePostDto) {
-        try {
-            TeamScoreNoteDto.TeamScoreNoteResponseDto createdNote = teamScoreNoteService.createTeamScoreNote(teamScoreNotePostDto);
-            return ResponseEntity.ok().body(createdNote);
-        } catch (Exception e) {
-            // 예외 처리
-            e.printStackTrace();
-            // 예외 처리에 따른 클라이언트에게 알림을 전달하는 코드 추가
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while creating the team score note.");
-        }
+        TeamScoreNoteDto.TeamScoreNoteResponseDto createdNote = teamScoreNoteService.createTeamScoreNote(teamScoreNotePostDto);
+        return ResponseEntity.ok().body(createdNote);
     }
 
     @GetMapping("/getTeamScoreNote")
     public ResponseEntity<?> getTeamScoreNote(@RequestParam Long teamScoreNoteId) {
-        try {
-            TeamScoreNoteDto.TeamScoreNoteResponseDto teamScoreNote = teamScoreNoteService.getTeamScoreNote(teamScoreNoteId);
-            return ResponseEntity.ok().body(teamScoreNote);
-        } catch (Exception e) {
-            // 예외 처리
-            e.printStackTrace();
-            // 예외 처리에 따른 클라이언트에게 알림을 전달하는 코드 추가
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while retrieving the team score note.");
-        }
+        TeamScoreNoteDto.TeamScoreNoteResponseDto teamScoreNote = teamScoreNoteService.getTeamScoreNote(teamScoreNoteId);
+        return ResponseEntity.ok().body(teamScoreNote);
     }
+
     @PatchMapping("/modifyTeamScoreNote")
     public ResponseEntity<?> updateTeamScoreNote(@RequestBody TeamScoreNoteDto.TeamScoreNotePatchDto teamScoreNotePatchDto) {
-        try {
-            TeamScoreNoteDto.TeamScoreNoteResponseDto updatedNote = teamScoreNoteService.updateTeamScoreNote(teamScoreNotePatchDto);
-            return ResponseEntity.ok().body(updatedNote);
-        } catch (Exception e) {
-            // 예외 처리
-            e.printStackTrace();
-            // 예외 처리에 따른 클라이언트에게 알림을 전달하는 코드 추가
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while updating the team score note.");
-        }
+        TeamScoreNoteDto.TeamScoreNoteResponseDto updatedNote = teamScoreNoteService.updateTeamScoreNote(teamScoreNotePatchDto);
+        return ResponseEntity.ok().body(updatedNote);
     }
 
     @DeleteMapping("/deleteTeamScoreNote")
     public ResponseEntity<?> deleteTeamScoreNote(@RequestParam Long teamScoreNoteId) {
-        try {
-            teamScoreNoteService.deleteTeamScoreNote(teamScoreNoteId);
-            return ResponseEntity.ok().body("Deleted TeamScoreNoteId: " + teamScoreNoteId);
-        } catch (Exception e) {
-            // 예외 처리
-            e.printStackTrace();
-            // 예외 처리에 따른 클라이언트에게 알림을 전달하는 코드 추가
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while deleting the team score note.");
-        }
+        teamScoreNoteService.deleteTeamScoreNote(teamScoreNoteId);
+        return ResponseEntity.ok().body("삭제된 팀 점수 노트 ID: " + teamScoreNoteId);
     }
 }
