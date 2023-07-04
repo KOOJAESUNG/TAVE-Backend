@@ -6,6 +6,8 @@ import com.tave.dto.member.MemberDto;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -21,8 +23,13 @@ public class ScheduleDto {
     @NoArgsConstructor
     @Builder
     public static class SchedulePostDto {
+
         private String place;
+
+        @NotEmpty(message = "Title은 필수값입니다.")
         private String title;
+
+        @NotNull(message = "날짜는 필수값입니다.")
         private LocalDate date;
     }
 
@@ -55,8 +62,11 @@ public class ScheduleDto {
     @Builder
     public static class SchedulePatchDto {
 
+        @NotNull(message = "Schedule ID는 필수값입니다.")
         private Long id;
+
         private String place;
+
         private String title;
     }
 }
