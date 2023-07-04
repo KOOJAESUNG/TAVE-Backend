@@ -67,8 +67,14 @@ public class AdminRoleMemberController {
     }
 
     @GetMapping("/getMemberScore")
-    public ResponseEntity<?> getMemberScore(Long memberId) {
-        return ResponseEntity.ok().body(memberService.getMemberScore(memberId));
+    public ResponseEntity<?> getTeamScore(@RequestParam Long memberId) {
+        try {
+            return ResponseEntity.ok().body(memberService.getMemberScore(memberId));
+        } catch (Exception e) {
+            // 예외 처리
+            e.printStackTrace();
+            // 예외 처리에 따른 클라이언트에게 알림을 전달하는 코드 추가
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("An error occurred while retrieving the member score.");
+        }
     }
-
 }
