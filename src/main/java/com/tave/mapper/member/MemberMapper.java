@@ -33,8 +33,6 @@ public interface MemberMapper {
     @Mappings({
             @Mapping(target = "id", ignore = true),
             @Mapping(target = "profileImage", ignore = true),
-            @Mapping(source = "memberPatchDto.techField", target = "techField", qualifiedByName = "toTechField"),
-            @Mapping(source = "memberPatchDto.memberType", target = "memberType", qualifiedByName = "toMemberType"),
             @Mapping(source = "teamEntity", target = "team"),
             @Mapping(target = "createAt", ignore = true),
             @Mapping(target = "modifiedAt", ignore = true),
@@ -65,14 +63,4 @@ public interface MemberMapper {
     })
     public void updateProfileImage(String profileImageURL, @MappingTarget MemberEntity memberEntity);
 
-
-    @Named("toTechField")
-    public static TechField toTechField(String techField) {
-        return TechField.valueOf(techField);
-    }
-
-    @Named("toMemberType")
-    public static MemberType toMemberType(String memberType) {
-        return MemberType.valueOf(memberType);
-    }
 }

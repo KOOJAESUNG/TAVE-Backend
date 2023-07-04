@@ -100,9 +100,9 @@ public class MemberDto {
 
         private String university;
 
-        private String memberType; //OB or YB
+        private MemberType memberType; //OB or YB
 
-        private String techField; //기술 분야
+        private TechField techField; //기술 분야
 
         private Boolean checkSms;   //false == 첫로그인 true == 이미 인증한사람
     }

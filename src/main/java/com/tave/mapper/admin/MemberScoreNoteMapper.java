@@ -14,7 +14,6 @@ import org.mapstruct.*;
 public interface MemberScoreNoteMapper {
 
     @Mappings({
-            @Mapping(source = "memberScoreNotePostDto.type",target = "type",qualifiedByName = "toType"),
             @Mapping(source = "member",target = "member"),
             @Mapping(target = "id",ignore = true),
             @Mapping(target = "createAt",ignore = true),
@@ -22,10 +21,6 @@ public interface MemberScoreNoteMapper {
     })
     MemberScoreNoteEntity toEntity(MemberScoreNoteDto.MemberScoreNotePostDto memberScoreNotePostDto,MemberEntity member);
 
-    @Named("toType")
-    public static ScoreType toType(String type) {
-        return ScoreType.valueOf(type);
-    }
 
 
     @Mapping(source = "member.id",target = "memberId")
@@ -34,7 +29,6 @@ public interface MemberScoreNoteMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(source = "memberScoreNotePatchDto.type",target = "type",qualifiedByName = "toType"),
             @Mapping(target = "member",ignore = true),
             @Mapping(target = "createAt",ignore = true),
             @Mapping(target = "modifiedAt",ignore = true)

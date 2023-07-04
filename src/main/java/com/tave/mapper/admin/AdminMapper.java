@@ -30,11 +30,11 @@ public interface AdminMapper {
 //    })
 //    AdminEntity toEntity(AdminDto.AdminPostDto adminPostDto);
 
-    @Mapping(source = "teams", target = "teamIds", qualifiedByName = "teamToId")
+    @Mapping(source = "teams", target = "teamIds", qualifiedByName = "teamsToTeamIds")
     AdminDto.AdminResponseDto toResponseDto(AdminEntity adminEntity);
 
-    @Named("teamToId")
-    public static List<Long> teamToId(List<TeamEntity> teams) {
+    @Named("teamsToTeamIds")
+    public static List<Long> teamsToTeamIds(List<TeamEntity> teams) {
         List<Long> temp = new ArrayList<>();
         for (TeamEntity t : teams) {
             temp.add(t.getId());
