@@ -44,4 +44,9 @@ public class MemberRoleMemberController {
         return ResponseEntity.ok().body("deleted MemberId : " + principalDetails.getUser().getId());
     }
 
+    @GetMapping("/getMemberScore")
+    public ResponseEntity<?> getMemberScore(Long memberId) {
+        return ResponseEntity.ok().body(memberService.getMemberScore(memberId));
+    }
+
 }
