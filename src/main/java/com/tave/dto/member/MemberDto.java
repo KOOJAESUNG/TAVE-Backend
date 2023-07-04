@@ -63,6 +63,8 @@ public class MemberDto {
         private String university;
 
         private MemberType memberType; //OB or YB
+
+        private Boolean checkSms;   //false == 첫로그인 true == 이미 인증한사람
     }
 
 
@@ -92,5 +94,7 @@ public class MemberDto {
         private String memberType; //OB or YB
 
         private String techField; //기술 분야
+
+        private Boolean checkSms;   //false == 첫로그인 true == 이미 인증한사람
     }
 }

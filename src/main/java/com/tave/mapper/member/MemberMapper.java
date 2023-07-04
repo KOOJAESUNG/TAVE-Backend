@@ -36,8 +36,8 @@ public interface MemberMapper {
             @Mapping(source = "memberPatchDto.techField", target = "techField", qualifiedByName = "toTechField"),
             @Mapping(source = "memberPatchDto.memberType", target = "memberType", qualifiedByName = "toMemberType"),
             @Mapping(source = "teamEntity", target = "team"),
-            @Mapping(target = "createAt",ignore = true),
-            @Mapping(target = "modifiedAt",ignore = true),
+            @Mapping(target = "createAt", ignore = true),
+            @Mapping(target = "modifiedAt", ignore = true),
             @Mapping(target = "role", ignore = true),
             @Mapping(target = "username", ignore = true)
     })
@@ -46,21 +46,22 @@ public interface MemberMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mappings({
             @Mapping(target = "id", ignore = true),
-            @Mapping(target = "email",ignore = true),
-            @Mapping(target = "introduce",ignore = true),
-            @Mapping(target = "name",ignore = true),
-            @Mapping(target = "password",ignore = true),
-            @Mapping(target = "rad",ignore = true),
-            @Mapping(target = "phoneNumber",ignore = true),
-            @Mapping(target = "techField",ignore = true),
-            @Mapping(target = "memberType",ignore = true),
-            @Mapping(target = "team",ignore = true),
-            @Mapping(target = "university",ignore = true),
-            @Mapping(source = "profileImageURL",target = "profileImage"),
-            @Mapping(target = "createAt",ignore = true),
-            @Mapping(target = "modifiedAt",ignore = true),
+            @Mapping(target = "email", ignore = true),
+            @Mapping(target = "introduce", ignore = true),
+            @Mapping(target = "name", ignore = true),
+            @Mapping(target = "password", ignore = true),
+            @Mapping(target = "rad", ignore = true),
+            @Mapping(target = "phoneNumber", ignore = true),
+            @Mapping(target = "techField", ignore = true),
+            @Mapping(target = "memberType", ignore = true),
+            @Mapping(target = "team", ignore = true),
+            @Mapping(target = "university", ignore = true),
+            @Mapping(source = "profileImageURL", target = "profileImage"),
+            @Mapping(target = "createAt", ignore = true),
+            @Mapping(target = "modifiedAt", ignore = true),
             @Mapping(target = "role", ignore = true),
-            @Mapping(target = "username", ignore = true)
+            @Mapping(target = "username", ignore = true),
+            @Mapping(target = "checkSms", ignore = true)
     })
     public void updateProfileImage(String profileImageURL, @MappingTarget MemberEntity memberEntity);
 

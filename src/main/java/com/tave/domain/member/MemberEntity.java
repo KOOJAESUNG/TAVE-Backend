@@ -57,4 +57,6 @@ public class MemberEntity extends TimeStamp implements UserEntity {
 
     private String university;
 
+    private Boolean checkSms = false;   //false == 첫로그인 true == 이미 인증한사람
+
 }
