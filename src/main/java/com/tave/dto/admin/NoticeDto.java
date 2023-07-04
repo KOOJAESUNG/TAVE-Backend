@@ -1,4 +1,5 @@
 package com.tave.dto.admin;
+import com.tave.constant.NoticeType;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,8 @@ public class NoticeDto {
 
         private String content;
 
+        private NoticeType noticeType;
+
     }
 
     @Getter
@@ -27,6 +30,8 @@ public class NoticeDto {
         private Long id;
 
         private String content;
+
+        private NoticeType noticeType;
 
         private List<String> images; //uri로 보낼듯
 
@@ -46,7 +51,10 @@ public class NoticeDto {
     public static class NoticePatchDto {
 
         private Long id;
+
         private String content;
+
+        private NoticeType noticeType;
 
     }
 

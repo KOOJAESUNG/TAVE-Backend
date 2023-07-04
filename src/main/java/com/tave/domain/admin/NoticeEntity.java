@@ -1,5 +1,6 @@
 package com.tave.domain.admin;
 
+import com.tave.constant.NoticeType;
 import com.tave.domain.TimeStamp;
 import com.tave.dto.admin.NoticeDto;
 import jakarta.persistence.*;
@@ -23,6 +24,9 @@ public class NoticeEntity extends TimeStamp {
     @Lob
     @Column(columnDefinition = "TEXT")
     private String content;
+
+    @Enumerated(EnumType.STRING)
+    private NoticeType noticeType;
 
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(
