@@ -64,10 +64,6 @@ public class SseService {
         return sseEmitter;
     }
 
-//    public String removeEmitter(Long clientId) {
-//        emitters.remove(clientId);
-//        return "remove complete";
-//    }
 
     public void sendEventToAll(String eventType, NoticeDto.NoticeResponseDto noticeResponseDto) {
         /**
