@@ -48,8 +48,6 @@ public class MemberDto {
 
         private String name;
 
-        private String password;
-
         private String profileImage;
 
         private Integer rad; //기수
