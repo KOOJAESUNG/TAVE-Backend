@@ -1,6 +1,6 @@
 package com.tave.mapper.admin;
 
-import com.tave.constant.Type;
+import com.tave.constant.ScoreType;
 import com.tave.domain.member.MemberEntity;
 import com.tave.domain.admin.MemberScoreNoteEntity;
 import com.tave.dto.admin.MemberScoreNoteDto;
@@ -23,8 +23,8 @@ public interface MemberScoreNoteMapper {
     MemberScoreNoteEntity toEntity(MemberScoreNoteDto.MemberScoreNotePostDto memberScoreNotePostDto,MemberEntity member);
 
     @Named("toType")
-    public static Type toType(String type) {
-        return Type.valueOf(type);
+    public static ScoreType toType(String type) {
+        return ScoreType.valueOf(type);
     }
 
 

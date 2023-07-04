@@ -1,7 +1,6 @@
 package com.tave.dto.admin;
 
-import com.tave.constant.Type;
-import jakarta.validation.constraints.NotEmpty;
+import com.tave.constant.ScoreType;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -22,7 +21,7 @@ public class MemberScoreNoteDto { //아마 엑셀파일을 받아서 작업할 �
         private Integer score; //비고에 따른 점수
 
         @NotNull(message = "Type은 필수값입니다.")
-        private Type type;
+        private ScoreType scoreType;
 
         @NotNull(message = "Member ID는 필수값입니다.")
         private Long memberId;
@@ -40,7 +39,7 @@ public class MemberScoreNoteDto { //아마 엑셀파일을 받아서 작업할 �
 
         private Integer score; //비고에 따른 점수
 
-        private Type type; //가감점 타입
+        private ScoreType scoreType; //가감점 타입
 
         private Long memberId;
 
@@ -63,6 +62,6 @@ public class MemberScoreNoteDto { //아마 엑셀파일을 받아서 작업할 �
 
         private Integer score; //비고에 따른 점수
 
-        private String type; //enum
+        private ScoreType scoreType;
     }
 }

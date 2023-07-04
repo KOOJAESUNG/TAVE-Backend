@@ -1,6 +1,6 @@
 package com.tave.domain.admin;
 
-import com.tave.constant.Type;
+import com.tave.constant.ScoreType;
 import com.tave.domain.TimeStamp;
 import com.tave.domain.team.TeamEntity;
 import jakarta.persistence.*;
@@ -20,7 +20,7 @@ public class TeamScoreNoteEntity extends TimeStamp {
     private Integer score = 0;
 
     @Enumerated(EnumType.STRING)
-    private Type type;
+    private ScoreType scoreType;
 
 
     @ManyToOne(fetch = FetchType.LAZY)

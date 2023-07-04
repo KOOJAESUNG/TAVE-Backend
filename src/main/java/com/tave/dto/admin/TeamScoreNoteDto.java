@@ -1,8 +1,5 @@
 package com.tave.dto.admin;
 
-import com.tave.constant.Type;
-import com.tave.domain.team.TeamEntity;
-import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
