@@ -5,6 +5,7 @@ import net.nurigo.sdk.message.model.Message;
 import net.nurigo.sdk.message.request.SingleMessageSendingRequest;
 import net.nurigo.sdk.message.response.SingleMessageSentResponse;
 import net.nurigo.sdk.message.service.DefaultMessageService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -12,6 +13,16 @@ import java.util.Random;
 
 @RestController
 public class CoolSmsController {
+
+
+    protected static String apiKey;
+    protected static String apiSecretKey;
+
+    @Value("${coolsms.api-key}")
+    public void setApiKey(String apiKey) { CoolSmsController.apiKey = apiKey;}
+
+    @Value("${coolsms.api-secret-key}")
+    public void setApiSecretKey(String apiSecretKey) { CoolSmsController.apiSecretKey = apiSecretKey; }
 
     @PostMapping("/coolSms/get")
     public static String sendSMS(String phoneNumber) {
@@ -32,11 +43,11 @@ public class CoolSmsController {
         try {
             Message message = new Message();
             // 발신번호 및 수신번호는 01012345678 형태로 입력되어야 합니다.
-            message.setFrom(phoneNumber); // 발신번호
+            message.setFrom("01048401304"); // 발신번호
             message.setTo(phoneNumber); //수신번호
             message.setText("[TAVE] 인증번호는 ["+numStr+"]입니다."); //메세지 양식
 
-            DefaultMessageService messageService = NurigoApp.INSTANCE.initialize("APIKEY", "APISECRETKEY", "https://api.coolsms.co.kr");
+            DefaultMessageService messageService = NurigoApp.INSTANCE.initialize(apiKey, apiSecretKey, "https://api.coolsms.co.kr");
 
             SingleMessageSentResponse response = messageService.sendOne(new SingleMessageSendingRequest(message));
             System.out.println(response);
@@ -49,7 +60,7 @@ public class CoolSmsController {
         }
     }
 
-    @PostMapping("/coolSms/check")
+    @PostMapping("/coolsms/check")
     public static String checkCertification(String inputNumber){
         return inputNumber;
     }
