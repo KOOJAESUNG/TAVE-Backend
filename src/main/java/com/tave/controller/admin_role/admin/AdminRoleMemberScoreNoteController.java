@@ -14,26 +14,23 @@ public class AdminRoleMemberScoreNoteController {
     private final MemberScoreNoteService memberScoreNoteService;
 
     @PostMapping("/createMemberScoreNote")
-    public ResponseEntity<?> createMemberScoreNote(@RequestBody MemberScoreNoteDto.MemberScoreNotePostDto memberScoreNotePostDto) {
-        MemberScoreNoteDto.MemberScoreNoteResponseDto createdNote = memberScoreNoteService.createMemberScoreNote(memberScoreNotePostDto);
-        return ResponseEntity.ok().body(createdNote);
+    public ResponseEntity<?> createMemberScoreNote(@RequestBody MemberScoreNoteDto.MemberScoreNotePostDto memberScoreNotePostDto){
+        return ResponseEntity.ok().body(memberScoreNoteService.createMemberScoreNote(memberScoreNotePostDto));
     }
 
     @GetMapping("/getMemberScoreNote")
-    public ResponseEntity<?> getMemberScoreNote(@RequestParam Long memberScoreNoteId) {
-        MemberScoreNoteDto.MemberScoreNoteResponseDto note = memberScoreNoteService.getMemberScoreNote(memberScoreNoteId);
-        return ResponseEntity.ok().body(note);
+    public ResponseEntity<?> getMemberScoreNote(@RequestParam Long memberScoreNoteId){
+        return ResponseEntity.ok().body(memberScoreNoteService.getMemberScoreNote(memberScoreNoteId));
     }
 
     @PatchMapping("/modifyMemberScoreNote")
-    public ResponseEntity<?> updateMemberScoreNote(@RequestBody MemberScoreNoteDto.MemberScoreNotePatchDto memberScoreNotePatchDto) {
-        MemberScoreNoteDto.MemberScoreNoteResponseDto updatedNote = memberScoreNoteService.updateMemberScoreNote(memberScoreNotePatchDto);
-        return ResponseEntity.ok().body(updatedNote);
+    public ResponseEntity<?> updateMemberScoreNote(@RequestBody MemberScoreNoteDto.MemberScoreNotePatchDto memberScoreNotePatchDto){
+        return ResponseEntity.ok().body(memberScoreNoteService.updateMemberScoreNote(memberScoreNotePatchDto));
     }
 
     @DeleteMapping("/deleteMemberScoreNote")
-    public ResponseEntity<?> deleteMemberScoreNote(@RequestParam Long memberScoreNoteId) {
+    public ResponseEntity<?> deleteMemberScoreNote(@RequestParam Long memberScoreNoteId){
         memberScoreNoteService.deleteMemberScoreNote(memberScoreNoteId);
-        return ResponseEntity.ok().body("삭제된 회원 점수 노트 ID: " + memberScoreNoteId);
+        return ResponseEntity.ok().body("deleted MemberScoreNoteId : " + memberScoreNoteId);
     }
 }

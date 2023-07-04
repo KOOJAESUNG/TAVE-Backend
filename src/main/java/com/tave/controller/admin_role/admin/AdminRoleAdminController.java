@@ -22,20 +22,18 @@ public class AdminRoleAdminController {
 //    }
 
     @GetMapping("/getAdmin")
-    public ResponseEntity<?> getAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails) {
-        AdminDto.AdminResponseDto admin = adminService.getAdmin(principalDetails.getUser().getId());
-        return ResponseEntity.ok().body(admin);
+    public ResponseEntity<?> getAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails){
+        return ResponseEntity.ok().body(adminService.getAdmin(principalDetails.getUser().getId()));
     }
 
     @PatchMapping("/modifyAdmin")
-    public ResponseEntity<?> updateAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody AdminDto.AdminPatchDto adminPatchDto) {
-        AdminDto.AdminResponseDto updatedAdmin = adminService.updateAdmin(principalDetails.getUser().getId(), adminPatchDto);
-        return ResponseEntity.ok().body(updatedAdmin);
+    public ResponseEntity<?> updateAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails,@RequestBody AdminDto.AdminPatchDto adminPatchDto){
+        return ResponseEntity.ok().body(adminService.updateAdmin(principalDetails.getUser().getId(),adminPatchDto));
     }
 
     @DeleteMapping("/deleteAdmin")
-    public ResponseEntity<?> deleteAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails) {
+    public ResponseEntity<?> deleteAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails){
         adminService.deleteAdmin(principalDetails.getUser().getId());
-        return ResponseEntity.ok().body("삭제된 회원 ID: " + principalDetails.getUser().getId());
+        return ResponseEntity.ok().body("deleted MemberId : " + principalDetails.getUser().getId());
     }
 }

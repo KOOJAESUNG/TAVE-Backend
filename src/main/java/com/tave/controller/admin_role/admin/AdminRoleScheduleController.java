@@ -20,32 +20,29 @@ public class AdminRoleScheduleController {
 
     @PostMapping("/createSchedule")
     public ResponseEntity<?> createSchedule(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody ScheduleDto.SchedulePostDto schedulePostDto) {
-        ScheduleDto.ScheduleResponseDto createdSchedule = scheduleService.createSchedule(principalDetails.getUser().getId(), schedulePostDto);
-        return ResponseEntity.ok().body(createdSchedule);
+        return ResponseEntity.ok().body(scheduleService.createSchedule(principalDetails.getUser().getId(), schedulePostDto));
     }
 
     @GetMapping("/getSchedule")
     public ResponseEntity<?> getSchedule(@RequestParam Long scheduleId) {
-        ScheduleDto.ScheduleResponseDto schedule = scheduleService.getSchedule(scheduleId);
-        return ResponseEntity.ok().body(schedule);
+        return ResponseEntity.ok().body(scheduleService.getSchedule(scheduleId));
     }
 
     @PatchMapping("/modifySchedule")
     public ResponseEntity<?> updateSchedule(@RequestBody ScheduleDto.SchedulePatchDto schedulePatchDto) {
-        ScheduleDto.ScheduleResponseDto updatedSchedule = scheduleService.updateSchedule(schedulePatchDto);
-        return ResponseEntity.ok().body(updatedSchedule);
+        return ResponseEntity.ok().body(scheduleService.updateSchedule(schedulePatchDto));
     }
 
     @DeleteMapping("/deleteSchedule")
     public ResponseEntity<?> deleteSchedule(@RequestParam Long scheduleId) {
         scheduleService.deleteSchedule(scheduleId);
-        return ResponseEntity.ok().body("삭제된 일정 ID: " + scheduleId);
+        return ResponseEntity.ok().body("deleted ScheduleId : " + scheduleId);
     }
 
     @PatchMapping("/addAttendanceMember")
     public ResponseEntity<?> addAttendanceMember(@RequestParam Long scheduleId, @RequestParam Long memberId) {
-        scheduleService.addAttendanceMemberId(scheduleId, memberId);
-        return ResponseEntity.ok().body("스케줄 ID " + scheduleId + "에 멤버 ID " + memberId + "가 추가되었습니다.");
+        scheduleService.addAttendanceMemberId(scheduleId,memberId);
+        return ResponseEntity.ok().body("Member Id: "+memberId+" is added in Schedule Id: "+scheduleId);
     }
 
     @GetMapping("/getAllSchedule")
@@ -53,4 +50,7 @@ public class AdminRoleScheduleController {
         List<ScheduleDto.ScheduleResponseDto> schedules = scheduleService.getAllSchedule();
         return ResponseEntity.ok().body(schedules);
     }
+
+
+
 }

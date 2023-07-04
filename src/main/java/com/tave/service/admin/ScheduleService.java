@@ -54,10 +54,8 @@ public class ScheduleService {
 
     @Transactional
     public void addAttendanceMemberId(Long scheduleId, Long memberId) throws EntityNotFoundException {
-        MemberEntity memberEntity = memberRepository.findById(memberId).orElseThrow(() -> new EntityNotFoundException("멤버가 존재하지 않습니다."));
-        ScheduleEntity scheduleEntity = scheduleRepository.findById(scheduleId).orElseThrow(() -> new EntityNotFoundException("일정이 존재하지 않습니다."));
-
-        scheduleEntity.addAttendanceMemberId(memberId);
+        memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
+        scheduleRepository.findById(scheduleId).orElseThrow(EntityNotFoundException::new).addAttendanceMemberId(memberId);
         log.info("Member Id: {} is added in Schedule Id: {}", memberId, scheduleId);
     }
 

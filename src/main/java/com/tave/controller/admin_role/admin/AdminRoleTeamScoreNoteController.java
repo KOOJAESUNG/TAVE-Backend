@@ -14,26 +14,23 @@ public class AdminRoleTeamScoreNoteController {
     private final TeamScoreNoteService teamScoreNoteService;
 
     @PostMapping("/createTeamScoreNote")
-    public ResponseEntity<?> createTeamScoreNote(@RequestBody TeamScoreNoteDto.TeamScoreNotePostDto teamScoreNotePostDto) {
-        TeamScoreNoteDto.TeamScoreNoteResponseDto createdNote = teamScoreNoteService.createTeamScoreNote(teamScoreNotePostDto);
-        return ResponseEntity.ok().body(createdNote);
+    public ResponseEntity<?> createTeamScoreNote(@RequestBody TeamScoreNoteDto.TeamScoreNotePostDto teamScoreNotePostDto){
+        return ResponseEntity.ok().body(teamScoreNoteService.createTeamScoreNote(teamScoreNotePostDto));
     }
 
     @GetMapping("/getTeamScoreNote")
-    public ResponseEntity<?> getTeamScoreNote(@RequestParam Long teamScoreNoteId) {
-        TeamScoreNoteDto.TeamScoreNoteResponseDto teamScoreNote = teamScoreNoteService.getTeamScoreNote(teamScoreNoteId);
-        return ResponseEntity.ok().body(teamScoreNote);
+    public ResponseEntity<?> getTeamScoreNote(@RequestParam Long teamScoreNoteId){
+        return ResponseEntity.ok().body(teamScoreNoteService.getTeamScoreNote(teamScoreNoteId));
     }
 
     @PatchMapping("/modifyTeamScoreNote")
-    public ResponseEntity<?> updateTeamScoreNote(@RequestBody TeamScoreNoteDto.TeamScoreNotePatchDto teamScoreNotePatchDto) {
-        TeamScoreNoteDto.TeamScoreNoteResponseDto updatedNote = teamScoreNoteService.updateTeamScoreNote(teamScoreNotePatchDto);
-        return ResponseEntity.ok().body(updatedNote);
+    public ResponseEntity<?> updateTeamScoreNote(@RequestBody TeamScoreNoteDto.TeamScoreNotePatchDto teamScoreNotePatchDto){
+        return ResponseEntity.ok().body(teamScoreNoteService.updateTeamScoreNote(teamScoreNotePatchDto));
     }
 
     @DeleteMapping("/deleteTeamScoreNote")
-    public ResponseEntity<?> deleteTeamScoreNote(@RequestParam Long teamScoreNoteId) {
+    public ResponseEntity<?> deleteTeamScoreNote(@RequestParam Long teamScoreNoteId){
         teamScoreNoteService.deleteTeamScoreNote(teamScoreNoteId);
-        return ResponseEntity.ok().body("삭제된 팀 점수 노트 ID: " + teamScoreNoteId);
+        return ResponseEntity.ok().body("deleted TeamScoreNoteId : " + teamScoreNoteId);
     }
 }

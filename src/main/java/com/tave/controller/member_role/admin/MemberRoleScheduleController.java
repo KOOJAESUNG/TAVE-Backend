@@ -18,8 +18,7 @@ public class MemberRoleScheduleController {
 
     @GetMapping("/getSchedule")
     public ResponseEntity<?> getSchedule(@RequestParam Long scheduleId) {
-        ScheduleDto.ScheduleResponseDto schedule = scheduleService.getSchedule(scheduleId);
-        return ResponseEntity.ok().body(schedule);
+        return ResponseEntity.ok().body(scheduleService.getSchedule(scheduleId));
     }
 
     @GetMapping("/getAllSchedule")
@@ -27,4 +26,7 @@ public class MemberRoleScheduleController {
         List<ScheduleDto.ScheduleResponseDto> schedules = scheduleService.getAllSchedule();
         return ResponseEntity.ok().body(schedules);
     }
+
+
+
 }

@@ -15,29 +15,27 @@ public class MemberRoleTeamController {
 
     @PostMapping("/createTeam")
     public ResponseEntity<?> createTeam(@RequestBody TeamDto.TeamPostDto teamPostDto) {
-            TeamDto.TeamResponseDto createdTeam = teamService.createTeam(teamPostDto);
-            return ResponseEntity.ok().body(createdTeam);
+        return ResponseEntity.ok().body(teamService.createTeam(teamPostDto));
     }
+
     @GetMapping("/getTeam")
     public ResponseEntity<?> getTeam(@RequestParam Long teamId) {
-            TeamDto.TeamResponseDto team = teamService.getTeam(teamId);
-            return ResponseEntity.ok().body(team);
+        return ResponseEntity.ok().body(teamService.getTeam(teamId));
     }
 
     @PatchMapping("/modifyTeam")
     public ResponseEntity<?> updateTeam(@RequestBody TeamDto.TeamPatchDto teamPatchDto) {
-            TeamDto.TeamResponseDto updatedTeam = teamService.updateTeam(teamPatchDto);
-                return ResponseEntity.ok().body(updatedTeam);
+        return ResponseEntity.ok().body(teamService.updateTeam(teamPatchDto));
     }
 
     @DeleteMapping("/deleteTeam")
     public ResponseEntity<?> deleteTeam(@RequestParam Long teamId) {
-            teamService.deleteTeam(teamId);
-            return ResponseEntity.ok().body("deleted TeamId : " + teamId);
+        teamService.deleteTeam(teamId);
+        return ResponseEntity.ok().body("deleted TeamId : " + teamId);
     }
 
     @GetMapping("/getTeamScore")
-    public ResponseEntity<?> getTeamScore(@RequestParam Long teamId) {
-            return ResponseEntity.ok().body(teamService.getTeamScore(teamId));
+    public ResponseEntity<?> getTeamScore(Long teamId) {
+        return ResponseEntity.ok().body(teamService.getTeamScore(teamId));
     }
 }

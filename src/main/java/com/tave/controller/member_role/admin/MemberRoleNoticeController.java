@@ -17,8 +17,7 @@ public class MemberRoleNoticeController {
 
     @GetMapping("/getNotice")
     public ResponseEntity<?> getNotice(@RequestParam Long noticeId) {
-        NoticeDto.NoticeResponseDto notice = noticeService.getNotice(noticeId);
-        return ResponseEntity.ok().body(notice);
+        return ResponseEntity.ok().body(noticeService.getNotice(noticeId));
     }
 
     @GetMapping("/getAllNotice")
@@ -26,4 +25,5 @@ public class MemberRoleNoticeController {
         List<NoticeDto.NoticeResponseDto> notices = noticeService.getAllNotice();
         return ResponseEntity.ok().body(notices);
     }
+
 }

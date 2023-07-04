@@ -20,32 +20,30 @@ public class AdminRoleNoticeController {
     private final NoticeService noticeService;
 
     @PostMapping("/createNotice")
-    public ResponseEntity<?> createNotice(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody NoticeDto.NoticePostDto noticePostDto) {
-        NoticeDto.NoticeResponseDto createdNotice = noticeService.createNotice(principalDetails.getUser().getId(), noticePostDto);
-        return ResponseEntity.ok().body(createdNotice);
+    public ResponseEntity<?> createNotice(@AuthenticationPrincipal PrincipalDetails principalDetails,@RequestBody NoticeDto.NoticePostDto noticePostDto) {
+        return ResponseEntity.ok().body(noticeService.createNotice(principalDetails.getUser().getId(), noticePostDto));
     }
 
     @GetMapping("/getNotice")
     public ResponseEntity<?> getNotice(@RequestParam Long noticeId) {
-        NoticeDto.NoticeResponseDto notice = noticeService.getNotice(noticeId);
-        return ResponseEntity.ok().body(notice);
+        return ResponseEntity.ok().body(noticeService.getNotice(noticeId));
     }
 
     @PatchMapping("/modifyNotice")
     public ResponseEntity<?> updateNotice(@RequestBody NoticeDto.NoticePatchDto noticePatchDto) {
-        NoticeDto.NoticeResponseDto updatedNotice = noticeService.updateNotice(noticePatchDto);
-        return ResponseEntity.ok().body(updatedNotice);
+
+        return ResponseEntity.ok().body(noticeService.updateNotice(noticePatchDto));
     }
 
     @PostMapping(value = "/modifyNoticeImages", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> modifyNoticeImages(@RequestParam Long noticeId, @RequestPart List<MultipartFile> imageList) {
-        return ResponseEntity.ok().body(noticeService.updateNoticeImages(noticeId, imageList));
+        return ResponseEntity.ok().body(noticeService.updateNoticeImages(noticeId,imageList));
     }
 
     @DeleteMapping("/deleteNotice")
     public ResponseEntity<?> deleteNotice(@RequestParam long noticeId) {
         noticeService.deleteNotice(noticeId);
-        return ResponseEntity.ok().body("삭제된 공지사항 ID: " + noticeId);
+        return ResponseEntity.ok().body("deleted NoticeId : " + noticeId);
     }
 
     @GetMapping("/getAllNotice")
@@ -53,4 +51,5 @@ public class AdminRoleNoticeController {
         List<NoticeDto.NoticeResponseDto> notices = noticeService.getAllNotice();
         return ResponseEntity.ok().body(notices);
     }
+
 }

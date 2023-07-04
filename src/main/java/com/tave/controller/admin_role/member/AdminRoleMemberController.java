@@ -16,31 +16,35 @@ public class AdminRoleMemberController {
 
     private final MemberService memberService;
 
+//    @PostMapping("/createMember")
+//    public ResponseEntity<?> createMember(@RequestBody MemberDto.MemberPostDto memberPostDto) {
+//        return ResponseEntity.ok().body(memberService.createMember(memberPostDto));
+//    }
+
     @GetMapping("/getMember")
-    public ResponseEntity<?> getMember(@RequestParam Long memberId) {
-        MemberDto.MemberResponseDto member = memberService.getMember(memberId);
-        return ResponseEntity.ok().body(member);
+    public ResponseEntity<?> getMember(@RequestParam Long memberId){
+        return ResponseEntity.ok().body(memberService.getMember(memberId));
     }
 
     @PatchMapping("/modifyMember")
-    public ResponseEntity<?> updateMember(@RequestParam Long memberId, @RequestBody MemberDto.MemberPatchDto memberPatchDto) {
-        MemberDto.MemberResponseDto updatedMember = memberService.updateMember(memberId, memberPatchDto);
-        return ResponseEntity.ok().body(updatedMember);
+    public ResponseEntity<?> updateMember(@RequestParam Long memberId,@RequestBody MemberDto.MemberPatchDto memberPatchDto) {
+        return ResponseEntity.ok().body(memberService.updateMember(memberId,memberPatchDto));
     }
 
-    @PatchMapping(value = "/modifyProfileImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/modifyProfileImage",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateMemberProfileImage(@RequestParam Long memberId, @RequestPart MultipartFile profileImage) {
-        return ResponseEntity.ok().body(memberService.updateMemberProfileImage(memberId, profileImage));
+        return ResponseEntity.ok().body(memberService.updateMemberProfileImage(memberId,profileImage));
     }
 
     @DeleteMapping("/deleteMember")
     public ResponseEntity<?> deleteMember(@RequestParam Long memberId){
         memberService.deleteMember(memberId);
-        return ResponseEntity.ok().body("삭제된 회원 ID: " + memberId);
+        return ResponseEntity.ok().body("deleted MemberId : " + memberId);
     }
 
     @GetMapping("/getMemberScore")
-    public ResponseEntity<?> getTeamScore(@RequestParam Long memberId) {
+    public ResponseEntity<?> getMemberScore(Long memberId) {
         return ResponseEntity.ok().body(memberService.getMemberScore(memberId));
     }
+
 }
