@@ -30,7 +30,7 @@ public class GoogleOtpController {
         return otpkey;
     }
 
-    @PostMapping("/googleotp/checkCode")
+    @PostMapping("/googleOtp/checkCode")
     public boolean checkCode(String userCode, String otpkey) { // 키, 코드, 시간으로 일회용 비밀번호가 맞는지 확인
         long otpnum = Integer.parseInt(userCode); // Google OTP 앱에 표시되는 6자리 숫자
         long wave = new Date().getTime() / 30000; // Google OTP의 주기는 30초

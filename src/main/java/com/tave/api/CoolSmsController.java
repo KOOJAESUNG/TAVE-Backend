@@ -41,7 +41,7 @@ public class CoolSmsController {
         return response;
     }
 
-    @PostMapping("/coolsms/check")
+    @PostMapping("/coolSms/check")
     public static String checkCertification(String inputNumber){
         return inputNumber;
     }
