@@ -1,5 +1,6 @@
 package com.tave.config.spring_security;
 
+import com.tave.config.spring_security.jwt.JwtExceptionHandlerFilter;
 import com.tave.config.spring_security.jwt.JwtAuthenticationFilter;
 import com.tave.config.spring_security.jwt.JwtAuthorizationFilter;
 import com.tave.repository.admin.AdminRepository;
@@ -14,6 +15,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @Configuration
@@ -47,6 +49,7 @@ public class SecurityConfig {
                 .addFilter(corsConfig.corsFilter())
                 .addFilter(new JwtAuthenticationFilter(authenticationManager))
                 .addFilter(new JwtAuthorizationFilter(authenticationManager, memberRepository, adminRepository))
+                .addFilterBefore(new JwtExceptionHandlerFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/adminRole/**")
                         .hasAnyRole("ADMIN")
