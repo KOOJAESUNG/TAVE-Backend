@@ -68,7 +68,7 @@ public class S3Service {
             amazonS3.deleteObject(new DeleteObjectRequest(bucket, fileName));
         } else {
             log.info("===== 파일 삭제 실패!!!!! 파일이 없습니다");
-            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "파일이 없습니다");
+//            throw new ResponseStatusException(HttpStatus.FORBIDDEN, "파일이 없습니다");
         }
         log.info("===== 파일 삭제 성공");
         log.info("========== S3 DELETE FILE END ==========");
