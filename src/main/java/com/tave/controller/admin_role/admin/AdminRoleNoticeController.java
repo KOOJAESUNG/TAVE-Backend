@@ -1,7 +1,9 @@
 package com.tave.controller.admin_role.admin;
+
 import com.tave.config.spring_security.auth.PrincipalDetails;
 import com.tave.dto.admin.NoticeDto;
 import com.tave.service.admin.NoticeService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,7 @@ public class AdminRoleNoticeController {
     private final NoticeService noticeService;
 
     @PostMapping("/createNotice")
-    public ResponseEntity<?> createNotice(@AuthenticationPrincipal PrincipalDetails principalDetails,@RequestBody NoticeDto.NoticePostDto noticePostDto) {
+    public ResponseEntity<?> createNotice(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid @RequestBody NoticeDto.NoticePostDto noticePostDto) {
         return ResponseEntity.ok().body(noticeService.createNotice(principalDetails.getUser().getId(), noticePostDto));
     }
 
@@ -30,14 +32,14 @@ public class AdminRoleNoticeController {
     }
 
     @PatchMapping("/modifyNotice")
-    public ResponseEntity<?> updateNotice(@RequestBody NoticeDto.NoticePatchDto noticePatchDto) {
+    public ResponseEntity<?> updateNotice(@Valid @RequestBody NoticeDto.NoticePatchDto noticePatchDto) {
 
         return ResponseEntity.ok().body(noticeService.updateNotice(noticePatchDto));
     }
 
     @PostMapping(value = "/modifyNoticeImages", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> modifyNoticeImages(@RequestParam Long noticeId, @RequestPart List<MultipartFile> imageList) {
-        return ResponseEntity.ok().body(noticeService.updateNoticeImages(noticeId,imageList));
+        return ResponseEntity.ok().body(noticeService.updateNoticeImages(noticeId, imageList));
     }
 
     @DeleteMapping("/deleteNotice")

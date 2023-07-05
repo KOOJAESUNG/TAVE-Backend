@@ -2,6 +2,7 @@ package com.tave.controller.admin_role.team;
 
 import com.tave.dto.team.TeamDto;
 import com.tave.service.team.TeamService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,7 +15,7 @@ public class AdminRoleTeamController {
     private final TeamService teamService;
 
     @PostMapping("/createTeam")
-    public ResponseEntity<?> createTeam(@RequestBody TeamDto.TeamPostDto teamPostDto) {
+    public ResponseEntity<?> createTeam(@Valid @RequestBody TeamDto.TeamPostDto teamPostDto) {
         return ResponseEntity.ok().body(teamService.createTeam(teamPostDto));
     }
 
@@ -24,7 +25,7 @@ public class AdminRoleTeamController {
     }
 
     @PatchMapping("/modifyTeam")
-    public ResponseEntity<?> updateTeam(@RequestBody TeamDto.TeamPatchDto teamPatchDto) {
+    public ResponseEntity<?> updateTeam(@Valid @RequestBody TeamDto.TeamPatchDto teamPatchDto) {
         return ResponseEntity.ok().body(teamService.updateTeam(teamPatchDto));
     }
 

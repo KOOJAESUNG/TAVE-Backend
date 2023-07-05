@@ -4,6 +4,7 @@ package com.tave.controller.admin_role.admin;
 import com.tave.config.spring_security.auth.PrincipalDetails;
 import com.tave.dto.admin.AdminDto;
 import com.tave.service.admin.AdminService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -22,17 +23,17 @@ public class AdminRoleAdminController {
 //    }
 
     @GetMapping("/getAdmin")
-    public ResponseEntity<?> getAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<?> getAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         return ResponseEntity.ok().body(adminService.getAdmin(principalDetails.getUser().getId()));
     }
 
     @PatchMapping("/modifyAdmin")
-    public ResponseEntity<?> updateAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails,@RequestBody AdminDto.AdminPatchDto adminPatchDto){
-        return ResponseEntity.ok().body(adminService.updateAdmin(principalDetails.getUser().getId(),adminPatchDto));
+    public ResponseEntity<?> updateAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid @RequestBody AdminDto.AdminPatchDto adminPatchDto) {
+        return ResponseEntity.ok().body(adminService.updateAdmin(principalDetails.getUser().getId(), adminPatchDto));
     }
 
     @DeleteMapping("/deleteAdmin")
-    public ResponseEntity<?> deleteAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails){
+    public ResponseEntity<?> deleteAdmin(@AuthenticationPrincipal PrincipalDetails principalDetails) {
         adminService.deleteAdmin(principalDetails.getUser().getId());
         return ResponseEntity.ok().body("deleted MemberId : " + principalDetails.getUser().getId());
     }

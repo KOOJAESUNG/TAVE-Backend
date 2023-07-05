@@ -3,6 +3,7 @@ package com.tave.controller.admin_role.member;
 
 import com.tave.dto.member.MemberDto;
 import com.tave.service.member.MemberService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,22 +23,22 @@ public class AdminRoleMemberController {
 //    }
 
     @GetMapping("/getMember")
-    public ResponseEntity<?> getMember(@RequestParam Long memberId){
+    public ResponseEntity<?> getMember(@RequestParam Long memberId) {
         return ResponseEntity.ok().body(memberService.getMember(memberId));
     }
 
     @PatchMapping("/modifyMember")
-    public ResponseEntity<?> updateMember(@RequestParam Long memberId,@RequestBody MemberDto.MemberPatchDto memberPatchDto) {
-        return ResponseEntity.ok().body(memberService.updateMember(memberId,memberPatchDto));
+    public ResponseEntity<?> updateMember(@RequestParam Long memberId, @Valid @RequestBody MemberDto.MemberPatchDto memberPatchDto) {
+        return ResponseEntity.ok().body(memberService.updateMember(memberId, memberPatchDto));
     }
 
-    @PatchMapping(value = "/modifyProfileImage",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PatchMapping(value = "/modifyProfileImage", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> updateMemberProfileImage(@RequestParam Long memberId, @RequestPart MultipartFile profileImage) {
-        return ResponseEntity.ok().body(memberService.updateMemberProfileImage(memberId,profileImage));
+        return ResponseEntity.ok().body(memberService.updateMemberProfileImage(memberId, profileImage));
     }
 
     @DeleteMapping("/deleteMember")
-    public ResponseEntity<?> deleteMember(@RequestParam Long memberId){
+    public ResponseEntity<?> deleteMember(@RequestParam Long memberId) {
         memberService.deleteMember(memberId);
         return ResponseEntity.ok().body("deleted MemberId : " + memberId);
     }

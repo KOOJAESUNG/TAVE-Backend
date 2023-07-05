@@ -4,6 +4,7 @@ package com.tave.controller.admin_role.admin;
 import com.tave.config.spring_security.auth.PrincipalDetails;
 import com.tave.dto.admin.ScheduleDto;
 import com.tave.service.admin.ScheduleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -19,7 +20,7 @@ public class AdminRoleScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping("/createSchedule")
-    public ResponseEntity<?> createSchedule(@AuthenticationPrincipal PrincipalDetails principalDetails, @RequestBody ScheduleDto.SchedulePostDto schedulePostDto) {
+    public ResponseEntity<?> createSchedule(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid @RequestBody ScheduleDto.SchedulePostDto schedulePostDto) {
         return ResponseEntity.ok().body(scheduleService.createSchedule(principalDetails.getUser().getId(), schedulePostDto));
     }
 
@@ -29,7 +30,7 @@ public class AdminRoleScheduleController {
     }
 
     @PatchMapping("/modifySchedule")
-    public ResponseEntity<?> updateSchedule(@RequestBody ScheduleDto.SchedulePatchDto schedulePatchDto) {
+    public ResponseEntity<?> updateSchedule(@Valid @RequestBody ScheduleDto.SchedulePatchDto schedulePatchDto) {
         return ResponseEntity.ok().body(scheduleService.updateSchedule(schedulePatchDto));
     }
 
@@ -41,8 +42,8 @@ public class AdminRoleScheduleController {
 
     @PatchMapping("/addAttendanceMember")
     public ResponseEntity<?> addAttendanceMember(@RequestParam Long scheduleId, @RequestParam Long memberId) {
-        scheduleService.addAttendanceMemberId(scheduleId,memberId);
-        return ResponseEntity.ok().body("Member Id: "+memberId+" is added in Schedule Id: "+scheduleId);
+        scheduleService.addAttendanceMemberId(scheduleId, memberId);
+        return ResponseEntity.ok().body("Member Id: " + memberId + " is added in Schedule Id: " + scheduleId);
     }
 
     @GetMapping("/getAllSchedule")
@@ -50,7 +51,6 @@ public class AdminRoleScheduleController {
         List<ScheduleDto.ScheduleResponseDto> schedules = scheduleService.getAllSchedule();
         return ResponseEntity.ok().body(schedules);
     }
-
 
 
 }
