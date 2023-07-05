@@ -51,11 +51,11 @@ public class SecurityConfig {
                 .addFilter(new JwtAuthorizationFilter(authenticationManager, memberRepository, adminRepository))
                 .addFilterBefore(new JwtExceptionHandlerFilter(), UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/adminRole/**")
+                        .requestMatchers("/adminRole/**","/googleOtp/**")
                         .hasAnyRole("ADMIN")
-                        .requestMatchers("/memberRole/**")
+                        .requestMatchers("/memberRole/**","/coolSms/**")
                         .hasAnyRole("MEMBER")
-                        .requestMatchers("/sse/**","/coolSms/**","/googleOtp/**")
+                        .requestMatchers("/sse/**")
                         .hasAnyRole("ADMIN","MEMBER")
 
 //                        .requestMatchers("/admin/getAdmin")

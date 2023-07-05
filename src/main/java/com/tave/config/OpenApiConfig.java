@@ -38,7 +38,7 @@ public class OpenApiConfig {
     public GroupedOpenApi group2() {
         return GroupedOpenApi.builder()
                 .group("2.ADMIN")
-                .pathsToMatch("/adminRole/**")
+                .pathsToMatch("/adminRole/**","/googleOtp/**","/sse/**")
                 // .packagesToScan("com.example.swagger") // package 필터 설정
                 .build();
     }
@@ -47,7 +47,7 @@ public class OpenApiConfig {
     public GroupedOpenApi group3() {
         return GroupedOpenApi.builder()
                 .group("3.MEMBER")
-                .pathsToMatch("/memberRole/**")
+                .pathsToMatch("/memberRole/**","/coolSms/**","/sse/**")
                 .build();
     }
 
