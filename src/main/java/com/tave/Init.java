@@ -30,6 +30,7 @@ public class Init {
     private final TeamScoreNoteRepository teamScoreNoteRepository;
     private final NoticeRepository noticeRepository;
     private final ScheduleRepository scheduleRepository;
+    private final MemberScoreNoteRepository memberScoreNoteRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     @PostConstruct
     private void initFirst(){
@@ -37,12 +38,13 @@ public class Init {
         initTeams();
         initMembers();
         initTeamScoreNotes();
+        initMemberScoreNotes();
         initNotices();
         initSchedules();
     }
 
     @Transactional
-    private void initAdmins() {
+    public void initAdmins() {
         for (int i = 0; i < 5; i++) {
             AdminEntity admin = new AdminEntity();
             admin.setUsername("admin_" + i);
@@ -55,7 +57,7 @@ public class Init {
     }
 
     @Transactional
-    private void initTeams() {
+    public void initTeams() {
         List<AdminEntity> admins = adminRepository.findAll();
             for (int i = 0; i < 5; i++) {
                 TeamEntity team = new TeamEntity();
@@ -68,7 +70,7 @@ public class Init {
 
 
     @Transactional
-    private void initMembers() {
+    public void initMembers() {
         List<TeamEntity> t = teamRepository.findAll();
             for (int i = 0; i < 5; i++) {
 
@@ -90,20 +92,24 @@ public class Init {
 
     }
 
-    private void initTeamScoreNotes() {
+    @Transactional
+    public void initTeamScoreNotes() {
         List<TeamEntity> t = teamRepository.findAll();
-        for (int i = 0; i < 5; i++) {
-
-            TeamScoreNoteEntity n = new TeamScoreNoteEntity();
-            n.setNote("Note " + i);
-            n.setScore(i);
-            n.setScoreType(ScoreType.BASICSCORE);
-            n.setTeam(t.get(i));
-            teamScoreNoteRepository.save(n);
+        for (TeamEntity team : t) {
+            for (int i = 0; i < 5; i++) {
+                TeamScoreNoteEntity n = new TeamScoreNoteEntity();
+                n.setNote("Note " + i);
+                n.setScore(i);
+                n.setScoreType(ScoreType.BASICSCORE);
+                n.setTeam(team);
+                teamScoreNoteRepository.save(n);
+            }
         }
+
     }
 
-    private void initSchedules() {
+    @Transactional
+    public void initSchedules() {
         List<AdminEntity> a = adminRepository.findAll();
         for (int i = 0; i < 5; i++) {
             ScheduleEntity s = new ScheduleEntity();
@@ -115,7 +121,8 @@ public class Init {
         }
     }
 
-    private void initNotices() {
+    @Transactional
+    public void initNotices() {
         List<AdminEntity> a = adminRepository.findAll();
         for (int i = 0; i < 5; i++) {
             NoticeEntity n = new NoticeEntity();
@@ -126,9 +133,19 @@ public class Init {
         }
     }
 
+    @Transactional
+    public void initMemberScoreNotes() {
+        List<MemberEntity> m = memberRepository.findAll();
+        for (MemberEntity member : m) {
+            for (int i = 0; i < 5; i++) {
+                MemberScoreNoteEntity n = new MemberScoreNoteEntity();
+                n.setNote("Note " + i);
+                n.setScore(i);
+                n.setScoreType(ScoreType.BASICSCORE);
+                n.setMember(member);
+                memberScoreNoteRepository.save(n);
+            }
+        }
 
-
-
-
-
+    }
 }
