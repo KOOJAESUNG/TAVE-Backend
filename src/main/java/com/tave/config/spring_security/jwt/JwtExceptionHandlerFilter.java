@@ -3,6 +3,7 @@ package com.tave.config.spring_security.jwt;
 
 import com.auth0.jwt.exceptions.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,7 @@ import org.springframework.http.MediaType;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 import static org.springframework.http.HttpStatus.*;
 
@@ -51,9 +53,10 @@ public class JwtExceptionHandlerFilter extends OncePerRequestFilter {
         ObjectMapper objectMapper = new ObjectMapper();
         response.setStatus(errorCode.getHttpStatus().value());
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-        ErrorResponse errorResponse = new ErrorResponse(errorCode.getCode(), errorCode.getMessage());
+        ErrorResponse errorResponse = new ErrorResponse(LocalDateTime.now().toString(),errorCode.getValue(),
+                errorCode.getHttpStatus().getReasonPhrase(),errorCode.getMessage());
         try {
-            response.getWriter().write(objectMapper.writeValueAsString(errorResponse));
+            response.getWriter().write(objectMapper.registerModule(new JavaTimeModule()).writeValueAsString(errorResponse));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -61,7 +64,9 @@ public class JwtExceptionHandlerFilter extends OncePerRequestFilter {
 
     @Data
     public static class ErrorResponse {
-        private final Integer code;
+        private final String timestamp;
+        private final Integer status;
+        private final String error;
         private final String message;
     }
 
@@ -72,7 +77,7 @@ public class JwtExceptionHandlerFilter extends OncePerRequestFilter {
         INVALID_TOKEN(BAD_REQUEST, 400, "JWT Token Invalid");
 
         private final HttpStatus httpStatus;
-        private final int code;
+        private final int value;
         private final String message;
     }
 
