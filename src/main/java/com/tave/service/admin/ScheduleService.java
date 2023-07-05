@@ -2,8 +2,9 @@ package com.tave.service.admin;
 
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.admin.ScheduleEntity;
-import com.tave.domain.member.MemberEntity;
 import com.tave.dto.admin.ScheduleDto;
+import com.tave.exception.BusinessLogicException;
+import com.tave.exception.ExceptionCode;
 import com.tave.mapper.admin.ScheduleMapper;
 import com.tave.repository.admin.AdminRepository;
 import com.tave.repository.admin.ScheduleRepository;
@@ -35,15 +36,18 @@ public class ScheduleService {
     }
 
     public ScheduleDto.ScheduleResponseDto getSchedule(Long scheduleId) {
-        return scheduleMapper.toResponseDto(scheduleRepository.findById(scheduleId).orElseThrow(EntityNotFoundException::new));
+        return scheduleMapper.toResponseDto(scheduleRepository.findById(scheduleId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.SCHEDULE_IS_NOT_EXIST)));
     }
 
     @Transactional
     public ScheduleDto.ScheduleResponseDto updateSchedule(ScheduleDto.SchedulePatchDto schedulePatchDto) {
-        ScheduleEntity scheduleEntity = scheduleRepository.findById(schedulePatchDto.getId()).orElseThrow(EntityNotFoundException::new);
+        ScheduleEntity scheduleEntity = scheduleRepository.findById(schedulePatchDto.getId())
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.SCHEDULE_IS_NOT_EXIST));
         scheduleMapper.updateFromPatchDto(schedulePatchDto, scheduleEntity);
         //entity->dto 후 return
-        return scheduleMapper.toResponseDto(scheduleRepository.findById(schedulePatchDto.getId()).orElseThrow(EntityNotFoundException::new));
+        return scheduleMapper.toResponseDto(scheduleRepository.findById(schedulePatchDto.getId())
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.UPDATE_FAIL_SCHEDULE)));
     }
 
     @Transactional
@@ -54,8 +58,9 @@ public class ScheduleService {
 
     @Transactional
     public void addAttendanceMemberId(Long scheduleId, Long memberId) throws EntityNotFoundException {
-        memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
-        scheduleRepository.findById(scheduleId).orElseThrow(EntityNotFoundException::new).addAttendanceMemberId(memberId);
+        memberRepository.findById(memberId).orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
+        scheduleRepository.findById(scheduleId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.SCHEDULE_IS_NOT_EXIST)).addAttendanceMemberId(memberId);
         log.info("Member Id: {} is added in Schedule Id: {}", memberId, scheduleId);
     }
 

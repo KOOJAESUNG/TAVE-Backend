@@ -3,10 +3,11 @@ package com.tave.service.admin;
 import com.tave.domain.team.TeamEntity;
 import com.tave.domain.admin.TeamScoreNoteEntity;
 import com.tave.dto.admin.TeamScoreNoteDto;
+import com.tave.exception.BusinessLogicException;
+import com.tave.exception.ExceptionCode;
 import com.tave.mapper.admin.TeamScoreNoteMapper;
 import com.tave.repository.team.TeamRepository;
 import com.tave.repository.admin.TeamScoreNoteRepository;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -24,23 +25,28 @@ public class TeamScoreNoteService {
 
     @Transactional
     public TeamScoreNoteDto.TeamScoreNoteResponseDto createTeamScoreNote(TeamScoreNoteDto.TeamScoreNotePostDto teamScoreNotePostDto) {
-        TeamEntity teamEntity = teamRepository.findById(teamScoreNotePostDto.getTeamId()).orElseThrow(EntityNotFoundException::new);
+        TeamEntity teamEntity = teamRepository.findById(teamScoreNotePostDto.getTeamId())
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.CREATE_FAIL_TEAMSCORENOTE));
         return teamScoreNoteMapper.toResponseDto(teamScoreNoteRepository.save(teamScoreNoteMapper.toEntity(teamScoreNotePostDto, teamEntity)));
     }
 
     public TeamScoreNoteDto.TeamScoreNoteResponseDto getTeamScoreNote(Long teamScoreNoteId) {
-        return teamScoreNoteMapper.toResponseDto(teamScoreNoteRepository.findById(teamScoreNoteId).orElseThrow(EntityNotFoundException::new));
+        return teamScoreNoteMapper.toResponseDto(teamScoreNoteRepository.findById(teamScoreNoteId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.TEAMSCORENOTE_IS_NOT_EXIST)));
     }
 
     @Transactional
     public TeamScoreNoteDto.TeamScoreNoteResponseDto updateTeamScoreNote(TeamScoreNoteDto.TeamScoreNotePatchDto teamScoreNotePatchDto) {
-        TeamScoreNoteEntity teamScoreNoteEntity = teamScoreNoteRepository.findById(teamScoreNotePatchDto.getId()).orElseThrow(EntityNotFoundException::new);
-        TeamEntity teamEntity = teamRepository.findById(teamScoreNotePatchDto.getTeamId()).orElseThrow(EntityNotFoundException::new);
+        TeamScoreNoteEntity teamScoreNoteEntity = teamScoreNoteRepository.findById(teamScoreNotePatchDto.getId())
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.TEAMSCORENOTE_IS_NOT_EXIST));
+        TeamEntity teamEntity = teamRepository.findById(teamScoreNotePatchDto.getTeamId())
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.TEAM_NOT_FOUND));
         //update
 //        teamScoreNoteEntity.updateFromPatchDto(teamScoreNotePatchDto, teamEntity);
         teamScoreNoteMapper.updateFromPatchDto(teamScoreNotePatchDto,teamEntity,teamScoreNoteEntity);
         //entity->dto 후 return
-        return teamScoreNoteMapper.toResponseDto(teamScoreNoteRepository.findById(teamScoreNotePatchDto.getId()).orElseThrow(EntityNotFoundException::new));
+        return teamScoreNoteMapper.toResponseDto(teamScoreNoteRepository.findById(teamScoreNotePatchDto.getId())
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.UPDATE_FAIL_TEAMSCORENOTE)));
     }
 
     @Transactional

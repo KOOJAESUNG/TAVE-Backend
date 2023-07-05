@@ -3,11 +3,12 @@ import com.tave.api.sse.SseService;
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.admin.NoticeEntity;
 import com.tave.dto.admin.NoticeDto;
+import com.tave.exception.BusinessLogicException;
+import com.tave.exception.ExceptionCode;
 import com.tave.mapper.admin.NoticeMapper;
 import com.tave.repository.admin.AdminRepository;
 import com.tave.repository.admin.NoticeRepository;
 import com.tave.api.aws.S3Service;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,8 @@ public class NoticeService {
 
     @Transactional
     public NoticeDto.NoticeResponseDto createNotice(Long adminId, NoticeDto.NoticePostDto noticePostDto) {
-        AdminEntity adminEntity = adminRepository.findById(adminId).orElseThrow(EntityNotFoundException::new);
+        AdminEntity adminEntity = adminRepository.findById(adminId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.NOTICE_IS_NOT_EXIST));
         //PostDto->Entity, save, Entity->ResponseDto, return
         NoticeEntity savedNotice = noticeRepository.save(noticeMapper.toEntity(noticePostDto, adminEntity));
         NoticeDto.NoticeResponseDto responseDto = noticeMapper.toResponseDto(savedNotice);
@@ -49,25 +51,30 @@ public class NoticeService {
 
 
     public NoticeDto.NoticeResponseDto getNotice(Long noticeId) {
-        return noticeMapper.toResponseDto(noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new));
+        return noticeMapper.toResponseDto(noticeRepository.findById(noticeId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.NOTICE_IS_NOT_EXIST)));
     }
 
     @Transactional
     public NoticeDto.NoticeResponseDto updateNotice(NoticeDto.NoticePatchDto noticePatchDto) {
-        NoticeEntity noticeEntity = noticeRepository.findById(noticePatchDto.getId()).orElseThrow(EntityNotFoundException::new);
+        NoticeEntity noticeEntity = noticeRepository.findById(noticePatchDto.getId())
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.NOTICE_IS_NOT_EXIST));
         //update
 //        noticeEntity.updateFromPatchDto(noticePatchDto);
         noticeMapper.updateFromPatchDto(noticePatchDto,noticeEntity);
         //entity->dto 후 return
-        return noticeMapper.toResponseDto(noticeRepository.findById(noticePatchDto.getId()).orElseThrow(EntityNotFoundException::new));
+        return noticeMapper.toResponseDto(noticeRepository.findById(noticePatchDto.getId())
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.UPDATE_FAIL_NOTICE)));
     }
 
     @Transactional
     public List<String> updateNoticeImages(Long noticeId, List<MultipartFile> imageList) {
-        NoticeEntity noticeEntity = noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new);
+        NoticeEntity noticeEntity = noticeRepository.findById(noticeId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.NOTICE_IS_NOT_EXIST));
         noticeEntity.getImages().forEach(s3Service::deleteFile);
         noticeEntity.updateNoticeImages(s3Service.uploadFileList(imageList));
-        return noticeRepository.findById(noticeId).orElseThrow(EntityNotFoundException::new).getImages();
+        return noticeRepository.findById(noticeId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.UPDATE_FAIL_NOTICEIMAGE)).getImages();
     }
 
     @Transactional

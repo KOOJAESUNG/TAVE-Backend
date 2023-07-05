@@ -3,6 +3,8 @@ package com.tave.service.team;
 import com.tave.domain.admin.AdminEntity;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.team.TeamDto;
+import com.tave.exception.BusinessLogicException;
+import com.tave.exception.ExceptionCode;
 import com.tave.mapper.team.TeamMapper;
 import com.tave.repository.admin.AdminRepository;
 import com.tave.repository.team.TeamRepository;
@@ -29,24 +31,29 @@ public class TeamService {
     public TeamDto.TeamResponseDto createTeam(TeamDto.TeamPostDto teamPostDto) {
         AdminEntity adminEntity = null;
         if(teamPostDto.getAdminId()!=null)
-            adminEntity = adminRepository.findById(teamPostDto.getAdminId()).orElseThrow(EntityNotFoundException::new);
+            adminEntity = adminRepository.findById(teamPostDto.getAdminId())
+                    .orElseThrow(()->new BusinessLogicException(ExceptionCode.CREATE_FAIL_TEAM));
         return teamMapper.toResponseDto(teamRepository.save(teamMapper.toEntity(teamPostDto, adminEntity)));
     }
 
     public TeamDto.TeamResponseDto getTeam(Long teamId) {
-        return teamMapper.toResponseDto(teamRepository.findById(teamId).orElseThrow(EntityNotFoundException::new));
+        return teamMapper.toResponseDto(teamRepository.findById(teamId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.TEAM_NOT_FOUND)));
     }
 
     @Transactional
     public TeamDto.TeamResponseDto updateTeam(TeamDto.TeamPatchDto teamPatchDto) {
-        TeamEntity teamEntity = teamRepository.findById(teamPatchDto.getId()).orElseThrow(EntityNotFoundException::new);
+        TeamEntity teamEntity = teamRepository.findById(teamPatchDto.getId())
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.TEAM_NOT_FOUND));
         AdminEntity adminEntity = null;
         if(teamPatchDto.getAdminId()!=null)
-            adminEntity = adminRepository.findById(teamPatchDto.getAdminId()).orElseThrow(EntityNotFoundException::new);
+            adminEntity = adminRepository.findById(teamPatchDto.getAdminId())
+                    .orElseThrow(()->new BusinessLogicException(ExceptionCode.ADMIN_NOT_FOUND));
         //update
         teamMapper.updateFromPatchDto(teamPatchDto, adminEntity, teamEntity);
         //entity->dto 후 return
-        return teamMapper.toResponseDto(teamRepository.findById(teamPatchDto.getId()).orElseThrow(EntityNotFoundException::new));
+        return teamMapper.toResponseDto(teamRepository.findById(teamPatchDto.getId())
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.UPDATE_FAIL_TEAM)));
     }
 
     @Transactional

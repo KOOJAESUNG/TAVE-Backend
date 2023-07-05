@@ -3,6 +3,8 @@ package com.tave.service.member;
 import com.tave.domain.member.MemberEntity;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.member.MemberDto;
+import com.tave.exception.BusinessLogicException;
+import com.tave.exception.ExceptionCode;
 import com.tave.mapper.member.MemberMapper;
 import com.tave.repository.admin.MemberScoreNoteRepository;
 import com.tave.repository.member.MemberRepository;
@@ -35,29 +37,35 @@ public class MemberService {
 //    }
     public MemberDto.MemberResponseDto getMember(Long memberId) {
         //entity->dto 후 return
-        return memberMapper.toResponseDto(memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new));
+        return memberMapper.toResponseDto(memberRepository.findById(memberId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND)));
     }
 
     @Transactional
     public MemberDto.MemberResponseDto updateMember(Long memberId,MemberDto.MemberPatchDto memberPatchDto) {
-        MemberEntity memberEntity = memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
+        MemberEntity memberEntity = memberRepository.findById(memberId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         TeamEntity teamEntity=null;
         if(memberPatchDto.getTeamId()!=null)
-            teamEntity = teamRepository.findById(memberPatchDto.getTeamId()).orElseThrow(EntityNotFoundException::new);
+            teamEntity = teamRepository.findById(memberPatchDto.getTeamId())
+                    .orElseThrow(()->new BusinessLogicException(ExceptionCode.TEAM_NOT_FOUND));
         //update
         if(memberPatchDto.getPassword()!=null) memberPatchDto.setPassword(bCryptPasswordEncoder.encode(memberPatchDto.getPassword()));
         memberMapper.updateFromPatchDto(memberPatchDto,teamEntity,memberEntity);
         //entity->dto 후 return
-        return memberMapper.toResponseDto(memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new));
+        return memberMapper.toResponseDto(memberRepository.findById(memberId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.UPDATE_FAIL_MEMBER)));
     }
 
     @Transactional
     public String updateMemberProfileImage(Long memberId, MultipartFile profileImage) {
-        MemberEntity memberEntity = memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
+        MemberEntity memberEntity = memberRepository.findById(memberId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.MEMBER_NOT_FOUND));
         s3Service.deleteFile(memberEntity.getProfileImage());
         memberMapper.updateProfileImage(s3Service.uploadFile(profileImage),memberEntity);
 
-        return memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new).getProfileImage();
+        return memberRepository.findById(memberId)
+                .orElseThrow(()->new BusinessLogicException(ExceptionCode.UPDATE_FAIL_MEMBERIMAGE)).getProfileImage();
     }
     @Transactional
     public void deleteMember(Long memberId) {
