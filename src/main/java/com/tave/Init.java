@@ -45,8 +45,8 @@ public class Init {
     private void initAdmins() {
         for (int i = 0; i < 5; i++) {
             AdminEntity admin = new AdminEntity();
-            admin.setUsername("admin " + i);
-            admin.setPassword(bCryptPasswordEncoder.encode("admin " + i));
+            admin.setUsername("admin_" + i);
+            admin.setPassword(bCryptPasswordEncoder.encode("admin_" + i));
             admin.setEmail("admin" + i + "@tave.com");
             admin.setPhoneNumber("010-1234-5678 " + i);
             adminRepository.save(admin);
@@ -73,7 +73,7 @@ public class Init {
             for (int i = 0; i < 5; i++) {
 
                 MemberEntity m = new MemberEntity();
-                m.setUsername("member " + i);
+                m.setUsername("member" + i);
                 m.setPassword(bCryptPasswordEncoder.encode("member" + i));
                 m.setEmail("TAVE2023" + i + "@tave.com");
                 m.setIntroduce("안녕하세요." + i);
