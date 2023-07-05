@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
+
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -13,7 +15,9 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ErrorResponse {
 
+    private LocalDateTime timestamp;
     private int status;
+    private String error;
     private String message;
 
     //MethodArgumentNotValidException으로부터 발생하는 에러 정보를 담는 멤버 변수이다.
@@ -25,39 +29,45 @@ public class ErrorResponse {
     private List<ConstraintViolationError> violationErrors;
 
 
-    private ErrorResponse(int status, String message) {
+    private ErrorResponse(int status, String error, String message) {
+        this.timestamp = LocalDateTime.now();
         this.status = status;
+        this.error = error;
         this.message = message;
     }
 
-    public static ErrorResponse of(int status, String message) {
-        return new ErrorResponse(status, message);
+    public static ErrorResponse of(HttpStatus httpStatus, String message) {
+        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase(), message);
     }
 
     // 추가
     public static ErrorResponse of(HttpStatus httpStatus) {
-        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase());
+        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase(), httpStatus.getReasonPhrase());
+    }
+
+    public static ErrorResponse of(ExceptionCode exceptionCode) {
+        return new ErrorResponse(exceptionCode.getHttpStatus().value(),
+                exceptionCode.getHttpStatus().getReasonPhrase(), exceptionCode.getMessage());
     }
 
 
-    private ErrorResponse(int status,List<FieldError> fieldErrors,
+    private ErrorResponse(int status, String error, List<FieldError> fieldErrors,
                           List<ConstraintViolationError> violationErrors) {
+        this.timestamp = LocalDateTime.now();
         this.status = status;
+        this.error = error;
         this.fieldErrors = fieldErrors;
         this.violationErrors = violationErrors;
     }
 
-    public static ErrorResponse of(int status,BindingResult bindingResult) {
-        return new ErrorResponse(status,FieldError.of(bindingResult), null);
+    public static ErrorResponse of(HttpStatus httpStatus, BindingResult bindingResult) {
+        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase(), FieldError.of(bindingResult), null);
     }
 
-    public static ErrorResponse of(int status,Set<ConstraintViolation<?>> violations) {
-        return new ErrorResponse(status,null, ConstraintViolationError.of(violations));
+    public static ErrorResponse of(HttpStatus httpStatus, Set<ConstraintViolation<?>> violations) {
+        return new ErrorResponse(httpStatus.value(), httpStatus.getReasonPhrase(), null, ConstraintViolationError.of(violations));
     }
 
-    public static ErrorResponse of(ExceptionCode exceptionCode) {
-        return new ErrorResponse(exceptionCode.getHttpStatus().value(), exceptionCode.getMessage());
-    }
 
     @Getter
     public static class FieldError {
