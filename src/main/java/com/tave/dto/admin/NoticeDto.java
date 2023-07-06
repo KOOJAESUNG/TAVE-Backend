@@ -1,5 +1,6 @@
 package com.tave.dto.admin;
 import com.tave.constant.NoticeType;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
@@ -15,6 +16,7 @@ public class NoticeDto {
     @Builder
     public static class NoticePostDto {
 
+        private String title;
         private String content;
 
         @NotNull(message = "Notice Type은 필수값입니다.")
@@ -31,6 +33,7 @@ public class NoticeDto {
 
         private Long id;
 
+        private String title;
         private String content;
 
         private NoticeType noticeType;
@@ -54,7 +57,8 @@ public class NoticeDto {
 
         @NotNull(message = "Notice ID는 필수값입니다.")
         private Long id;
-
+        @NotEmpty(message = "Title은 필수값입니다.")
+        private String title;
         private String content;
 
         private NoticeType noticeType;

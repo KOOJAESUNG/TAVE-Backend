@@ -1,6 +1,5 @@
 package com.tave;
 
-
 import com.tave.constant.MemberType;
 import com.tave.constant.NoticeType;
 import com.tave.constant.ScoreType;
@@ -126,6 +125,7 @@ public class Init {
         List<AdminEntity> a = adminRepository.findAll();
         for (int i = 0; i < 5; i++) {
             NoticeEntity n = new NoticeEntity();
+            n.setTitle("제목 " + i);
             n.setContent("Notice content " + i);
             n.setAdmin(a.get(i));
             n.setNoticeType(NoticeType.NEWS);

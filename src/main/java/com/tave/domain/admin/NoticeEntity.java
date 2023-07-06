@@ -20,7 +20,7 @@ public class NoticeEntity extends TimeStamp {
     @Column(name = "notice_id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    private String title;
     @Lob
     @Column(columnDefinition = "TEXT")
     private String content;
