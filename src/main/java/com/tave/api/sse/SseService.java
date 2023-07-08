@@ -1,6 +1,8 @@
 package com.tave.api.sse;
+
 import com.tave.dto.admin.NoticeDto;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -13,13 +15,18 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Slf4j
 public class SseService {
 
-    private static final Long TIMEOUT = 60 * 60 * 1000L; //1시간
+//    private static final Long TIMEOUT = 60 * 60 * 1000L; //1시간
+    private static final Long TIMEOUT = -1L; //무제한
 
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
 
+    public Boolean listIsEmpty() {
+        return emitters.isEmpty();
+    }
+
     public SseEmitter addSseConnection() {
 
-        SseEmitter sseEmitter = new SseEmitter(TIMEOUT); //연결 1시간 유지
+        SseEmitter sseEmitter = new SseEmitter(TIMEOUT);
 
         /**
          * 연결 직후 dummy 데이터 송신
@@ -44,7 +51,7 @@ public class SseService {
             log.info("onTimeout callback");
             sseEmitter.complete();
         });
-        sseEmitter.onError(e->{
+        sseEmitter.onError(e -> {
             log.info("onError callback");
             sseEmitter.complete();
         });
@@ -76,5 +83,21 @@ public class SseService {
                 emitter.completeWithError(e);
             }
         });
+    }
+
+    @Scheduled(fixedDelay = 60*1000) //1분마다 실행
+    public void checkConnectToAll() {
+        /**
+         * check Connection
+         */
+        if (!emitters.isEmpty()) {
+            emitters.forEach((emitter) -> {
+                try {
+                    emitter.send(SseEmitter.event().name("checkConnect").data("connected!"));
+                } catch (Exception e) {
+                    emitter.completeWithError(e);
+                }
+            });
+        }
     }
 }
