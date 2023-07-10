@@ -30,7 +30,9 @@
  
 ## :triangular_flag_on_post: Monolithic Architecure
 </br>
-![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/9af2df2d-dc38-49af-91cd-3a2f8228a3d7)
+
+![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/cfe1487a-9aae-468b-9799-64742931abdb)
+
 </br>
 </br>
 
@@ -39,7 +41,8 @@
 </br>
 **초기 시안이며, 일부 수정되었습니다.
 </br>
-![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/c437b6c5-5083-4a17-be81-0044c4538b96)
+![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/9877d7b4-275c-4103-ab80-a6426c07bc08)
+
 </br>
 </br>
 </br>
@@ -49,7 +52,7 @@
 </br>
 빌드와 배포 작업의 수동 조작 대신 개발 단계를 자동화하여 짧은 주기로 제공할 수 있도록 하였습니다.
 </br>
-![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/d65123cf-dd45-4454-a946-4fd27445c048)
+![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/1324fb53-e2ca-4346-9af0-2d7616be089f)
 </br>
 </br>
 </br>
