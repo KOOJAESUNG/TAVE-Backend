@@ -15,8 +15,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 @Slf4j
 public class SseService {
 
-//    private static final Long TIMEOUT = 60 * 60 * 1000L; //1시간
-    private static final Long TIMEOUT = -1L; //무제한
+    private static final Long TIMEOUT = 60 * 60 * 1000L; //1시간
+//    private static final Long TIMEOUT = -1L; //무제한
 
     private final List<SseEmitter> emitters = new CopyOnWriteArrayList<>();
 
