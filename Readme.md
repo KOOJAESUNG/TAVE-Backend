@@ -3,16 +3,16 @@
 
 :hammer: 프로젝트 사용기술
 ---------------
- - Spring Boot
- - Java 11
- - MySQL
- - Gradle
- - AWS S3, RDS, EC2, S3 Bucket
- - Swagger
- - Docker
- - Spring Security
- - Intellij IDEA
-   
+- Spring Boot
+- Java 11
+- MySQL
+- Gradle
+- AWS S3, RDS, EC2, S3 Bucket
+- Swagger
+- Docker
+- Spring Security
+- Intellij IDEA
+
 
 :wrench: 작성한 API
 ---------------
@@ -21,7 +21,7 @@
 - Cool SMS
 - Google OTP
 
- 
+
 :triangular_flag_o: Monolithic Architecure
 ---------------
 ![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/9af2df2d-dc38-49af-91cd-3a2f8228a3d7)
