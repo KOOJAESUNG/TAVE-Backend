@@ -80,7 +80,10 @@
 
     // OTP 코드 확인을 위해 백엔드로 AJAX 요청 보내기
       const response = await fetch(`/googleOtp/checkCode?userCode=${enteredOTP}&otpkey=${otpkey}`, {
-        method: 'POST'
+        method: 'POST',
+        headers:{
+          "Authorization":localStorage.getItem("token")
+        }
       });
       if (response.ok) {
         const data = await response.json();
