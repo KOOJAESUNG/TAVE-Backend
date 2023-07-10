@@ -39,7 +39,8 @@
 
 ## :pushpin: DB ERD 구조
 </br>
-**초기 시안이며, 일부 수정되었습니다.
+초기 시안이며, 일부 수정되었습니다.
+
 </br>
 
 ![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/9877d7b4-275c-4103-ab80-a6426c07bc08)
@@ -52,6 +53,7 @@
 ##  :raised_hand: CI/CD 구조
 </br>
 빌드와 배포 작업의 수동 조작 대신 개발 단계를 자동화하여 짧은 주기로 제공할 수 있도록 하였습니다.
+
 </br>
 
 ![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/1324fb53-e2ca-4346-9af0-2d7616be089f)
