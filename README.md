@@ -34,11 +34,9 @@
 ```
 
 ## :pushpin: DB ERD 구조
-```
-초기 시안이며, 일부 수정되었습니다.
-```
 
-![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/9877d7b4-275c-4103-ab80-a6426c07bc08)
+![image](https://github.com/Team-Crackdown/TAVE-Backend/assets/109260733/7e34d5e3-efc7-46e3-972f-ce44cb8057f5)
+
 
 
 ##  :raised_hand: CI/CD 구조
@@ -61,7 +59,7 @@
 </br>:heavy_check_mark: 프로젝트가 오래 지속될 수 있도록 기술적 지속성을 고려하고 있습니다.
 
 ## :sparkles: 의존성
-- springframework
+- Springframework
 - Google OTP
 - Cool SMS
 - AWS S3
@@ -69,7 +67,6 @@
 - Swagger
 - Mapstruct, Lombok
 - H2 Database
-- POI
 - Spring Security
 - JUnit4
 
