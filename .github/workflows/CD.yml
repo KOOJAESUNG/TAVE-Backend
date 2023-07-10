@@ -37,7 +37,7 @@ jobs:
       #배포를 위한 prod properties 설정
       - name: Make application.yml
         run: |
-          mkdir ./src/main/resources
+          mkdir -p ./src/main/resources #디렉토리가 없다면 생성
           cd ./src/main/resources
           touch ./application.yml
           echo "${{ secrets.APPLICATION }}" > ./application.yml
