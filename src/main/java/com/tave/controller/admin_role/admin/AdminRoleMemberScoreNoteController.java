@@ -34,4 +34,9 @@ public class AdminRoleMemberScoreNoteController {
         memberScoreNoteService.deleteMemberScoreNote(memberScoreNoteId);
         return ResponseEntity.ok().body("deleted MemberScoreNoteId : " + memberScoreNoteId);
     }
+
+    @GetMapping("getMembersAllMemberScoreNote")
+    public ResponseEntity<?> getMembersAllMemberScoreNote(@RequestParam Long memberId) {
+        return ResponseEntity.ok().body(memberScoreNoteService.getMembersAllMemberScoreNote(memberId));
+    }
 }

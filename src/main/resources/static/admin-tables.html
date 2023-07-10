@@ -96,10 +96,11 @@
 
 
         var xhr = new XMLHttpRequest();
-var url = 'https://tave.kro.kr:8080/adminRole/notice/getAllNotice'; // 실제 API 엔드포인트 URL로 대체해야 합니다.
+var url = 'http://127.0.0.1:8081/adminRole/admin/getAdmin'; // 실제 API 엔드포인트 URL로 대체해야 합니다.
 
 xhr.open('GET', url, true);
-xhr.setRequestHeader('Authorization', 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZG1pbl8xIiwiaWQiOjIsImV4cCI6MTY4OTY2NTExMSwidXNlcm5hbWUiOiJhZG1pbl8xIn0.JycubxLIRnigXOsaRXCBBdxOMItKi9kxxo_yr9zRzk93mPCCPpMj74NCdIG4lHdLA9Yv7mZz4ws1LrBzG10lfg');
+        console.log(localStorage.getItem("token"));
+xhr.setRequestHeader('Authorization',localStorage.getItem("token"));
 xhr.responseType = 'json';
 xhr.withCredentials = true;
 
