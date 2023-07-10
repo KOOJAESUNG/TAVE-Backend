@@ -62,21 +62,20 @@
         var password = document.getElementById("inputPassword").value;
 
         var xhr = new XMLHttpRequest();
-        var url = 'http://127.0.0.1:8081/'; // Replace with your server's login endpoint
+        var url = 'http://127.0.0.1:8081/login'; // Replace with your server's login endpoint
 
         xhr.open("POST", url, true);
         xhr.setRequestHeader("Content-Type", "application/json");
 
         // Prepare the request body
-        var body = JSON.stringify({ adminId: adminId, password: password });
+        var body = JSON.stringify({ username: adminId, password: password });
 
         xhr.onreadystatechange = function () {
             if (xhr.readyState === 4) {
                 if (xhr.status === 200) {
-                    var response = JSON.parse(xhr.responseText);
-                    var token = response.token;
                     // Store the token in the browser's local storage or any appropriate mechanism
-                    localStorage.setItem("token", token);
+                    localStorage.setItem("token", "Bearer "+xhr.getResponseHeader("Authorization"));
+                    console.log(localStorage.getItem("token"));
                     // Redirect to the Google OTP page or any other desired page
                     window.location.href = "googleotp.html";
                 } else {
