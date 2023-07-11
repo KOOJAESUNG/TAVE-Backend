@@ -73,25 +73,31 @@
             });
   }
 
-  function login() {
-    var enteredOTP = document.getElementById("inputEnteredOTP").value; // Get the entered OTP code
-    var otpkey = document.getElementById("inputGeneratedOTP").value; // Get the generated OTP key
+  async function login() {
+    try {
+      var enteredOTP = document.getElementById("inputEnteredOTP").value; // 입력된 OTP 코드 가져오기
+      var otpkey = document.getElementById("inputGeneratedOTP").value; // 생성된 OTP 키 가져오기
 
-    // Make an AJAX request to the backend to check the OTP code
-    fetch('/googleOtp/checkCode?userCode=' + enteredOTP + '&otpkey=' + otpkey, {
-      method: 'POST'
-    })
-            .then(response => response.json())
-            .then(data => {
-              if (data === true) {
-                window.location.href = 'qr.html'; // Redirect to admin-tables.html if the OTP code is correct
-              } else {
-                alert('로그인에 실패하였습니다.'); // Show a failure message if the OTP code is incorrect
-              }
-            })
-            .catch(error => {
-              console.log('Error:', error);
-            });
+      // OTP 코드 확인을 위해 백엔드로 AJAX 요청 보내기
+      const response = await fetch(`/googleOtp/checkCode?userCode=${enteredOTP}&otpkey=${otpkey}`, {
+        method: 'POST',
+        headers: {
+          "Authorization": localStorage.getItem("token")
+        }
+      });
+      if (response.ok) {
+        const data = await response.json();
+        if (data === true) {
+          window.location.href = 'qr.html'; // OTP 코드가 올바른 경우 qr.html로 리다이렉트
+        } else {
+          alert('로그인에 실패하였습니다.'); // OTP 코드가 잘못된 경우 실패 메시지 표시
+        }
+      } else {
+        throw new Error(response.status);
+      }
+    } catch (error) {
+      console.log('에러:', error);
+    }
   }
 </script>
 </body>
