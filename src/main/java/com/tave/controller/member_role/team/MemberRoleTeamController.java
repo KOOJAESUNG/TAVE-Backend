@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class MemberRoleTeamController {
 
     private final TeamService teamService;
+    private final TeamScoreNoteService teamScoreNoteService;
 
     @PostMapping("/createTeam")
     public ResponseEntity<?> createTeam(@Valid @RequestBody TeamDto.TeamPostDto teamPostDto) {
@@ -38,5 +39,10 @@ public class MemberRoleTeamController {
     @GetMapping("/getTeamScore")
     public ResponseEntity<?> getTeamScore(Long teamId) {
         return ResponseEntity.ok().body(teamService.getTeamScore(teamId));
+    }
+
+    @GetMapping("/getTeamScoreNote")
+    public ResponseEntity<?> getTeamScoreNote(@RequestParam Long teamScoreNoteId) {
+        return ResponseEntity.ok().body(teamScoreNoteService.getTeamScoreNote(teamScoreNoteId));
     }
 }
