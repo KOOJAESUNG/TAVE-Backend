@@ -70,6 +70,15 @@
 - Spring Security
 - JUnit4
 
+
+## :fire: Swagger 문서
+- localhost:8081/docs
+
+## :pushpin: 실행시 유의사랑
+- application.yml이 올라와있지 않아 실행이 되지 않습니다!! 실행을 원하시면 별도로 요청주시기 바랍니다!!
+
+
+
 ## :relaxed: 참고 문서
 :white_check_mark: [AWS EC2](https://aws.amazon.com/ko/ec2/?nc2=h_ql_prod_fs_ec2)
 </br>:white_check_mark: [CI/CD](https://velog.io/@jmjmjmz732002?tag=CICD)https://velog.io/@jmjmjmz732002?tag=CICD)
