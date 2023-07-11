@@ -72,8 +72,7 @@
 
 ## :relaxed: 참고 문서
 :white_check_mark: [AWS EC2](https://aws.amazon.com/ko/ec2/?nc2=h_ql_prod_fs_ec2)
-</br>:white_check_mark: [CI/CD](https://velog.io/@jmjmjmz732002?tag=CICD)https://velog.io/@jmjmjmz732002?tag=CICD)
+</br>:white_check_mark: [CI/CD](https://velog.io/@jmjmjmz732002?tag=CICD)
 </br>:white_check_mark: [Spring Security](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-%EC%8B%9C%ED%81%90%EB%A6%AC%ED%8B%B0/dashboard)
 </br>:white_check_mark: [Mapper](https://blog.naver.com/n_cloudplatform/222957490406)
-</br>:white_check_mark: [Spring Security](https://www.inflearn.com/course/%EC%8A%A4%ED%94%84%EB%A7%81%EB%B6%80%ED%8A%B8-%EC%8B%9C%ED%81%90%EB%A6%AC%ED%8B%B0/dashboard)
 
