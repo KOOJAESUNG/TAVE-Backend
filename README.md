@@ -74,7 +74,7 @@
 ## :fire: Swagger 문서
 - localhost:8081/docs
 
-## :pushpin: 실행시 유의사랑
+## :pushpin: 실행시 유의사항
 - application.yml이 올라와있지 않아 실행이 되지 않습니다!! 실행을 원하시면 별도로 요청주시기 바랍니다!!
 
 
