@@ -11,6 +11,24 @@
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script>
+        var xhr = new XMLHttpRequest();
+        var url = 'http://127.0.0.1:8081/adminRole/schedule/getAllSchedule'; // 실제 API 엔드포인트 URL로 대체해야 합니다.
+
+        xhr.open('GET', url, true);
+        console.log(localStorage.getItem("token"));
+        xhr.setRequestHeader('Authorization',localStorage.getItem("token"));
+        xhr.responseType = 'json';
+        xhr.withCredentials = true;
+
+        xhr.send();
+
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.response;
+                console.log(response); // 예시: 콘솔에 응답 데이터 출력
+                }
+        };
+
         window.addEventListener("DOMContentLoaded", (event) => {
         // JavaScript 코드 내용
         // Simple-DataTables 초기화 등 필요한 코드를 여기에 추가합니다.
@@ -18,6 +36,40 @@
         const datatablesSimple = document.getElementById("datatablesSimple");
         if (datatablesSimple) {
         const table = new simpleDatatables.DataTable(datatablesSimple);
+
+// API 호출
+            fetch('http://127.0.0.1:8081/adminRole/schedule/getAllSchedule', {
+                method: 'GET',
+                headers: {
+                    'Authorization': localStorage.getItem("token"), // 토큰을 넣어주세요.
+                }
+            })
+                .then(response => response.json())
+                .then(data => {
+                    // 데이터를 테이블에 추가합니다.
+                    const tableBody = document.querySelector('#datatablesSimple tbody');
+                    data.forEach(schedule => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                <td>${schedule.id}</td>
+                <td>${schedule.date}</td>
+                <td>${schedule.place}</td>
+                <td>${schedule.title}</td>
+                <td>${schedule.adminId}</td>
+                <td>${schedule.attendanceMemberId}</td>
+                <td>${schedule.createAt}</td>
+                <td>${schedule.modifiedAt}</td>
+                <td>
+                    <button class="edit-button btn btn-primary btn-sm">MODIFY</button>
+                    <button class="delete-button btn btn-danger btn-sm">REMOVE</button>
+                </td>
+            `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => {
+                    console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
+                });
 
         // 편집 버튼과 삭제 버튼의 클릭 이벤트 처리 등 추가적인 로직을 이곳에 작성합니다.
         const editButtons = document.querySelectorAll(".edit-button");
@@ -254,6 +306,7 @@ row.cells[7].textContent = editedScheduleModifiedAt;
                         <div>
                             <button type="submit">저장</button>
                             <button type="button" onclick="cancelEdit()">취소</button>
+                        </div>
                     </form>
                 </div>
                 <footer class="py-4 bg-light mt-auto">

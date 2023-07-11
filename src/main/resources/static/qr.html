@@ -29,7 +29,6 @@ xhr.send();
 xhr.onreadystatechange = function() {
   if (xhr.readyState === 4 && xhr.status === 200) {
     var response = xhr.response;
-    // 응답 데이터(response)를 원하는 방식으로 처리합니다.
     console.log(response); // 예시: 콘솔에 응답 데이터 출력
   }
 };

@@ -11,6 +11,28 @@
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
         <script>
+
+            <script>
+                var xhr = new XMLHttpRequest();
+                var url = 'http://127.0.0.1:8081/adminRole/admin/getAdmin'; // 실제 API 엔드포인트 URL로 대체해야 합니다.
+
+                xhr.open('GET', url, true);
+                console.log(localStorage.getItem("token"));
+                xhr.setRequestHeader('Authorization',localStorage.getItem("token"));
+                xhr.responseType = 'json';
+                xhr.withCredentials = true;
+
+                xhr.send();
+
+
+                xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                var response = xhr.response;
+                console.log(response); // 예시: 콘솔에 응답 데이터 출력
+            }
+            };
+
+
             window.addEventListener("DOMContentLoaded", (event) => {
                 // JavaScript 코드 내용
                 // Simple-DataTables 초기화 등 필요한 코드를 여기에 추가합니다.
@@ -250,11 +272,11 @@
                             <input type="text" id="editMemberEmail" name="editMemberEmail">
                         </div>
                         <div>
-                            <label for="editMemberrIntroduce">INTRODUCE:</label>
+                            <label for="editMemberIntroduce">INTRODUCE:</label>
                             <input type="text" id="editMemberIntroduce" name="editMemberIntroduce">
                         </div>
                         <div>
-                            <label for="editMemberrRad">RAD:</label>
+                            <label for="editMemberRad">RAD:</label>
                             <input type="text" id="editMemberRad" name="editMemberRad">
                         </div>
                         <div>
