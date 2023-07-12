@@ -1,11 +1,14 @@
 package com.tave.controller.admin_role.admin;
 
+import com.tave.dto.admin.ScheduleDto;
 import com.tave.dto.admin.TeamScoreNoteDto;
 import com.tave.service.admin.TeamScoreNoteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -33,5 +36,10 @@ public class AdminRoleTeamScoreNoteController {
     public ResponseEntity<?> deleteTeamScoreNote(@RequestParam Long teamScoreNoteId) {
         teamScoreNoteService.deleteTeamScoreNote(teamScoreNoteId);
         return ResponseEntity.ok().body("deleted TeamScoreNoteId : " + teamScoreNoteId);
+    }
+    @GetMapping("/getAllTeamScoreNote")
+    public ResponseEntity<List<TeamScoreNoteDto.TeamScoreNoteResponseDto>> getAllTeamScoreNote(){
+        List<TeamScoreNoteDto.TeamScoreNoteResponseDto> teamScoreNotes = teamScoreNoteService.getAllTeamScoreNote();
+        return ResponseEntity.ok().body(teamScoreNotes);
     }
 }

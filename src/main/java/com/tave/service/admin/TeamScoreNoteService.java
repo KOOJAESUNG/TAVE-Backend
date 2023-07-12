@@ -1,7 +1,9 @@
 package com.tave.service.admin;
 
+import com.tave.domain.admin.NoticeEntity;
 import com.tave.domain.team.TeamEntity;
 import com.tave.domain.admin.TeamScoreNoteEntity;
+import com.tave.dto.admin.NoticeDto;
 import com.tave.dto.admin.TeamScoreNoteDto;
 import com.tave.exception.BusinessLogicException;
 import com.tave.exception.ExceptionCode;
@@ -12,6 +14,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -53,5 +58,19 @@ public class TeamScoreNoteService {
     public void deleteTeamScoreNote(Long teamScoreNoteId) {
         teamScoreNoteRepository.deleteById(teamScoreNoteId);
         log.info("TeamScoreNoteEntity Id: {} is deleted",teamScoreNoteId);
+    }
+
+    @Transactional
+    public List<TeamScoreNoteDto.TeamScoreNoteResponseDto> getAllTeamScoreNote(){
+
+        List<TeamScoreNoteEntity> teamScoreNoteEntities = teamScoreNoteRepository.getAllTeamScoreNote();
+        List<TeamScoreNoteDto.TeamScoreNoteResponseDto> teamScoreNoteResponseDtos = new ArrayList<>();
+
+        for (TeamScoreNoteEntity teamScoreNoteEntity : teamScoreNoteEntities){
+            TeamScoreNoteDto.TeamScoreNoteResponseDto teamScoreNoteResponseDto = teamScoreNoteMapper.toResponseDto(teamScoreNoteEntity);
+            teamScoreNoteResponseDtos.add(teamScoreNoteResponseDto);
+        }
+
+        return teamScoreNoteResponseDtos;
     }
 }
