@@ -11,321 +11,416 @@
     <link href="css/styles.css" rel="stylesheet" />
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script>
-        var xhr = new XMLHttpRequest();
-        var url = 'http://127.0.0.1:8081/adminRole/schedule/getAllSchedule'; // 실제 API 엔드포인트 URL로 대체해야 합니다.
+        document.addEventListener("DOMContentLoaded", () => {
+            const datatablesSimple = document.getElementById("datatablesSimple");
+            if (datatablesSimple) {
+                const table = new simpleDatatables.DataTable(datatablesSimple);
 
-        xhr.open('GET', url, true);
-        console.log(localStorage.getItem("token"));
-        xhr.setRequestHeader('Authorization',localStorage.getItem("token"));
-        xhr.responseType = 'json';
-        xhr.withCredentials = true;
+                // API 호출
+                fetch("http://127.0.0.1:8081/adminRole/schedule/getAllSchedule", {
+                    method: "GET",
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        // 기존의 테이블 내용 삭제
+                        const tableBody = document.querySelector("#datatablesSimple tbody");
+                        tableBody.innerHTML = "";
 
-        xhr.send();
-
-        xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-                var response = xhr.response;
-                console.log(response); // 예시: 콘솔에 응답 데이터 출력
-                }
-        };
-
-        window.addEventListener("DOMContentLoaded", (event) => {
-        // JavaScript 코드 내용
-        // Simple-DataTables 초기화 등 필요한 코드를 여기에 추가합니다.
-
-        const datatablesSimple = document.getElementById("datatablesSimple");
-        if (datatablesSimple) {
-        const table = new simpleDatatables.DataTable(datatablesSimple);
-
-// API 호출
-            fetch('http://127.0.0.1:8081/adminRole/schedule/getAllSchedule', {
-                method: 'GET',
-                headers: {
-                    'Authorization': localStorage.getItem("token"), // 토큰을 넣어주세요.
-                }
-            })
-                .then(response => response.json())
-                .then(data => {
-                    // 데이터를 테이블에 추가합니다.
-                    const tableBody = document.querySelector('#datatablesSimple tbody');
-                    data.forEach(schedule => {
-                        const row = document.createElement('tr');
-                        row.innerHTML = `
-                <td>${schedule.id}</td>
-                <td>${schedule.date}</td>
-                <td>${schedule.place}</td>
-                <td>${schedule.title}</td>
-                <td>${schedule.adminId}</td>
-                <td>${schedule.attendanceMemberId}</td>
-                <td>${schedule.createAt}</td>
-                <td>${schedule.modifiedAt}</td>
-                <td>
-                    <button class="edit-button btn btn-primary btn-sm">MODIFY</button>
-                    <button class="delete-button btn btn-danger btn-sm">REMOVE</button>
-                </td>
+                        // 데이터를 테이블에 추가합니다.
+                        data.forEach((schedule) => {
+                            const row = document.createElement("tr");
+                            row.innerHTML = `
+              <td>${schedule.id}</td>
+              <td>${schedule.date}</td>
+              <td>${schedule.place}</td>
+              <td>${schedule.title}</td>
+              <td>${schedule.adminId}</td>
+              <td>${schedule.attendanceMemberId}</td>
+              <td>${schedule.createAt}</td>
+              <td>${schedule.modifiedAt}</td>
+              <td>
+                <button class="edit-button btn btn-primary btn-sm" data-id="${schedule.id}">MODIFY</button>
+                <button class="delete-button btn btn-danger btn-sm" data-id="${schedule.id}">REMOVE</button>
+              </td>
             `;
-                        tableBody.appendChild(row);
+                            tableBody.appendChild(row);
+                        });
+
+                        // 편집 버튼과 삭제 버튼의 클릭 이벤트 처리 등 추가적인 로직을 이곳에 작성합니다.
+                        const editButtons = document.querySelectorAll(".edit-button");
+                        const deleteButtons = document.querySelectorAll(".delete-button");
+
+                        // 편집 버튼 클릭 이벤트 처리
+                        editButtons.forEach((button) => {
+                            button.addEventListener("click", handleEditButtonClick);
+                        });
+
+                        // 삭제 버튼 클릭 이벤트 처리
+                        deleteButtons.forEach((button) => {
+                            button.addEventListener("click", handleDeleteButtonClick);
+                        });
+                    })
+                    .catch((error) => {
+                        console.error("데이터를 가져오는 중 오류가 발생했습니다:", error);
                     });
+            }
+        });
+
+        function handleAddButtonClick() {
+            const addScheduleDate = document.getElementById("addScheduleDate").value;
+            const addSchedulePlace = document.getElementById("addSchedulePlace").value;
+            const addScheduleTitle = document.getElementById("addScheduleTitle").value;
+
+            // 데이터 가공
+            const processedDate = new Date(addScheduleDate); // 날짜를 Date 객체로 변환
+
+
+            // CreateAt과 ModifiedAt은 문자열 그대로 전송
+
+            // 데이터 객체 생성
+            const schedule = {
+                date: processedDate.toISOString(),
+                place: addSchedulePlace,
+                title: addScheduleTitle,
+            };
+
+            fetch("http://127.0.0.1:8081/adminRole/schedule/createSchedule", {
+                method: "POST",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+                body: JSON.stringify(schedule)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error("데이터 추가 중 오류가 발생했습니다.");
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // 새로운 스케줄을 테이블에 추가합니다.
+                    const tableBody = document.querySelector("#datatablesSimple tbody");
+                    const row = document.createElement("tr");
+                    row.innerHTML = `
+            <td>${data.id}</td>
+            <td>${data.date}</td>
+            <td>${data.place}</td>
+            <td>${data.title}</td>
+            <td>${data.adminId}</td>
+            <td>${data.attendanceMemberId}</td>
+            <td>${data.createAt}</td>
+            <td>${data.modifiedAt}</td>
+            <td>
+                <button class="edit-button btn btn-primary btn-sm" data-id="${data.id}">MODIFY</button>
+                <button class="delete-button btn btn-danger btn-sm" data-id="${data.id}">REMOVE</button>
+            </td>
+        `;
+                    tableBody.appendChild(row);
+
+
+                    // 추가 폼을 초기화합니다.
+                    document.getElementById("addDataForm").reset();
+
+                    // 모달을 닫습니다.
+                    $("#addDataModal").modal("hide");
                 })
                 .catch(error => {
-                    console.error('데이터를 가져오는 중 오류가 발생했습니다:', error);
+                    console.error("Error:", error);
                 });
+        }
 
-        // 편집 버튼과 삭제 버튼의 클릭 이벤트 처리 등 추가적인 로직을 이곳에 작성합니다.
-        const editButtons = document.querySelectorAll(".edit-button");
-        const deleteButtons = document.querySelectorAll(".delete-button");
+        function handleDeleteButtonClick(event) {
+            const scheduleId = event.target.dataset.id;
 
-        // 편집 버튼 클릭 이벤트 처리
-        editButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-        const row = button.parentNode.parentNode;
-        const cells = row.getElementsByTagName("td");
-        const scheduleid = cells[0].innerText;
-        const scheduledate = cells[1].innerText;
-        const scheduleplace= cells[2].innerText;
-        const scheduletitle = cells[3].innerText;
-        const scheduleadminid = cells[4].innerText;
-        const scheduleattendancememberid = cells[5].innerText;
-        const schedulecreateat = cells[6].innerText;
-        const schedulemodifiedat = cells[7].innerText;
+            // 스케줄 삭제 API 호출
+            fetch(`http://127.0.0.1:8081/adminRole/schedule/deleteSchedule?scheduleId=${scheduleId}`, {
+                method: "DELETE",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        // 삭제 요청이 성공한 경우 해당 행을 삭제합니다.
+                        const row = event.target.closest("tr");
+                        row.remove();
+                    } else {
+                        console.error("데이터 삭제 중 오류가 발생했습니다.");
+                    }
+                })
+                .catch((error) => {
+                    console.error("데이터 삭제 중 오류가 발생했습니다:", error);
+                });
+        }
 
-        // 편집 폼을 채우고 보여줄 로직을 작성합니다.
-        document.getElementById("editScheduleId").value =  scheduleid;
-        document.getElementById("editScheduleDate").value = scheduledate;
-        document.getElementById("editSchedulePlace").value = scheduleplace;
-        document.getElementById("editScheduleTitle").value = scheduletitle;
-        document.getElementById("editScheduleAdminId").value = scheduleadminid;
-        document.getElementById("editScheduleAttendanceMemberId").value = scheduleattendancememberid;
-        document.getElementById("editScheduleCreateAt").value = schedulecreateat;
-        document.getElementById("editScheduleModifiedAt").value = schedulemodifiedat;
-
-        // 편집 폼을 보여줍니다.
-        document.getElementById("editForm").style.display = "block";
-        });
-        });
-
-        // 삭제 버튼 클릭 이벤트 처리
-        deleteButtons.forEach((button) => {
-        button.addEventListener("click", (event) => {
-        const row = button.parentNode.parentNode;
-        row.remove();
-
-        // 삭제 작업을 처리하는 로직을 작성합니다.
-        // 필요한 경우 서버로 데이터 삭제 요청을 보낼 수 있습니다.
-        });
+        document.addEventListener("DOMContentLoaded", () => {
+            const editButtons = document.querySelectorAll(".edit-button");
+            editButtons.forEach((button) => {
+                button.addEventListener("click", handleEditButtonClick);
+            });
         });
 
-        // 저장 버튼 클릭 이벤트 처리
+        function handleEditButtonClick(event) {
+            const scheduleId = event.target.dataset.id;
+
+            // 수정할 스케줄 정보를 가져오는 API 호출
+            fetch(`http://127.0.0.1:8081/adminRole/schedule/getSchedule?scheduleId=${scheduleId}`, {
+                method: "GET",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    // 수정 폼을 채우는 로직 작성
+                    document.getElementById("editScheduleId").value = data.id;
+                    document.getElementById("editSchedulePlace").value = data.place;
+                    document.getElementById("editScheduleTitle").value = data.title;
+
+                    // 편집 폼을 보여줍니다.
+                    document.getElementById("editForm").style.display = "block";
+                })
+                .catch((error) => {
+                    console.error("데이터를 가져오는 중 오류가 발생했습니다:", error);
+                });
+        }
+
+        // "저장" 버튼 클릭 이벤트 처리
         const saveButton = document.getElementById("saveButton");
         if (saveButton) {
-        saveButton.addEventListener("click", (event) => {
-        event.preventDefault(); // 폼 전송 방지
+            saveButton.addEventListener("click", (event) => {
+                event.preventDefault();
 
-        // 수정된 데이터 가져오기
-const editedScheduleId = document.getElementById("editScheduleId").value;
-const editedScheduleDate = document.getElementById("editScheduleDate").value;
-const editedSchedulePlace = document.getElementById("editSchedulePlace").value;
-const editedScheduleTitle = document.getElementById("editScheduleTitle").value;
-const editedScheduleAdminId = document.getElementById("editScheduleAdminId").value;
-const editedScheduleAttendanceMemberId = document.getElementById("editScheduleAttendanceMemberId").value;
-const editedScheduleCreateAt = document.getElementById("editScheduleCreateAt").value;
-const editedScheduleModifiedAt = document.getElementById("editScheduleModifiedAt").value;
+                // 수정된 데이터 가져오기
+                const editedScheduleId = document.getElementById("editScheduleId").value;
+                const editedSchedulePlace = document.getElementById("editSchedulePlace").value;
+                const editedScheduleTitle = document.getElementById("editScheduleTitle").value;
+                // 요청 바디 데이터 생성
+                const requestBody = {
+                    id: editedScheduleId,
+                    place: editedSchedulePlace,
+                    title: editedScheduleTitle,
+                };
 
-// 데이터 업데이트 처리 로직 작성
-// 필요에 따라 서버로 데이터 업데이트 요청을 보낼 수 있습니다.
+                // API 호출
+                fetch(`http://127.0.0.1:8081/adminRole/schedule/modifySchedule`, {
+                    method: "PATCH",
+                    headers: {
+                        Authorization: localStorage.getItem("token"),
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify(requestBody),
+                })
+                    .then((response) => {
+                        if (response.ok) {
+                            // 수정 요청이 성공한 경우 테이블 데이터를 업데이트합니다.
+                            const row = document.querySelector(`#datatablesSimple tr[data-id="${editedScheduleId}"]`);
+                            row.cells[2].innerText = editedSchedulePlace;
+                            row.cells[3].innerText = editedScheduleTitle;
 
-// 예시: 수정된 데이터 적용하기
-const row = document.querySelector(`#datatablesSimple tr[data-id="${editedScheduleId}"]`);
-row.cells[1].textContent = editedScheduleDate;
-row.cells[2].textContent = editedSchedulePlace;
-row.cells[3].textContent = editedScheduleTitle;
-row.cells[4].textContent = editedScheduleAdminId;
-row.cells[5].textContent = editedScheduleAttendanceMemberId;
-row.cells[6].textContent = editedScheduleCreateAt;
-row.cells[7].textContent = editedScheduleModifiedAt;
-
-        // 편집 폼 숨기기
-        document.getElementById("editForm").style.display = "none";
-        });
+                            // 편집 폼을 숨깁니다.
+                            document.getElementById("editForm").style.display = "none";
+                        } else {
+                            console.error("데이터 수정 중 오류가 발생했습니다.");
+                        }
+                    })
+                    .catch((error) => {
+                        console.error("데이터 수정 중 오류가 발생했습니다:", error);
+                    });
+            });
         }
-        }
-        });
     </script>
 </head>
-    <body class="sb-nav-fixed">
-        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-            <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="qr.html">TAVE</a>
-            <!-- Sidebar Toggle-->
-            <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-            <!-- Navbar Search-->
-            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-                <div class="input-group">
-                    <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                    <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+<body class="sb-nav-fixed">
+<nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+    <!-- Navbar Brand-->
+    <a class="navbar-brand ps-3" href="qr.html">TAVE</a>
+    <!-- Sidebar Toggle-->
+    <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+    <!-- Navbar Search-->
+    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+        <div class="input-group">
+            <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
+            <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+        </div>
+    </form>
+    <!-- Navbar-->
+    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                <li><hr class="dropdown-divider" /></li>
+                <li><a class="dropdown-item" href="index.html">Logout</a></li>
+            </ul>
+        </li>
+    </ul>
+</nav>
+<div id="layoutSidenav">
+    <div id="layoutSidenav_nav">
+        <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+            <div class="sb-sidenav-menu">
+                <div class="nav">
+                    <div class="sb-sidenav-menu-heading">TABLE</div>
+                    <a class="nav-link" href="qr.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        QR-CheckIn
+                    </a>
+                    <a class="nav-link" href="member-tables.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Member-Tables
+                    </a>
+                    <a class="nav-link" href="team-tables.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Team-Tables
+                    </a>
+                    <a class="nav-link" href="member-score-note-tables.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Member-Score-Note-Tables
+                    </a>
+                    <a class="nav-link" href="team-score-note-tables.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Team-Score-Note-Tables
+                    </a>
+                    <a class="nav-link" href="notice-tables.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Notice-Tables
+                    </a>
+                    <a class="nav-link" href="schedule-tables.html">
+                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
+                        Schdeule-Tables
+                    </a>
+                </div>
+            </div>
+            <div class="sb-sidenav-footer">
+                <div class="small">Logged in as:</div>
+                TAVE ADMIN
+            </div>
+        </nav>
+    </div>
+    <div id="layoutSidenav_content">
+        <main>
+            <div class="container-fluid px-4">
+                <h1 class="mt-4">Tables</h1>
+                <ol class="breadcrumb mb-4">
+                    <li class="breadcrumb-item active">Schedule Table</li>
+                </ol>
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <i class="fas fa-table me-1"></i>
+                        ScheduleTable
+                        <button class="add-button btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#addDataModal">add</button>
+                    </div>
+                    <div class="card-body">
+                        <table id="datatablesSimple">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>DATE</th>
+                                <th>PLACE</th>
+                                <th>TITLE</th>
+                                <th>ADMINID</th>
+                                <th>ATTENDANCEMEMBERID</th>
+                                <th>CREATEAT</th>
+                                <th>MODIFIEDAT</th>
+                                <th>편집</th> <!-- 편집 버튼 열 추가 -->
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${boards}" var="board">
+                                <tr>
+                                    <td>${board.scheduleid}</td>
+                                    <td>${board.scheduledate}</td>
+                                    <td>${board.scheduleplace}</td>
+                                    <td>${board.scheduletitle}</td>
+                                    <td>${board.scheduleadminid}</td>
+                                    <td>${board.scheduleattendancememberid}</td>
+                                    <td>${board.schedulecreateat}</td>
+                                    <td>${board.schedulemodifiedat}</td>
+                                    <td>
+                                        <button class="edit-button btn btn-primary btn-sm">MODIFY</button>
+                                        <button class="delete-button btn btn-danger btn-sm">REMOVE</button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </main>
+        <div id="editForm" style="display: none;">
+            <h2>데이터 편집</h2>
+            <form id="editDataForm">
+                <div>
+                    <label for="editScheduleId">ID:</label>
+                    <input type="text" id="editScheduleId" name="editScheduleId" readonly>
+                </div>
+                <div>
+                    <label for="editSchedulePlace">PLACE:</label>
+                    <input type="text" id="editSchedulePlace" name="editSchedulePlace">
+                </div>
+                <div>
+                    <label for="editScheduleTitle">TITLE:</label>
+                    <input type="text" id="editScheduleTitle" name="editScheduleTitle">
+                </div>
+                <div>
+                    <button type="submit">저장</button>
+                    <button type="button" onclick="cancelEdit()">취소</button>
                 </div>
             </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                        <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="index.html">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </nav>
-        <div id="layoutSidenav">
-            <div id="layoutSidenav_nav">
-                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                    <div class="sb-sidenav-menu">
-                        <div class="nav">
-                            <div class="sb-sidenav-menu-heading">TABLE</div>
-                            <a class="nav-link" href="qr.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                QR-CheckIn
-                            </a>
-                            <a class="nav-link" href="member-tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Member-Tables
-                            </a>
-                            <a class="nav-link" href="team-tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Team-Tables
-                            </a>
-                            <a class="nav-link" href="member-score-note-tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Member-Score-Note-Tables
-                            </a>
-                            <a class="nav-link" href="team-score-note-tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Team-Score-Note-Tables
-                            </a>
-                            <a class="nav-link" href="notice-tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Notice-Tables
-                            </a>
-                            <a class="nav-link" href="schedule-tables.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                                Schdeule-Tables
-                            </a>
-                        </div>
+        </div>
+        <div class="modal fade" id="addDataModal" tabindex="-1" role="dialog" aria-labelledby="addDataModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addDataModalLabel">데이터 추가</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as:</div>
-                        TAVE ADMIN
-                    </div>
-                </nav>
-            </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item active">Schedule Table</li>
-                        </ol>
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                ScheduleTable
-                            </div>
-                            <div class="card-body">
-                                <table id="datatablesSimple">
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>DATE</th>
-                                            <th>PLACE</th>
-                                            <th>TITLE</th>
-                                            <th>ADMINID</th>
-                                            <th>ATTENDANCEMEMBERID</th>
-                                            <th>CREATEAT</th>
-                                            <th>MODIFIEDAT</th>
-                                            <th>편집</th> <!-- 편집 버튼 열 추가 -->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach items="${boards}" var="board">
-                                            <tr>
-                                                <td>${board.scheduleid}</td>
-                                                <td>${board.scheduledate}</td>
-                                                <td>${board.scheduleplace}</td>
-                                                <td>${board.scheduletitle}</td>
-                                                <td>${board.scheduleadminid}</td>
-                                                <td>${board.scheduleattendancememberid}</td>
-                                                <td>${board.schedulecreateat}</td>
-                                                <td>${board.schedulemodifiedat}</td>
-                                                <td>
-                                                    <button class="edit-button btn btn-primary btn-sm">MODIFY</button>
-                                                    <button class="delete-button btn btn-danger btn-sm">REMOVE</button>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </main>
-                <div id="editForm" style="display: none;">
-                    <h2>데이터 편집</h2>
-                    <form id="editDataForm">
-                        <div>
-                            <label for="editScheduleId">ID:</label>
-                            <input type="text" id="editScheduleId" name="editScheduleId" readonly>
-                        </div>
-                        <div>
-                            <label for="editScheduleDate">DATE:</label>
-                            <input type="text" id="editScheduleDate" name="editScheduleDate">
-                        </div>
-                        <div>
-                            <label for="editSchedulePlace">PLACE:</label>
-                            <input type="text" id="editSchedulePlace" name="editSchedulePlace">
-                        </div>
-                        <div>
-                            <label for="editScheduleTitle">TITLE:</label>
-                            <input type="text" id="editScheduleTitle" name="editScheduleTitle">
-                        </div>
-                        <div>
-                            <label for="editScheduleAdminId">ADMINID:</label>
-                            <input type="text" id="editScheduleAdminId" name="editScheduleAdminId">
-                        </div>
-                        <div>
-                            <label for="editScheduleAttendanceMemberId">ATTENDANCEMEMBERID:</label>
-                            <input type="text" id="editScheduleAttendanceMemberId" name="editScheduleAttendanceMemberId" readonly>
-                        </div>
-                        <div>
-                            <label for="editScheduleCreateAt">CREATEAT:</label>
-                            <input type="text" id="editScheduleCreateAt" name="editScheduleCreateAt">
-                        </div>
-                        <div>
-                            <label for="editScheduleModifiedAt">MODIFIEDAT:</label>
-                            <input type="text" id="editScheduleModifiedAt" name="editScheduleModifiedAt">
-                        </div>
-                        <div>
-                            <button type="submit">저장</button>
-                            <button type="button" onclick="cancelEdit()">취소</button>
-                        </div>
-                    </form>
-                </div>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div class="modal-body">
+                        <form id="addDataForm">
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                <label for="addScheduleDate">DATE:</label>
+                                <input type="text" id="addScheduleDate" name="date">
                             </div>
-                        </div>
+                            <div>
+                                <label for="addSchedulePlace">PLACE:</label>
+                                <input type="text" id="addSchedulePlace" name="place">
+                            </div>
+                            <div>
+                                <label for="addScheduleTitle">TITLE:</label>
+                                <input type="text" id="addScheduleTitle" name="title">
+                            </div>
+                        </form>
                     </div>
-                </footer>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-primary" onclick="handleAddButtonClick()">추가</button>
+                    </div>
+                </div>
             </div>
         </div>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="js/scripts.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
-    </body>
+        <footer class="py-4 bg-light mt-auto">
+            <div class="container-fluid px-4">
+                <div class="d-flex align-items-center justify-content-between small">
+                    <div class="text-muted">Copyright &copy; Your Website 2023</div>
+                    <div>
+                        <a href="#">Privacy Policy</a>
+                        &middot;
+                        <a href="#">Terms &amp; Conditions</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+<script src="js/scripts.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
+<script src="js/datatables-simple-demo.js"></script>
+</body>
 </html>

@@ -24,13 +24,13 @@ public class ScheduleDto {
     @Builder
     public static class SchedulePostDto {
 
+        @NotNull(message = "날짜는 필수값입니다.")
+        private LocalDate date;
+
         private String place;
 
         @NotEmpty(message = "Title은 필수값입니다.")
         private String title;
-
-        @NotNull(message = "날짜는 필수값입니다.")
-        private LocalDate date;
     }
 
     @Getter

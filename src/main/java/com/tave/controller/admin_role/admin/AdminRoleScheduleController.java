@@ -20,7 +20,7 @@ public class AdminRoleScheduleController {
     private final ScheduleService scheduleService;
 
     @PostMapping("/createSchedule")
-    public ResponseEntity<?> createSchedule(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid @RequestBody ScheduleDto.SchedulePostDto schedulePostDto) {
+    public ResponseEntity<?> createSchedule(@AuthenticationPrincipal PrincipalDetails principalDetails, @Valid ScheduleDto.SchedulePostDto schedulePostDto) {
         return ResponseEntity.ok().body(scheduleService.createSchedule(principalDetails.getUser().getId(), schedulePostDto));
     }
 
