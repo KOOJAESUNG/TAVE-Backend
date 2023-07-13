@@ -1,10 +1,8 @@
 package com.tave.service.admin;
 
-import com.tave.domain.admin.TeamScoreNoteEntity;
 import com.tave.domain.member.MemberEntity;
 import com.tave.domain.admin.MemberScoreNoteEntity;
 import com.tave.dto.admin.MemberScoreNoteDto;
-import com.tave.dto.admin.TeamScoreNoteDto;
 import com.tave.exception.BusinessLogicException;
 import com.tave.exception.ExceptionCode;
 import com.tave.mapper.admin.MemberScoreNoteMapper;

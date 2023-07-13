@@ -1,7 +1,6 @@
 package com.tave.repository.admin;
 
 import com.tave.domain.admin.MemberScoreNoteEntity;
-import com.tave.domain.admin.TeamScoreNoteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

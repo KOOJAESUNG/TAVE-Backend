@@ -1,7 +1,6 @@
 package com.tave.controller.admin_role.admin;
 
 import com.tave.dto.admin.MemberScoreNoteDto;
-import com.tave.dto.admin.TeamScoreNoteDto;
 import com.tave.service.admin.MemberScoreNoteService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

@@ -1,6 +1,5 @@
 package com.tave.controller.admin_role.team;
 
-import com.tave.dto.admin.TeamScoreNoteDto;
 import com.tave.dto.team.TeamDto;
 import com.tave.service.team.TeamService;
 import jakarta.validation.Valid;

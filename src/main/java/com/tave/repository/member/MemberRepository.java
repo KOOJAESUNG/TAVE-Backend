@@ -1,7 +1,6 @@
 package com.tave.repository.member;
 
 import com.tave.domain.member.MemberEntity;
-import com.tave.domain.team.TeamEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

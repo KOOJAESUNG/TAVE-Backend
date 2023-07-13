@@ -3,7 +3,6 @@ package com.tave.service.member;
 import com.tave.domain.member.MemberEntity;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.member.MemberDto;
-import com.tave.dto.team.TeamDto;
 import com.tave.exception.BusinessLogicException;
 import com.tave.exception.ExceptionCode;
 import com.tave.mapper.member.MemberMapper;
