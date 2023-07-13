@@ -74,23 +74,19 @@
             const addSchedulePlace = document.getElementById("addSchedulePlace").value;
             const addScheduleTitle = document.getElementById("addScheduleTitle").value;
 
-            // 데이터 가공
-            const processedDate = new Date(addScheduleDate); // 날짜를 Date 객체로 변환
-
-
-            // CreateAt과 ModifiedAt은 문자열 그대로 전송
-
             // 데이터 객체 생성
             const schedule = {
-                date: processedDate.toISOString(),
+                date: addScheduleDate,
                 place: addSchedulePlace,
                 title: addScheduleTitle,
             };
+
 
             fetch("http://127.0.0.1:8081/adminRole/schedule/createSchedule", {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify(schedule)
             })
@@ -100,36 +96,24 @@
                     }
                     return response.json();
                 })
-                .then(data => {
-                    // 새로운 스케줄을 테이블에 추가합니다.
-                    const tableBody = document.querySelector("#datatablesSimple tbody");
-                    const row = document.createElement("tr");
-                    row.innerHTML = `
-            <td>${data.id}</td>
-            <td>${data.date}</td>
-            <td>${data.place}</td>
-            <td>${data.title}</td>
-            <td>${data.adminId}</td>
-            <td>${data.attendanceMemberId}</td>
-            <td>${data.createAt}</td>
-            <td>${data.modifiedAt}</td>
-            <td>
-                <button class="edit-button btn btn-primary btn-sm" data-id="${data.id}">MODIFY</button>
-                <button class="delete-button btn btn-danger btn-sm" data-id="${data.id}">REMOVE</button>
-            </td>
-        `;
-                    tableBody.appendChild(row);
-
-
-                    // 추가 폼을 초기화합니다.
-                    document.getElementById("addDataForm").reset();
-
-                    // 모달을 닫습니다.
-                    $("#addDataModal").modal("hide");
+                .then(() => {
+                    window.location.reload();
                 })
                 .catch(error => {
                     console.error("Error:", error);
                 });
+        }
+
+        function closeAddDataForm() {
+            // 폼 입력 필드 초기화
+            document.getElementById("addScheduleDate").value = "";
+            document.getElementById("addSchedulePlace").value = "";
+            document.getElementById("addScheduleTitle").value = "";
+
+            // 데이터 추가 모달 닫기
+            const addDataModal = document.getElementById("addDataModal");
+            const bootstrapModal = bootstrap.Modal.getInstance(addDataModal);
+            bootstrapModal.hide();
         }
 
         function handleDeleteButtonClick(event) {
@@ -161,6 +145,9 @@
             editButtons.forEach((button) => {
                 button.addEventListener("click", handleEditButtonClick);
             });
+
+            const saveButton = document.getElementById("saveButton");
+            saveButton.addEventListener("click", handleSaveButtonClick);
         });
 
         function handleEditButtonClick(event) {
@@ -188,50 +175,55 @@
                 });
         }
 
-        // "저장" 버튼 클릭 이벤트 처리
-        const saveButton = document.getElementById("saveButton");
-        if (saveButton) {
-            saveButton.addEventListener("click", (event) => {
-                event.preventDefault();
+        function cancelEdit() {
+            // 편집 폼 숨기기
+            document.getElementById("editForm").style.display = "none";
+        }
 
-                // 수정된 데이터 가져오기
-                const editedScheduleId = document.getElementById("editScheduleId").value;
-                const editedSchedulePlace = document.getElementById("editSchedulePlace").value;
-                const editedScheduleTitle = document.getElementById("editScheduleTitle").value;
-                // 요청 바디 데이터 생성
-                const requestBody = {
-                    id: editedScheduleId,
-                    place: editedSchedulePlace,
-                    title: editedScheduleTitle,
-                };
+        function handleSaveButtonClick(event) {
+            event.preventDefault();
 
-                // API 호출
-                fetch(`http://127.0.0.1:8081/adminRole/schedule/modifySchedule`, {
-                    method: "PATCH",
-                    headers: {
-                        Authorization: localStorage.getItem("token"),
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(requestBody),
+            // 수정된 데이터 가져오기
+            const editedScheduleId = document.getElementById("editScheduleId").value;
+            const editedSchedulePlace = document.getElementById("editSchedulePlace").value;
+            const editedScheduleTitle = document.getElementById("editScheduleTitle").value;
+            // 요청 바디 데이터 생성
+            const requestBody = {
+                id: editedScheduleId,
+                place: editedSchedulePlace,
+                title: editedScheduleTitle,
+            };
+
+            // API 호출
+            fetch(`http://127.0.0.1:8081/adminRole/schedule/modifySchedule`, {
+                method: "PATCH",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(requestBody),
+            })
+                .then((response) => {
+                    if (response.ok) {
+                        // 수정 요청이 성공한 경우 테이블 데이터를 업데이트합니다.
+                        const row = document.querySelector(`#datatablesSimple tr[data-id="${editedScheduleId}"]`);
+                        row.cells[2].innerText = editedSchedulePlace;
+                        row.cells[3].innerText = editedScheduleTitle;
+
+                        // 편집 폼을 숨깁니다.
+                        document.getElementById("editForm").style.display = "none";
+                    } else {
+                        console.error("데이터 수정 중 오류가 발생했습니다.");
+                    }
                 })
-                    .then((response) => {
-                        if (response.ok) {
-                            // 수정 요청이 성공한 경우 테이블 데이터를 업데이트합니다.
-                            const row = document.querySelector(`#datatablesSimple tr[data-id="${editedScheduleId}"]`);
-                            row.cells[2].innerText = editedSchedulePlace;
-                            row.cells[3].innerText = editedScheduleTitle;
-
-                            // 편집 폼을 숨깁니다.
-                            document.getElementById("editForm").style.display = "none";
-                        } else {
-                            console.error("데이터 수정 중 오류가 발생했습니다.");
-                        }
-                    })
-                    .catch((error) => {
-                        console.error("데이터 수정 중 오류가 발생했습니다:", error);
-                    });
+                .catch((error) => {
+                    console.error("데이터 수정 중 오류가 발생했습니다:", error);
+                }).finally(() => {
+                // 화면을 새로고침합니다.
+                window.location.reload();
             });
         }
+
     </script>
 </head>
 <body class="sb-nav-fixed">
@@ -367,7 +359,7 @@
                     <input type="text" id="editScheduleTitle" name="editScheduleTitle">
                 </div>
                 <div>
-                    <button type="submit">저장</button>
+                    <button id="saveButton" type="submit">저장</button>
                     <button type="button" onclick="cancelEdit()">취소</button>
                 </div>
             </form>
@@ -398,7 +390,7 @@
                         </form>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeAddDataForm()">취소</button>
                         <button type="button" class="btn btn-primary" onclick="handleAddButtonClick()">추가</button>
                     </div>
                 </div>
