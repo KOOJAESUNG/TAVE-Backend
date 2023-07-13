@@ -1,5 +1,6 @@
 package com.tave.repository.team;
 
+import com.tave.domain.admin.TeamScoreNoteEntity;
 import com.tave.domain.team.TeamEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,7 @@ public interface TeamRepository extends JpaRepository<TeamEntity,Long> {
 
     @Query("select t from TeamEntity t where t.id in :teamIds")
     List<TeamEntity> findByIdIn(@Param("teamIds") List<Long> teamIds);
+
+    @Query("SELECT t FROM TeamEntity t")
+    List<TeamEntity> getAllTeam();
 }

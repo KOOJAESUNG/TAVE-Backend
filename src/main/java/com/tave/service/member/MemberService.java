@@ -3,6 +3,7 @@ package com.tave.service.member;
 import com.tave.domain.member.MemberEntity;
 import com.tave.domain.team.TeamEntity;
 import com.tave.dto.member.MemberDto;
+import com.tave.dto.team.TeamDto;
 import com.tave.exception.BusinessLogicException;
 import com.tave.exception.ExceptionCode;
 import com.tave.mapper.member.MemberMapper;
@@ -17,6 +18,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -77,5 +81,19 @@ public class MemberService {
         if(!memberRepository.existsById(memberId))
             throw new EntityNotFoundException("MemberId: " + memberId + " not exists!!");
         return memberScoreNoteRepository.getMemberScoreByMemberId(memberId).orElse(0);
+    }
+
+    @Transactional
+    public List<MemberDto.MemberResponseDto> getAllMember(){
+
+        List<MemberEntity> memberEntities = memberRepository.getAllMember();
+        List<MemberDto.MemberResponseDto> memberResponseDtos = new ArrayList<>();
+
+        for (MemberEntity memberEntity : memberEntities){
+            MemberDto.MemberResponseDto memberResponseDto = memberMapper.toResponseDto(memberEntity);
+            memberResponseDtos.add(memberResponseDto);
+        }
+
+        return memberResponseDtos;
     }
 }

@@ -1,8 +1,10 @@
 package com.tave.service.admin;
 
+import com.tave.domain.admin.TeamScoreNoteEntity;
 import com.tave.domain.member.MemberEntity;
 import com.tave.domain.admin.MemberScoreNoteEntity;
 import com.tave.dto.admin.MemberScoreNoteDto;
+import com.tave.dto.admin.TeamScoreNoteDto;
 import com.tave.exception.BusinessLogicException;
 import com.tave.exception.ExceptionCode;
 import com.tave.mapper.admin.MemberScoreNoteMapper;
@@ -64,5 +66,19 @@ public class MemberScoreNoteService {
                     list.add(memberScoreNoteMapper.toResponseDto(m))
                 );
         return list;
+    }
+
+    @Transactional
+    public List<MemberScoreNoteDto.MemberScoreNoteResponseDto> getAllMemberScoreNote(){
+
+        List<MemberScoreNoteEntity> memberScoreNoteEntities = memberScoreNoteRepository.getAllMemberScoreNote();
+        List<MemberScoreNoteDto.MemberScoreNoteResponseDto> memberScoreNoteResponseDtos = new ArrayList<>();
+
+        for (MemberScoreNoteEntity memberScoreNoteEntity : memberScoreNoteEntities){
+            MemberScoreNoteDto.MemberScoreNoteResponseDto memberScoreNoteResponseDto = memberScoreNoteMapper.toResponseDto(memberScoreNoteEntity);
+            memberScoreNoteResponseDtos.add(memberScoreNoteResponseDto);
+        }
+
+        return memberScoreNoteResponseDtos;
     }
 }

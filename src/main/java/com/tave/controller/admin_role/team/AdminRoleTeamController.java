@@ -1,11 +1,14 @@
 package com.tave.controller.admin_role.team;
 
+import com.tave.dto.admin.TeamScoreNoteDto;
 import com.tave.dto.team.TeamDto;
 import com.tave.service.team.TeamService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -38,5 +41,11 @@ public class AdminRoleTeamController {
     @GetMapping("/getTeamScore")
     public ResponseEntity<?> getTeamScore(Long teamId) {
         return ResponseEntity.ok().body(teamService.getTeamScore(teamId));
+    }
+
+    @GetMapping("/getAllTeam")
+    public ResponseEntity<List<TeamDto.TeamResponseDto>> getAllTeam(){
+        List<TeamDto.TeamResponseDto> team= teamService.getAllTeam();
+        return ResponseEntity.ok().body(team);
     }
 }

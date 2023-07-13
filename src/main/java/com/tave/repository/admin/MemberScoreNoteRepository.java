@@ -1,6 +1,7 @@
 package com.tave.repository.admin;
 
 import com.tave.domain.admin.MemberScoreNoteEntity;
+import com.tave.domain.admin.TeamScoreNoteEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -16,4 +17,7 @@ public interface MemberScoreNoteRepository extends JpaRepository<MemberScoreNote
     Optional<Integer> getMemberScoreByMemberId(@Param("memberId") Long memberId);
 
     Optional<List<MemberScoreNoteEntity>> findMemberScoreNoteEntitiesByMemberId(Long memberId);
+
+    @Query("SELECT msn FROM MemberScoreNoteEntity msn")
+    List<MemberScoreNoteEntity> getAllMemberScoreNote();
 }

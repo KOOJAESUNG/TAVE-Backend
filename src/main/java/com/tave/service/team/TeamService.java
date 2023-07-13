@@ -1,7 +1,9 @@
 package com.tave.service.team;
 
 import com.tave.domain.admin.AdminEntity;
+import com.tave.domain.admin.TeamScoreNoteEntity;
 import com.tave.domain.team.TeamEntity;
+import com.tave.dto.admin.TeamScoreNoteDto;
 import com.tave.dto.team.TeamDto;
 import com.tave.exception.BusinessLogicException;
 import com.tave.exception.ExceptionCode;
@@ -14,6 +16,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -67,5 +72,19 @@ public class TeamService {
         if (!teamRepository.existsById(teamId))
             throw new EntityNotFoundException("TeamId: " + teamId + " not exists!!");
         return teamScoreNoteRepository.getTeamScoreByTeamId(teamId).orElse(0);
+    }
+
+    @Transactional
+    public List<TeamDto.TeamResponseDto> getAllTeam(){
+
+        List<TeamEntity> teamEntities = teamRepository.getAllTeam();
+        List<TeamDto.TeamResponseDto> teamResponseDtos = new ArrayList<>();
+
+        for (TeamEntity teamEntity : teamEntities){
+            TeamDto.TeamResponseDto teamResponseDto = teamMapper.toResponseDto(teamEntity);
+            teamResponseDtos.add(teamResponseDto);
+        }
+
+        return teamResponseDtos;
     }
 }
