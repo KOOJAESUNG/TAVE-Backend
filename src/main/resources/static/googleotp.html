@@ -88,7 +88,7 @@
       if (response.ok) {
         const data = await response.json();
         if (data === true) {
-          window.location.href = 'qr.html'; // OTP 코드가 올바른 경우 qr.html로 리다이렉트
+          window.location.href = 'member-tables.html'; // OTP 코드가 올바른 경우 qr.html로 리다이렉트
         } else {
           alert('로그인에 실패하였습니다.'); // OTP 코드가 잘못된 경우 실패 메시지 표시
         }

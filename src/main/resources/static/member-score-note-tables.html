@@ -36,8 +36,8 @@
               <td>${memberscorenote.id}</td>
               <td>${memberscorenote.note}</td>
               <td>${memberscorenote.score}</td>
-              <td>${memberscorenote.scoretype}</td>
-              <td>${memberscorenote.memberid}</td>
+              <td>${memberscorenote.scoreType}</td>
+              <td>${memberscorenote.memberId}</td>
               <td>${memberscorenote.createAt}</td>
               <td>${memberscorenote.modifiedAt}</td>
               <td>
@@ -78,8 +78,8 @@
             const memberscorenote = {
                 note: addMemberScoreNoteNote,
                 score: addMemberScoreNoteScore,
-                scoretype: addMemberScoreNoteScoreType,
-                memberid: addMemberScoreNoteMemberId,
+                scoreType: addMemberScoreNoteScoreType,
+                memberId: addMemberScoreNoteMemberId,
             };
 
 
@@ -168,7 +168,7 @@
                     document.getElementById("editMemberScoreNoteId").value = data.id;
                     document.getElementById("editMemberScoreNoteNote").value = data.note;
                     document.getElementById("editMemberScoreNoteScore").value = data.score;
-                    document.getElementById("editMemberScoreNoteScoreType").value = data.scoretype;
+                    document.getElementById("editMemberScoreNoteScoreType").value = data.scoreType;
 
                     // 편집 폼을 보여줍니다.
                     document.getElementById("editForm").style.display = "block";
@@ -196,7 +196,7 @@
                 id: editedMemberScoreNoteId,
                 note: editedMemberScoreNoteNote,
                 score: editedMemberScoreNoteScore,
-                scoretype: editedMemberScoreNoteScoreType
+                scoreType: editedMemberScoreNoteScoreType
             };
 
             // API 호출
@@ -262,10 +262,6 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">TABLE</div>
-                    <a class="nav-link" href="qr.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        QR-CheckIn
-                    </a>
                     <a class="nav-link" href="member-tables.html">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Member-Tables

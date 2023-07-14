@@ -188,8 +188,8 @@
                 adminId: editedTeamAdminId,
             };
 
-            // API 호출
-            fetch(`http://127.0.0.1:8081/adminRole/team/modifyTeam`, {
+            // API 호출 - 수정된 데이터를 서버로 전송하여 수정 요청을 처리합니다.
+            fetch("http://127.0.0.1:8081/adminRole/team/modifyTeam", {
                 method: "PATCH",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -250,10 +250,6 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">TABLE</div>
-                    <a class="nav-link" href="qr.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        QR-CheckIn
-                    </a>
                     <a class="nav-link" href="member-tables.html">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Member-Tables

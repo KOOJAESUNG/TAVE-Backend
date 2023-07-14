@@ -34,10 +34,10 @@
                             const row = document.createElement("tr");
                             row.innerHTML = `
               <td>${teamscorenote.id}</td>
-              <td>${teamscorenote.note}</td>
+               <td>${teamscorenote.note}</td>
               <td>${teamscorenote.score}</td>
-              <td>${teamscorenote.scoretype}</td>
-              <td>${teamscorenote.teamid}</td>
+              <td>${teamscorenote.scoreType}</td>
+              <td>${teamscorenote.teamId}</td>
               <td>${teamscorenote.createAt}</td>
               <td>${teamscorenote.modifiedAt}</td>
               <td>
@@ -78,8 +78,8 @@
             const teamscorenote = {
                 note: addTeamScoreNoteNote,
                 score: addTeamScoreNoteScore,
-                scoretype: addTeamScoreNoteScoreType,
-                teamid: addTeamScoreNoteTeamId,
+                scoreType: addTeamScoreNoteScoreType,
+                teamId: addTeamScoreNoteTeamId,
             };
 
 
@@ -168,8 +168,8 @@
                     document.getElementById("editTeamScoreNoteId").value = data.id;
                     document.getElementById("editTeamScoreNoteNote").value = data.note;
                     document.getElementById("editTeamScoreNoteScore").value = data.score;
-                    document.getElementById("editTeamScoreNoteScoreType").value = data.scoretype;
-                    document.getElementById("editTeamScoreNoteTeamId").value = data.teamid;
+                    document.getElementById("editTeamScoreNoteScoreType").value = data.scoreType;
+                    document.getElementById("editTeamScoreNoteTeamId").value = data.teamId;
 
                     // 편집 폼을 보여줍니다.
                     document.getElementById("editForm").style.display = "block";
@@ -198,8 +198,8 @@
                 id: editedTeamScoreNoteId,
                 note: editedTeamScoreNoteNote,
                 score: editedTeamScoreNoteScore,
-                scoretype: editedTeamScoreNoteScoreType,
-                teamid: editedTeamScoreNoteTeamId
+                scoreType: editedTeamScoreNoteScoreType,
+                teamId: editedTeamScoreNoteTeamId
             };
 
             // API 호출
@@ -266,10 +266,6 @@
             <div class="sb-sidenav-menu">
                 <div class="nav">
                     <div class="sb-sidenav-menu-heading">TABLE</div>
-                    <a class="nav-link" href="qr.html">
-                        <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                        QR-CheckIn
-                    </a>
                     <a class="nav-link" href="member-tables.html">
                         <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
                         Member-Tables
@@ -401,11 +397,11 @@
                             </div>
                             <div>
                                 <label for="addTeamScoreNoteScoreType">SCORETYPE:</label>
-                                <input type="text" id="addTeamScoreNoteScoreType" name="scoretype">
+                                <input type="text" id="addTeamScoreNoteScoreType" name="scoreType">
                             </div>
                             <div>
                                 <label for="addTeamScoreNoteTeamId">TEAMID:</label>
-                                <input type="text" id="addTeamScoreNoteTeamId" name="teamid">
+                                <input type="text" id="addTeamScoreNoteTeamId" name="teamId">
                             </div>
                         </form>
                     </div>
