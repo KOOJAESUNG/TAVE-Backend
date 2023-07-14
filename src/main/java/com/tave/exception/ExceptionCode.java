@@ -35,6 +35,7 @@ public enum ExceptionCode {
     TEAMSCORENOTE_IS_NOT_EXIST(NOT_FOUND, "팀 점수 내역이 존재하지 않습니다."),
     SCHEDULE_IS_NOT_EXIST(NOT_FOUND, "일정이 존재하지 않습니다"),
     NOTICE_IS_NOT_EXIST(NOT_FOUND, "공지사항이 존재하지 않습니다"),
+    CERTIFICATIONNUMBER_IS_NOT_EXIST(NOT_FOUND, "인증번호를 다시 요청해주세요"),
 
 
     /* 409 CONFLICT : Resource 의 현재 상태와 충돌. 보통 중복된 데이터 존재 */
