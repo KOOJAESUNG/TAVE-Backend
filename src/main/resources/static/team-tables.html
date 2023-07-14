@@ -158,8 +158,8 @@
                 .then((data) => {
                     // 수정 폼을 채우는 로직 작성
                     document.getElementById("editTeamId").value = data.id;
-                    document.getElementById("editTeamTeamName").value = data.teamname;
-                    document.getElementById("editTeamAdminId").value = data.adminid;
+                    document.getElementById("editTeamTeamName").value = data.teamName;
+                    document.getElementById("editTeamAdminId").value = data.adminId;
 
                     // 편집 폼을 보여줍니다.
                     document.getElementById("editForm").style.display = "block";
@@ -184,8 +184,8 @@
             // 요청 바디 데이터 생성
             const requestBody = {
                 id: editedTeamId,
-                teamname: editedTeamTeamName,
-                adminid: editedTeamAdminId,
+                teamName: editedTeamTeamName,
+                adminId: editedTeamAdminId,
             };
 
             // API 호출
@@ -320,8 +320,8 @@
                                     <td>${board.teammemberids}</td>
                                     <td>${board.teamteamscorenoteids}</td>
                                     <td>
-                                        <button class="edit-button btn btn-primary btn-sm">MODIFY</button>
-                                        <button class="delete-button btn btn-danger btn-sm">REMOVE</button>
+                                        <button class="edit-button btn btn-primary btn-sm" data-id="${board.teamid}">MODIFY</button>
+                                        <button class="delete-button btn btn-danger btn-sm" data-id="${board.teamid}">REMOVE</button>
                                     </td>
                                 </tr>
                             </c:forEach>
