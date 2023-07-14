@@ -76,9 +76,9 @@ public class CoolSmsController {
     }
 
     @PostMapping("/coolSms/check")
-    public static Boolean checkCertification(String inputNumber, String certificationNumber) {
+    public static Boolean checkCertification(String phoneNumber, String certificationNumber) {
         try {
-            return phoneNumAndCertificationNum.get(inputNumber).equals(certificationNumber);
+            return phoneNumAndCertificationNum.get(phoneNumber).equals(certificationNumber);
         } catch (NullPointerException e) {
             throw new BusinessLogicException(ExceptionCode.CERTIFICATIONNUMBER_IS_NOT_EXIST);
         }
