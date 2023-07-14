@@ -78,7 +78,7 @@
             const notice = {
                 title: addNoticeTitle,
                 content: addNoticeContent,
-                noticetype: addNoticeNoticeType
+                noticeType: addNoticeNoticeType
             };
 
 
@@ -166,7 +166,7 @@
                     document.getElementById("editNoticeId").value = data.id;
                     document.getElementById("editNoticeTitle").value = data.title;
                     document.getElementById("editNoticeContent").value = data.content;
-                    document.getElementById("editNoticeNoticeType").value = data.noticetype;
+                    document.getElementById("editNoticeNoticeType").value = data.noticeType;
 
                     // 편집 폼을 보여줍니다.
                     document.getElementById("editForm").style.display = "block";
@@ -189,12 +189,13 @@
             const editedNoticeTitle = document.getElementById("editNoticeTitle").value;
             const editedNoticeContent = document.getElementById("editNoticeContent").value;
             const editedNoticeNoticeType = document.getElementById("editNoticeNoticeType").value;
+
             // 요청 바디 데이터 생성
             const requestBody = {
                 id: editedNoticeId,
                 title: editedNoticeTitle,
                 content: editedNoticeContent,
-                noticetype: editedNoticeNoticeType
+                noticeType: editedNoticeNoticeType
             };
 
             // API 호출
@@ -222,10 +223,11 @@
                 })
                 .catch((error) => {
                     console.error("데이터 수정 중 오류가 발생했습니다:", error);
-                }).finally(() => {
-                // 화면을 새로고침합니다.
-                window.location.reload();
-            });
+                })
+                .finally(() => {
+                    // 화면을 새로고침합니다.
+                    window.location.reload();
+                });
         }
 
     </script>
