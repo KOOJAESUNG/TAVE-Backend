@@ -17,7 +17,7 @@
                     const table = new simpleDatatables.DataTable(datatablesSimple);
 
                     // API 호출
-                    fetch("https://tave.kro.kr:8080/adminRole/schedule/getAllSchedule", {
+                    fetch("https://tave.kro.kr/adminRole/schedule/getAllSchedule", {
                         method: "GET",
                         headers: {
                             Authorization: localStorage.getItem("token"),
@@ -83,7 +83,7 @@
                     title: addScheduleTitle,
                 };
 
-                fetch("https://tave.kro.kr:8080/adminRole/schedule/createSchedule", {
+                fetch("https://tave.kro.kr/adminRole/schedule/createSchedule", {
                     method: "POST",
                     headers: {
                         Authorization: localStorage.getItem("token"),
@@ -121,7 +121,7 @@
                 const scheduleId = event.target.dataset.id;
 
                 // 스케줄 삭제 API 호출
-                fetch(`https://tave.kro.kr:8080/adminRole/schedule/deleteSchedule?scheduleId=${scheduleId}`, {
+                fetch(`https://tave.kro.kr/adminRole/schedule/deleteSchedule?scheduleId=${scheduleId}`, {
                     method: "DELETE",
                     headers: {
                         Authorization: localStorage.getItem("token"),
@@ -155,7 +155,7 @@
                 const scheduleId = event.target.dataset.id;
 
                 // 수정할 스케줄 정보를 가져오는 API 호출
-                fetch(`https://tave.kro.kr:8080/adminRole/schedule/getSchedule?scheduleId=${scheduleId}`, {
+                fetch(`https://tave.kro.kr/adminRole/schedule/getSchedule?scheduleId=${scheduleId}`, {
                     method: "GET",
                     headers: {
                         Authorization: localStorage.getItem("token"),
@@ -196,7 +196,7 @@
                 };
 
                 // API 호출
-                fetch(`https://tave.kro.kr:8080/adminRole/schedule/modifySchedule`, {
+                fetch(`https://tave.kro.kr/adminRole/schedule/modifySchedule`, {
                     method: "PATCH",
                     headers: {
                         Authorization: localStorage.getItem("token"),

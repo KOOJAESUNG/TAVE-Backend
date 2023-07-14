@@ -19,7 +19,7 @@
             // memberId와 scheduleId 값을 서버에 전달하는 API 호출
             console.log(scheduleId);
             console.log(memberId);
-            fetch(`https://tave.kro.kr:8080/adminRole/schedule/addAttendanceMember?scheduleId=${scheduleId}&memberId=${memberId}`, {
+            fetch(`https://tave.kro.kr/adminRole/schedule/addAttendanceMember?scheduleId=${scheduleId}&memberId=${memberId}`, {
                 method: "PATCH",
                 headers: {
                     Authorization: localStorage.getItem("token"),

@@ -17,7 +17,7 @@
                 const table = new simpleDatatables.DataTable(datatablesSimple);
 
                 // API 호출
-                fetch("https://tave.kro.kr:8080/adminRole/member/getAllMember", {
+                fetch("https://tave.kro.kr/adminRole/member/getAllMember", {
                     method: "GET",
                     headers: {
                         Authorization: localStorage.getItem("token"),
@@ -88,7 +88,7 @@
             const memberId = event.target.dataset.id;
 
             // 수정할 스케줄 정보를 가져오는 API 호출
-            fetch(`https://tave.kro.kr:8080/adminRole/member/getMember?memberId=${memberId}`, {
+            fetch(`https://tave.kro.kr/adminRole/member/getMember?memberId=${memberId}`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -126,7 +126,7 @@
             const memberId = event.target.dataset.id;
 
             // 스케줄 삭제 API 호출
-            fetch(`https://tave.kro.kr:8080/adminRole/member/deleteMember?memberId=${memberId}`, {
+            fetch(`https://tave.kro.kr/adminRole/member/deleteMember?memberId=${memberId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -176,7 +176,7 @@
             };
 
             // API 호출
-            fetch(`https://tave.kro.kr:8080/adminRole/member/modifyMember`, {
+            fetch(`https://tave.kro.kr/adminRole/member/modifyMember`, {
                 method: "PATCH",
                 headers: {
                     Authorization: localStorage.getItem("token"),
