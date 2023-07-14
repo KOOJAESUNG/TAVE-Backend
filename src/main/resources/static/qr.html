@@ -14,118 +14,163 @@
     <script src="https://use.fontawesome.com/releases/v6.3.0/js/all.js" crossorigin="anonymous"></script>
     <script type="text/javascript" src="./jsQR.js"></script>
     <script>
-var xhr = new XMLHttpRequest();
-var url = 'http://127.0.0.1:8081/adminRole/admin/getAdmin'; // 실제 API 엔드포인트 URL로 대체해야 합니다.
 
-xhr.open('GET', url, true);
-        console.log(localStorage.getItem("token"));
-xhr.setRequestHeader('Authorization',localStorage.getItem("token"));
-xhr.responseType = 'json';
-xhr.withCredentials = true;
+        function handleSendQuery(memberId, scheduleId) {
+            // memberId와 scheduleId 값을 서버에 전달하는 API 호출
+            console.log(scheduleId);
+            console.log(memberId);
+            fetch(`http://127.0.0.1:8081/adminRole/schedule/addAttendanceMember?scheduleId=${scheduleId}&memberId=${memberId}`, {
+                method: "PATCH",
+                headers: {
+                    Authorization: localStorage.getItem("token"),
+                },
+            })
+                .then((response) => response.json())
+                .catch((error) => {
+                    console.error("데이터를 가져오는 중 오류가 발생했습니다:", error);
+                });
+        }
 
-xhr.send();
+        document.addEventListener("DOMContentLoaded", function() {
+            var video = document.createElement("video");
+            var canvasElement = document.getElementById("canvas");
+            var canvas = canvasElement.getContext("2d");
+            var loadingMessage = document.getElementById("loadingMessage");
+            var outputContainer = document.getElementById("output");
+            var outputMessage = document.getElementById("outputMessage");
+            var outputData = document.getElementById("outputData");
+            var scannedCodes = [];
 
+            function drawLine(begin, end, color) {
+                canvas.beginPath();
+                canvas.moveTo(begin.x, begin.y);
+                canvas.lineTo(end.x, end.y);
+                canvas.lineWidth = 4;
+                canvas.strokeStyle = color;
+                canvas.stroke();
+            }
 
-xhr.onreadystatechange = function() {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    var response = xhr.response;
-    console.log(response); // 예시: 콘솔에 응답 데이터 출력
-  }
-};
+            navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
+                video.srcObject = stream;
+                video.setAttribute("playsinline", true);
+                video.play();
+                requestAnimationFrame(tick);
+            });
+
+            function tick() {
+                loadingMessage.innerText = "⌛ 스캔 기능을 활성화 중입니다.";
+
+                if (video.readyState === video.HAVE_ENOUGH_DATA) {
+                    loadingMessage.hidden = true;
+                    canvasElement.hidden = false;
+                    outputContainer.hidden = false;
+
+                    canvasElement.height = video.videoHeight;
+                    canvasElement.width = video.videoWidth;
+
+                    canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
+                    var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
+
+                    var code = jsQR(imageData.data, imageData.width, imageData.height, {
+                        inversionAttempts : "dontInvert",
+                    });
+
+                    if (code) {
+                        drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF0000");
+                        drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF0000");
+                        drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF0000");
+                        drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF0000");
+
+                        outputData.parentElement.hidden = false;
+                        var qrData = code.data;
+
+                        var isDuplicate = scannedCodes.includes(qrData);
+
+                        if (!isDuplicate) {
+                            scannedCodes.push(qrData);
+
+                            var listContainer = document.getElementById("scannedList");
+
+                            if (!listContainer) {
+                                listContainer = document.createElement("ul");
+                                listContainer.setAttribute("id", "scannedList");
+                                output.appendChild(listContainer);
+                            }
+
+                            var listItem = document.createElement("li");
+                            listItem.textContent = qrData;
+                            listContainer.appendChild(listItem);
+
+                            var qrValues = qrData.split(";");
+                            var str = location.search;
+                            var regex = /[^0-9]/g;
+                            var scheduleId = str.replace(regex,"");
+                            var memberId = qrValues[0];
+                            handleSendQuery(memberId, scheduleId);
+                        }
+
+                        setTimeout(function () {
+                            scanning = true;
+                        }, 1000);
+                    } else {
+                        outputMessage.hidden = false;
+                        outputData.parentElement.hidden = true;
+                    }
+                }
+
+                requestAnimationFrame(tick);
+            }
+        });
 
     </script>
     <style type="text/css">
-
         main {
-    
             width:100%;
             height:100%;
             text-align:center;
-    
         }
-    
-        
-    
+
         main > div {
-    
             float:left;
-    
             width:1%;
-    
             height:98%;
-    
         }
-    
+
         main > div:first-child {
-    
             width:49%;
-    
         }
-    
-        
-    
+
         main > div:last-child {
-    
             background-color:#D3D3D3;
-    
             width:49%;
-    
         }
-    
-    
-    
+
         div#output {
-    
             background-color:#BDBEBD;
-    
             padding-left:10px;
-    
             padding-right:10px;
-    
             padding-top:10px;
-    
             padding-bottom:10px;
-    
         }
-    
-        
-    
+
         div#frame {
-    
             border:2px solid #005666;
-    
             background-color:#FFFFFF;
-    
             margin-left:10px;
-    
             margin-right:10px;
-    
             padding-left:8px;
-    
             padding-right:8px;
-    
             padding-top:8px;
-    
             padding-bottom:8px;
-    
         }
-    
-        
-    
+
         div#outputLayer {
-    
             text-align:left;
-    
         }
-    
-        
-    
+
         canvas {
-    
             width:100%;
-    
         }
-    
     </style>
 </head>
 <body class="sb-nav-fixed">
@@ -197,47 +242,26 @@ xhr.onreadystatechange = function() {
     <div id="layoutSidenav_content">
         <main>
             <div id="test">
-
                 <h1>QR 코드 리더</h1>
-        
                 <div id="output">
-        
                     <div id="outputMessage">
-        
                         QR코드를 카메라에 노출시켜 주세요
-        
                     </div>
-        
                     <div id="outputLayer" hidden>
-        
                         <span id="outputData"></span>
-        
                     </div>
-        
                 </div>
-        
             </div>
-        
             <div>&nbsp;</div>
-        
             <div>
-        
                 <h1>스캔</h1>
-        
                 <div id="frame">
-        
                     <div id="loadingMessage">
-        
                         🎥 비디오 스트림에 액세스 할 수 없습니다<br/>웹캠이 활성화되어 있는지 확인하십시오
-        
                     </div>
-        
                     <canvas id="canvas"></canvas>
-        
                 </div>
-        
             </div>
-        
         </main>
         <footer class="py-4 bg-light mt-auto">
             <div class="container-fluid px-4">
@@ -257,174 +281,5 @@ xhr.onreadystatechange = function() {
 <script src="js/scripts.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/simple-datatables@7.1.2/dist/umd/simple-datatables.min.js" crossorigin="anonymous"></script>
 <script src="js/datatables-simple-demo.js"></script>
-<script type="text/javascript">	
-
-	document.addEventListener("DOMContentLoaded", function() {
-
-		
-
-		var video = document.createElement("video");		
-
-		var canvasElement = document.getElementById("canvas");
-
-		var canvas = canvasElement.getContext("2d");
-
-		var loadingMessage = document.getElementById("loadingMessage");
-
-		var outputContainer = document.getElementById("output");
-
-		var outputMessage = document.getElementById("outputMessage");
-
-		var outputData = document.getElementById("outputData");
-
-        var scannedCodes = [];
-
-		function drawLine(begin, end, color) {
-
-			
-
-			canvas.beginPath();
-
-			canvas.moveTo(begin.x, begin.y);
-
-			canvas.lineTo(end.x, end.y);
-
-			canvas.lineWidth = 4;
-
-			canvas.strokeStyle = color;
-
-			canvas.stroke();
-
-                }
-
-	    
-
-	        // 카메라 사용시
-
-		navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } }).then(function(stream) {
-
-			
-
-      		        video.srcObject = stream;
-
-      		        video.setAttribute("playsinline", true);      // iOS 사용시 전체 화면을 사용하지 않음을 전달
-
-         		video.play();
-
-      		        requestAnimationFrame(tick);
-
-		});
-
-
-
-		function tick() {
-
-			
-
-			loadingMessage.innerText = "⌛ 스캔 기능을 활성화 중입니다."
-
-			
-
-			if(video.readyState === video.HAVE_ENOUGH_DATA) {
-
-				
-
-        		      loadingMessage.hidden = true;
-
-        		      canvasElement.hidden = false;
-
-        		      outputContainer.hidden = false;
-
-        		
-
-        		      // 읽어들이는 비디오 화면의 크기
-
-        		      canvasElement.height = video.videoHeight;
-
-        	 	      canvasElement.width = video.videoWidth;
-
-        		
-
-        		      canvas.drawImage(video, 0, 0, canvasElement.width, canvasElement.height);
-
-        		      var imageData = canvas.getImageData(0, 0, canvasElement.width, canvasElement.height);
-
-
-
-        		      var code = jsQR(imageData.data, imageData.width, imageData.height, {
-
-
-
-                                    inversionAttempts : "dontInvert",
-
-        		      });
-
-        		
-
-  // QR 코드 인식 성공한 경우
-  if (code) {
-    // 인식한 QR 코드의 영역을 감싸는 사용자에게 보여지는 테두리 생성
-    drawLine(code.location.topLeftCorner, code.location.topRightCorner, "#FF0000");
-    drawLine(code.location.topRightCorner, code.location.bottomRightCorner, "#FF0000");
-    drawLine(code.location.bottomRightCorner, code.location.bottomLeftCorner, "#FF0000");
-    drawLine(code.location.bottomLeftCorner, code.location.topLeftCorner, "#FF0000");
-
-    outputData.parentElement.hidden = false;
-
-// QR 코드에서 내용 추출
-var qrData = code.data;
-
-// 스캔된 QR 코드가 이미 배열에 있는지 확인합니다.
-var isDuplicate = scannedCodes.includes(qrData);
-
-if (!isDuplicate) {
-  // 스캔된 QR 코드 정보를 배열에 추가합니다.
-  scannedCodes.push(qrData);
-
-  // QR 코드 정보를 출력하는 부분 수정
-  var listContainer = document.getElementById("scannedList");
-
-  if (!listContainer) {
-    listContainer = document.createElement("ul");
-    listContainer.setAttribute("id", "scannedList");
-    output.appendChild(listContainer);
-  }
-
-  var listItem = document.createElement("li");
-  listItem.textContent = qrData;
-  listContainer.appendChild(listItem);
-}
-
-// QR 코드 스캔이 완료된 후, 다시 스캔 가능하도록 설정합니다.
-setTimeout(function () {
-  scanning = true;
-}, 1000);
-  }
-
-        	
-
-                              // QR코드 인식에 실패한 경우 
-
-                              else {
-
-
-
-                                    outputMessage.hidden = false;
-
-                                    outputData.parentElement.hidden = true;
-
-                              }
-
-                      }
-
-      		
-
-      		      requestAnimationFrame(tick);
-
-		}
-
-	});
-
-</script>
 </body>
 </html>
