@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("adminRole/memberScoreNote")
@@ -35,8 +37,14 @@ public class AdminRoleMemberScoreNoteController {
         return ResponseEntity.ok().body("deleted MemberScoreNoteId : " + memberScoreNoteId);
     }
 
-    @GetMapping("getMembersAllMemberScoreNote")
+    @GetMapping("/getMembersAllMemberScoreNote")
     public ResponseEntity<?> getMembersAllMemberScoreNote(@RequestParam Long memberId) {
         return ResponseEntity.ok().body(memberScoreNoteService.getMembersAllMemberScoreNote(memberId));
+    }
+
+    @GetMapping("/getAllMemberScoreNote")
+    public ResponseEntity<List<MemberScoreNoteDto.MemberScoreNoteResponseDto>> getAllMemberScoreNote(){
+        List<MemberScoreNoteDto.MemberScoreNoteResponseDto> memberScoreNotes = memberScoreNoteService.getAllMemberScoreNote();
+        return ResponseEntity.ok().body(memberScoreNotes);
     }
 }

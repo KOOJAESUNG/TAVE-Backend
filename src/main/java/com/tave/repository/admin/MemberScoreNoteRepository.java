@@ -16,4 +16,7 @@ public interface MemberScoreNoteRepository extends JpaRepository<MemberScoreNote
     Optional<Integer> getMemberScoreByMemberId(@Param("memberId") Long memberId);
 
     Optional<List<MemberScoreNoteEntity>> findMemberScoreNoteEntitiesByMemberId(Long memberId);
+
+    @Query("SELECT msn FROM MemberScoreNoteEntity msn")
+    List<MemberScoreNoteEntity> getAllMemberScoreNote();
 }

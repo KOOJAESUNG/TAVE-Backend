@@ -65,4 +65,18 @@ public class MemberScoreNoteService {
                 );
         return list;
     }
+
+    @Transactional
+    public List<MemberScoreNoteDto.MemberScoreNoteResponseDto> getAllMemberScoreNote(){
+
+        List<MemberScoreNoteEntity> memberScoreNoteEntities = memberScoreNoteRepository.getAllMemberScoreNote();
+        List<MemberScoreNoteDto.MemberScoreNoteResponseDto> memberScoreNoteResponseDtos = new ArrayList<>();
+
+        for (MemberScoreNoteEntity memberScoreNoteEntity : memberScoreNoteEntities){
+            MemberScoreNoteDto.MemberScoreNoteResponseDto memberScoreNoteResponseDto = memberScoreNoteMapper.toResponseDto(memberScoreNoteEntity);
+            memberScoreNoteResponseDtos.add(memberScoreNoteResponseDto);
+        }
+
+        return memberScoreNoteResponseDtos;
+    }
 }

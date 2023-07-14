@@ -10,6 +10,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("adminRole/member")
@@ -46,6 +48,12 @@ public class AdminRoleMemberController {
     @GetMapping("/getMemberScore")
     public ResponseEntity<?> getMemberScore(Long memberId) {
         return ResponseEntity.ok().body(memberService.getMemberScore(memberId));
+    }
+
+    @GetMapping("/getAllMember")
+    public ResponseEntity<List<MemberDto.MemberResponseDto>> getAllMember(){
+        List<MemberDto.MemberResponseDto> member= memberService.getAllMember();
+        return ResponseEntity.ok().body(member);
     }
 
 }

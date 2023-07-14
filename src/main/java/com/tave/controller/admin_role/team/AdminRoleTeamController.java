@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("adminRole/team")
@@ -38,5 +40,11 @@ public class AdminRoleTeamController {
     @GetMapping("/getTeamScore")
     public ResponseEntity<?> getTeamScore(Long teamId) {
         return ResponseEntity.ok().body(teamService.getTeamScore(teamId));
+    }
+
+    @GetMapping("/getAllTeam")
+    public ResponseEntity<List<TeamDto.TeamResponseDto>> getAllTeam(){
+        List<TeamDto.TeamResponseDto> team= teamService.getAllTeam();
+        return ResponseEntity.ok().body(team);
     }
 }
