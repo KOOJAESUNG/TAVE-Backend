@@ -17,7 +17,7 @@
                 const table = new simpleDatatables.DataTable(datatablesSimple);
 
                 // API 호출
-                fetch("http://127.0.0.1:8081/adminRole/teamScoreNote/getAllTeamScoreNote", {
+                fetch("https://tave.kro.kr:8080/adminRole/teamScoreNote/getAllTeamScoreNote", {
                     method: "GET",
                     headers: {
                         Authorization: localStorage.getItem("token"),
@@ -83,7 +83,7 @@
             };
 
 
-            fetch("http://127.0.0.1:8081/adminRole/teamScoreNote/createTeamScoreNote", {
+            fetch("https://tave.kro.kr:8080/adminRole/teamScoreNote/createTeamScoreNote", {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -122,7 +122,7 @@
             const teamScoreNoteId = event.target.dataset.id;
 
             // 스케줄 삭제 API 호출
-            fetch(`http://127.0.0.1:8081/adminRole/teamScoreNote/deleteTeamScoreNote?teamScoreNoteId=${teamScoreNoteId}`, {
+            fetch(`https://tave.kro.kr:8080/adminRole/teamScoreNote/deleteTeamScoreNote?teamScoreNoteId=${teamScoreNoteId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -156,7 +156,7 @@
             const teamScoreNoteId = event.target.dataset.id;
 
             // 수정할 스케줄 정보를 가져오는 API 호출
-            fetch(`http://127.0.0.1:8081/adminRole/teamScoreNote/getTeamScoreNote?teamScoreNoteId=${teamScoreNoteId}`, {
+            fetch(`https://tave.kro.kr:8080/adminRole/teamScoreNote/getTeamScoreNote?teamScoreNoteId=${teamScoreNoteId}`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -203,7 +203,7 @@
             };
 
             // API 호출
-            fetch(`http://127.0.0.1:8081/adminRole/teamScoreNote/modifyTeamScoreNote`, {
+            fetch(`https://tave.kro.kr:8080/adminRole/teamScoreNote/modifyTeamScoreNote`, {
                 method: "PATCH",
                 headers: {
                     Authorization: localStorage.getItem("token"),

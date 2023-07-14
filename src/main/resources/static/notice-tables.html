@@ -17,7 +17,7 @@
                 const table = new simpleDatatables.DataTable(datatablesSimple);
 
                 // API 호출
-                fetch("http://127.0.0.1:8081/adminRole/notice/getAllNotice", {
+                fetch("https://tave.kro.kr:8080/adminRole/notice/getAllNotice", {
                     method: "GET",
                     headers: {
                         Authorization: localStorage.getItem("token"),
@@ -82,7 +82,7 @@
             };
 
 
-            fetch("http://127.0.0.1:8081/adminRole/notice/createNotice", {
+            fetch("https://tave.kro.kr:8080/adminRole/notice/createNotice", {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -120,7 +120,7 @@
             const noticeId = event.target.dataset.id;
 
             // 스케줄 삭제 API 호출
-            fetch(`http://127.0.0.1:8081/adminRole/notice/deleteNotice?noticeId=${noticeId}`, {
+            fetch(`https://tave.kro.kr:8080/adminRole/notice/deleteNotice?noticeId=${noticeId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -154,7 +154,7 @@
             const noticeId = event.target.dataset.id;
 
             // 수정할 스케줄 정보를 가져오는 API 호출
-            fetch(`http://127.0.0.1:8081/adminRole/notice/getNotice?noticeId=${noticeId}`, {
+            fetch(`https://tave.kro.kr:8080/adminRole/notice/getNotice?noticeId=${noticeId}`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -199,7 +199,7 @@
             };
 
             // API 호출
-            fetch(`http://127.0.0.1:8081/adminRole/notice/modifyNotice`, {
+            fetch(`https://tave.kro.kr:8080/adminRole/notice/modifyNotice`, {
                 method: "PATCH",
                 headers: {
                     Authorization: localStorage.getItem("token"),

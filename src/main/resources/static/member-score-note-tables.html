@@ -17,7 +17,7 @@
                 const table = new simpleDatatables.DataTable(datatablesSimple);
 
                 // API 호출
-                fetch("http://127.0.0.1:8081/adminRole/memberScoreNote/getAllMemberScoreNote", {
+                fetch("https://tave.kro.kr:8080/adminRole/memberScoreNote/getAllMemberScoreNote", {
                     method: "GET",
                     headers: {
                         Authorization: localStorage.getItem("token"),
@@ -83,7 +83,7 @@
             };
 
 
-            fetch("http://127.0.0.1:8081/adminRole/memberScoreNote/createMemberScoreNote", {
+            fetch("https://tave.kro.kr:8080/adminRole/memberScoreNote/createMemberScoreNote", {
                 method: "POST",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -122,7 +122,7 @@
             const memberScoreNoteId = event.target.dataset.id;
 
             // 스케줄 삭제 API 호출
-            fetch(`http://127.0.0.1:8081/adminRole/memberScoreNote/deleteMemberScoreNote?memberScoreNoteId=${memberScoreNoteId}`, {
+            fetch(`https://tave.kro.kr:8080/adminRole/memberScoreNote/deleteMemberScoreNote?memberScoreNoteId=${memberScoreNoteId}`, {
                 method: "DELETE",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -156,7 +156,7 @@
             const memberScoreNoteId = event.target.dataset.id;
 
             // 수정할 스케줄 정보를 가져오는 API 호출
-            fetch(`http://127.0.0.1:8081/adminRole/memberScoreNote/getMemberScoreNote?memberScoreNoteId=${memberScoreNoteId}`, {
+            fetch(`https://tave.kro.kr:8080/adminRole/memberScoreNote/getMemberScoreNote?memberScoreNoteId=${memberScoreNoteId}`, {
                 method: "GET",
                 headers: {
                     Authorization: localStorage.getItem("token"),
@@ -200,7 +200,7 @@
             };
 
             // API 호출
-            fetch(`http://127.0.0.1:8081/adminRole/memberScoreNote/modifyMemberScoreNote`, {
+            fetch(`https://tave.kro.kr:8080/adminRole/memberScoreNote/modifyMemberScoreNote`, {
                 method: "PATCH",
                 headers: {
                     Authorization: localStorage.getItem("token"),
